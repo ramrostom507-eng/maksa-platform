@@ -1,15 +1,424 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>مكسب عرب | MAKSA ARAB</title>
+
+  <meta name="description"
+    content="مكسب عرب منصة عربية تهدف إلى ربط التجار والموردين والمشترين وتسهيل التجارة بالجملة والاستيراد والتصدير.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Tahoma, Arial, sans-serif;
+      background: #f4f7f6;
+      color: #19352e;
+      line-height: 1.8;
+    }
+
+    header {
+      background: #103f35;
+      color: white;
+      padding: 18px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      display: block;
+      direction: ltr;
+      text-align: right;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: #d9bd78;
+    }
+
+    .header-note {
+      font-size: 13px;
+      color: #e8eee9;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #103f35, #176b55);
+      color: white;
+      padding: 65px 7% 75px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      border: 1px solid #d9bd78;
+      color: #f0d99b;
+      padding: 5px 15px;
+      border-radius: 25px;
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      margin: 10px 0;
+    }
+
+    .hero h1 span {
+      color: #f0d99b;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 15px auto 25px;
+      color: #e3eee8;
+      font-size: 17px;
+    }
+
+    .button {
+      display: inline-block;
+      background: #e3c477;
+      color: #173b31;
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-weight: bold;
+      margin: 5px;
+    }
+
+    .button-outline {
+      display: inline-block;
+      color: white;
+      border: 1px solid white;
+      text-decoration: none;
+      padding: 11px 24px;
+      border-radius: 8px;
+      margin: 5px;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .section {
+      padding: 45px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .section-title h2 {
+      margin-bottom: 5px;
+      font-size: 27px;
+    }
+
+    .section-title p {
+      color: #687c74;
+      margin-top: 5px;
+    }
+
+    .countries {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      gap: 12px;
+    }
+
+    .country {
+      background: white;
+      border: 1px solid #e0e9e4;
+      border-radius: 10px;
+      padding: 15px 8px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .country span {
+      display: block;
+      font-size: 25px;
+      margin-bottom: 5px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      padding: 23px;
+      border-radius: 12px;
+      border: 1px solid #e0e9e4;
+      box-shadow: 0 4px 14px rgba(20, 60, 45, 0.04);
+    }
+
+    .card .icon {
+      font-size: 30px;
+    }
+
+    .card h3 {
+      margin: 8px 0;
+    }
+
+    .card p {
+      color: #65786f;
+      font-size: 14px;
+      margin-bottom: 0;
+    }
+
+    .notice {
+      background: #fff8e8;
+      border-right: 4px solid #d9bd78;
+      border-radius: 8px;
+      padding: 18px;
+      margin-top: 25px;
+      font-size: 14px;
+    }
+
+    .cta {
+      background: #e7efe9;
+      padding: 35px 20px;
+      text-align: center;
+      border-radius: 14px;
+    }
+
+    footer {
+      background: #103f35;
+      color: white;
+      text-align: center;
+      padding: 25px 15px;
+      font-size: 13px;
+    }
+
+    footer p {
+      margin: 4px 0;
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding: 45px 5%;
+      }
+
+      .hero h1 {
+        font-size: 29px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .logo {
+        font-size: 22px;
+      }
+
+      .section-title h2 {
+        font-size: 23px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">
+      مكسب عرب
+      <span>MAKSA ARAB</span>
+    </div>
+
+    <div class="header-note">
+      بوابتك إلى الأسواق العربية
+    </div>
   </header>
 
   <main>
-    <section class="card">
-      <h2>أهلاً بك في منصة مكسب</h2>
-      <p>نعمل على بناء منصة تجمع الفرص والأفكار والخدمات في مكان واحد.</p>
-      <p>قريباً سنكشف لك المزيد من المزايا.</p>
-      <a class="button" href="mailto:contact@maksa.example">تواصل معنا</a>
+
+    <section class="hero">
+      <div class="badge">منصة تجارية عربية طموحة</div>
+
+      <h1>
+        تجارتك تبدأ من هنا،
+        <span>ومكسبك يكبر معنا</span>
+      </h1>
+
+      <p>
+        نعمل على بناء منصة تجمع التجار والموردين والمشترين،
+        وتسهّل الوصول إلى المنتجات بالجملة وفرص الاستيراد والتصدير
+        بين الأسواق العربية.
+      </p>
+
+      <a class="button" href="#categories">
+        اكتشف خدماتنا
+      </a>
+
+      <a class="button-outline" href="#countries">
+        أسواقنا المستهدفة
+      </a>
     </section>
+
+    <section class="section" id="countries">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>أسواقنا العربية</h2>
+          <p>طموحنا أن نربط التجار في عشر دول عربية</p>
+        </div>
+
+        <div class="countries">
+
+          <div class="country">
+            <span>🇸🇾</span>
+            سوريا
+          </div>
+
+          <div class="country">
+            <span>🇸🇦</span>
+            السعودية
+          </div>
+
+          <div class="country">
+            <span>🇦🇪</span>
+            الإمارات
+          </div>
+
+          <div class="country">
+            <span>🇶🇦</span>
+            قطر
+          </div>
+
+          <div class="country">
+            <span>🇧🇭</span>
+            البحرين
+          </div>
+
+          <div class="country">
+            <span>🇰🇼</span>
+            الكويت
+          </div>
+
+          <div class="country">
+            <span>🇴🇲</span>
+            عُمان
+          </div>
+
+          <div class="country">
+            <span>🇱🇧</span>
+            لبنان
+          </div>
+
+          <div class="country">
+            <span>🇯🇴</span>
+            الأردن
+          </div>
+
+          <div class="country">
+            <span>🇮🇶</span>
+            العراق
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="categories">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>ماذا ستجد في مكسب عرب؟</h2>
+          <p>خدمات تجارية نعمل على تطويرها لتلبية احتياجات التجار</p>
+        </div>
+
+        <div class="cards">
+
+          <div class="card">
+            <div class="icon">📦</div>
+            <h3>المنتجات بالجملة</h3>
+            <p>
+              مساحة مخصصة لعرض المنتجات والكميات والأسعار
+              التي يقدمها الموردون وتجار الجملة.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon">🌍</div>
+            <h3>الاستيراد والتصدير</h3>
+            <p>
+              المساعدة في ربط الشركات والتجار الراغبين
+              في شراء المنتجات أو بيعها عبر الأسواق المختلفة.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon">🤝</div>
+            <h3>الموردون والمشترون</h3>
+            <p>
+              بيئة تجارية تهدف إلى تسهيل التواصل بين الموردين
+              والمشترين وأصحاب الأعمال.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon">📋</div>
+            <h3>طلبات الشراء</h3>
+            <p>
+              مساحة مستقبلية لنشر احتياجات الشركات
+              واستقبال عروض الموردين المناسبة.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="notice">
+          <strong>التجارة الموثوقة أولويتنا:</strong>
+          نخطط لمراجعة العروض التجارية قبل نشرها،
+          للمساعدة في الحد من الإعلانات الوهمية والاحتيال.
+          وتبقى مراجعة العرض خطوة للحد من المخاطر،
+          وليست ضمانًا كاملًا لسلامة البائع أو الصفقة.
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+
+        <div class="cta">
+          <h2>مكسب عرب — تجارة تجمعنا</h2>
+
+          <p>
+            نبني اليوم أساس منصة تساعد التجار على الوصول
+            إلى فرص وأسواق جديدة.
+          </p>
+
+          <p>
+            ترقّبوا المراحل القادمة من تطوير المنصة.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
   <footer>
-    © 2026 منصة مكسب — جميع الحقوق محفوظة
+    <p><strong>مكسب عرب | MAKSA ARAB</strong></p>
+    <p>تجارة تجمعنا، وفرص تكبر معنا.</p>
+    <p>© 2026 مكسب عرب — جميع الحقوق محفوظة</p>
   </footer>
+
 </body>
+</html>
