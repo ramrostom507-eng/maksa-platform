@@ -54,7 +54,7 @@ main{max-width:1100px;margin:25px auto;padding:0 5vw 45px}
 .notice{background:#fff8e9;border:1px solid #f1dfb9;color:#76551a;padding:13px;border-radius:11px;font-size:12px;line-height:1.8;margin-top:20px}
 .auth-panel{display:none;max-width:560px;margin:18px auto;background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px}
 .auth-panel label,.profile-editor label{display:block;margin:10px 0 5px}
-.auth-panel input,.profile-editor input{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px}
+.auth-panel input,.profile-editor input,.profile-editor select{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px}
 .auth-panel input[type=email],.auth-panel input[type=password]{direction:ltr}
 .auth-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 .profile-editor{display:none;border-top:1px solid var(--line);margin-top:18px;padding-top:16px}
@@ -186,8 +186,18 @@ footer{text-align:center;background:var(--navy);color:#cbd5e1;padding:20px;font-
       <h3>بيانات حسابي</h3>
       <label>الاسم الكامل</label>
       <input id="profileFullName" type="text" autocomplete="name" placeholder="اكتب اسمك الكامل">
-      <label>رقم الهاتف</label>
-      <input id="profilePhone" type="tel" autocomplete="tel" placeholder="اكتب رقم الهاتف">
+      <label>اسم الشركة أو النشاط التجاري</label>
+      <input id="profileCompany" type="text" autocomplete="organization" placeholder="اكتب اسم الشركة أو النشاط (اختياري)">
+      <label>الدولة</label>
+      <input id="profileCountry" type="text" autocomplete="country-name" placeholder="مثال: سوريا، السعودية، الإمارات">
+      <label>نوع الحساب</label>
+      <select id="profileAccountType" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;background:#fff">
+        <option value="">اختر نوع الحساب</option>
+        <option value="buyer">مشتري</option>
+        <option value="supplier">مورد / مصنع</option>
+        <option value="both">مشتري ومورد</option>
+        <option value="service_provider">مقدم خدمات</option>
+      </select>
       <button class="gold" style="margin-top:12px" onclick="saveProfile()">حفظ بياناتي</button>
       <p id="profileStatus" class="status" role="status"></p>
     </div>
@@ -268,17 +278,20 @@ async function loadProfile() {
 
   editor.style.display = 'block';
   profileMessage('جارٍ تحميل بيانات حسابك...');
+  // في جدول public."Profiles" يرتبط سجل المستخدم بمعرّف Auth نفسه عبر العمود id.
   const {data,error} = await supabaseClient
     .from('Profiles')
-    .select('full_name,Phone')
-    .eq('user_id',user.id)
+    .select('id,full_name,company_name,country,account_type')
+    .eq('id',user.id)
     .maybeSingle();
 
   if (error) { profileMessage('تعذر تحميل البيانات: ' + error.message,true); return; }
   document.getElementById('profileFullName').value =
     data?.full_name || user.user_metadata?.full_name || '';
-  document.getElementById('profilePhone').value = data?.Phone || '';
-  profileMessage('يمكنك تعديل الاسم ورقم الهاتف ثم الضغط على حفظ.');
+  document.getElementById('profileCompany').value = data?.company_name || '';
+  document.getElementById('profileCountry').value = data?.country || '';
+  document.getElementById('profileAccountType').value = data?.account_type || '';
+  profileMessage('بياناتك جاهزة للتعديل. احفظ التغييرات عند الانتهاء.');
 }
 
 async function saveProfile() {
@@ -288,21 +301,27 @@ async function saveProfile() {
   if (!user) { profileMessage('سجّل الدخول أولاً لحفظ بياناتك.',true); return; }
 
   const fullName = document.getElementById('profileFullName').value.trim();
-  const phone = document.getElementById('profilePhone').value.trim();
+  const companyName = document.getElementById('profileCompany').value.trim();
+  const country = document.getElementById('profileCountry').value.trim();
+  const accountType = document.getElementById('profileAccountType').value;
   if (!fullName) { profileMessage('اكتب الاسم الكامل أولاً.',true); return; }
+  if (!country) { profileMessage('اكتب الدولة أولاً.',true); return; }
+  if (!accountType) { profileMessage('اختر نوع الحساب أولاً.',true); return; }
 
   profileMessage('جارٍ حفظ بياناتك...');
-  const {data,error} = await supabaseClient
+  const profile = {
+    id: user.id,
+    full_name: fullName,
+    company_name: companyName || null,
+    country,
+    account_type: accountType
+  };
+  // upsert ينشئ السجل إن لم يكن موجوداً ويحدّثه إن كان موجوداً.
+  const {error} = await supabaseClient
     .from('Profiles')
-    .update({full_name:fullName, Phone:phone || null})
-    .eq('user_id',user.id)
-    .select('user_id');
+    .upsert(profile,{onConflict:'id'});
 
   if (error) { profileMessage('تعذر حفظ البيانات: ' + error.message,true); return; }
-  if (!data || data.length === 0) {
-    profileMessage('لم يتم تحديث أي سجل. تحقق من صلاحيات تحديث الملف الشخصي في Supabase.',true);
-    return;
-  }
   profileMessage('تم حفظ بياناتك بنجاح.');
 }
 
