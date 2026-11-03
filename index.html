@@ -244,13 +244,8 @@ async function signUp() {
     });
     if (error) { authMessage(error.message,true); return; }
     if (data.session && data.user) {
-      const {error:profileError} = await supabaseClient.from('Profiles').upsert({
-        id:data.user.id, full_name:fullName
-      },{onConflict:'id'});
-      if (profileError) {
-        authMessage('تم إنشاء الحساب، لكن تعذر تجهيز الملف الشخصي: ' + profileError.message,true);
-        return;
-      }
+      // يرتبط الملف الشخصي بحساب Auth عبر user_id (UUID)، وليس id (bigint).
+      // إنشاء سجل الملف الشخصي يتم عبر آلية Supabase الموجودة، أو عند أول حفظ للبيانات.
       authMessage('تم إنشاء الحساب وتسجيل الدخول بنجاح. أكمل بيانات ملفك الشخصي بالأسفل.');
       await loadProfile();
     } else {
@@ -301,11 +296,11 @@ async function loadProfile() {
 
     editor.style.display = 'block';
     profileMessage('جارٍ تحميل بيانات حسابك...');
-    // المفتاح الأساسي id في public."Profiles" هو نفسه Auth user.id.
+    // id هو bigint للمفتاح الأساسي؛ الربط بحساب Auth يتم عبر user_id (UUID).
     const {data,error} = await supabaseClient
       .from('Profiles')
-      .select('id,full_name,company_name,country,account_type')
-      .eq('id',user.id)
+      .select('user_id,full_name,company_name,country,account_type')
+      .eq('user_id',user.id)
       .maybeSingle();
 
     if (error) { profileMessage('تعذر تحميل البيانات: ' + error.message,true); return; }
@@ -337,14 +332,26 @@ async function saveProfile() {
 
     profileMessage('جارٍ حفظ بياناتك...');
     const profile = {
-      id:user.id,
       full_name:fullName,
       company_name:companyName || null,
       country,
       account_type:accountType
     };
-    const {error} = await supabaseClient.from('Profiles').upsert(profile,{onConflict:'id'});
-    if (error) { profileMessage('تعذر حفظ البيانات: ' + error.message,true); return; }
+
+    // حدّث سجل المستخدم عبر user_id. إذا لم يوجد سجل بعد، أنشئه دون المساس بـ id.
+    const {data:updatedRows,error:updateError} = await supabaseClient
+      .from('Profiles')
+      .update(profile)
+      .eq('user_id',user.id)
+      .select('user_id');
+    if (updateError) { profileMessage('تعذر حفظ البيانات: ' + updateError.message,true); return; }
+
+    if (!updatedRows || updatedRows.length === 0) {
+      const {error:insertError} = await supabaseClient
+        .from('Profiles')
+        .insert({...profile,user_id:user.id});
+      if (insertError) { profileMessage('تعذر إنشاء الملف الشخصي: ' + insertError.message,true); return; }
+    }
     // مزامنة الاسم في بيانات Auth أيضاً لتسهيل استخدامه في بقية المنصة.
     const {error:metadataError} = await supabaseClient.auth.updateUser({data:{full_name:fullName}});
     if (metadataError) {
