@@ -231,114 +231,153 @@ function closeAuth() { authPanel.style.display = 'none'; }
 
 async function signUp() {
   const fullName = document.getElementById('authName').value.trim();
-  const email = document.getElementById('authEmail').value.trim();
+  const email = document.getElementById('authEmail').value.trim().toLowerCase();
   const password = document.getElementById('authPassword').value;
   if (!fullName || !email || password.length < 6) {
     authMessage('أدخل الاسم والبريد وكلمة مرور من 6 أحرف على الأقل.', true);
     return;
   }
   authMessage('جارٍ إنشاء الحساب...');
-  const {data,error} = await supabaseClient.auth.signUp({
-    email, password, options:{data:{full_name:fullName}}
-  });
-  if (error) { authMessage(error.message,true); return; }
-  authMessage(data.session
-    ? 'تم إنشاء الحساب وتسجيل الدخول بنجاح.'
-    : 'تم إرسال طلب التسجيل. افحص بريدك لتأكيد الحساب إذا كان تأكيد البريد مفعّلاً.');
-  if (data.session) await loadProfile();
+  try {
+    const {data,error} = await supabaseClient.auth.signUp({
+      email, password, options:{data:{full_name:fullName}}
+    });
+    if (error) { authMessage(error.message,true); return; }
+    if (data.session && data.user) {
+      const {error:profileError} = await supabaseClient.from('Profiles').upsert({
+        id:data.user.id, full_name:fullName
+      },{onConflict:'id'});
+      if (profileError) {
+        authMessage('تم إنشاء الحساب، لكن تعذر تجهيز الملف الشخصي: ' + profileError.message,true);
+        return;
+      }
+      authMessage('تم إنشاء الحساب وتسجيل الدخول بنجاح. أكمل بيانات ملفك الشخصي بالأسفل.');
+      await loadProfile();
+    } else {
+      authMessage('تم إرسال طلب التسجيل. افحص بريدك لتأكيد الحساب، ثم سجّل الدخول وأكمل بياناتك.');
+    }
+  } catch (error) {
+    authMessage('حدث خطأ أثناء إنشاء الحساب: ' + (error.message || 'يرجى المحاولة مجدداً.'),true);
+  }
 }
 
 async function signIn() {
-  const email = document.getElementById('authEmail').value.trim();
+  const email = document.getElementById('authEmail').value.trim().toLowerCase();
   const password = document.getElementById('authPassword').value;
   if (!email || !password) {
     authMessage('أدخل البريد الإلكتروني وكلمة المرور.',true);
     return;
   }
   authMessage('جارٍ تسجيل الدخول...');
-  const {error} = await supabaseClient.auth.signInWithPassword({email,password});
-  if (error) { authMessage(error.message,true); return; }
-  authMessage('تم تسجيل الدخول بنجاح. أهلاً بك في مكسب عرب.');
-  await loadProfile();
+  try {
+    const {error} = await supabaseClient.auth.signInWithPassword({email,password});
+    if (error) { authMessage(error.message,true); return; }
+    authMessage('تم تسجيل الدخول بنجاح. أهلاً بك في مكسب عرب.');
+    await loadProfile();
+  } catch (error) {
+    authMessage('تعذر تسجيل الدخول: ' + (error.message || 'تحقق من الاتصال وحاول مجدداً.'),true);
+  }
 }
 
 async function signOut() {
-  const {error} = await supabaseClient.auth.signOut();
-  if (error) { authMessage(error.message,true); return; }
-  document.getElementById('profileEditor').style.display = 'none';
-  authMessage('تم تسجيل الخروج.');
+  try {
+    const {error} = await supabaseClient.auth.signOut();
+    if (error) { authMessage(error.message,true); return; }
+    document.getElementById('profileEditor').style.display = 'none';
+    document.getElementById('authButton').textContent = 'دخول / تسجيل';
+    authMessage('تم تسجيل الخروج.');
+  } catch (error) {
+    authMessage('تعذر تسجيل الخروج: ' + (error.message || 'حاول مجدداً.'),true);
+  }
 }
 
 async function loadProfile() {
-  const {data:sessionData,error:sessionError} = await supabaseClient.auth.getSession();
-  if (sessionError) { profileMessage(sessionError.message,true); return; }
-  const user = sessionData.session?.user;
   const editor = document.getElementById('profileEditor');
-  if (!user) { editor.style.display = 'none'; return; }
+  try {
+    const {data:sessionData,error:sessionError} = await supabaseClient.auth.getSession();
+    if (sessionError) { profileMessage(sessionError.message,true); return; }
+    const user = sessionData.session?.user;
+    if (!user) { editor.style.display = 'none'; return; }
 
-  editor.style.display = 'block';
-  profileMessage('جارٍ تحميل بيانات حسابك...');
-  // في جدول public."Profiles" يرتبط سجل المستخدم بمعرّف Auth نفسه عبر العمود id.
-  const {data,error} = await supabaseClient
-    .from('Profiles')
-    .select('id,full_name,company_name,country,account_type')
-    .eq('id',user.id)
-    .maybeSingle();
+    editor.style.display = 'block';
+    profileMessage('جارٍ تحميل بيانات حسابك...');
+    // المفتاح الأساسي id في public."Profiles" هو نفسه Auth user.id.
+    const {data,error} = await supabaseClient
+      .from('Profiles')
+      .select('id,full_name,company_name,country,account_type')
+      .eq('id',user.id)
+      .maybeSingle();
 
-  if (error) { profileMessage('تعذر تحميل البيانات: ' + error.message,true); return; }
-  document.getElementById('profileFullName').value =
-    data?.full_name || user.user_metadata?.full_name || '';
-  document.getElementById('profileCompany').value = data?.company_name || '';
-  document.getElementById('profileCountry').value = data?.country || '';
-  document.getElementById('profileAccountType').value = data?.account_type || '';
-  profileMessage('بياناتك جاهزة للتعديل. احفظ التغييرات عند الانتهاء.');
+    if (error) { profileMessage('تعذر تحميل البيانات: ' + error.message,true); return; }
+    document.getElementById('profileFullName').value =
+      data?.full_name || user.user_metadata?.full_name || '';
+    document.getElementById('profileCompany').value = data?.company_name || '';
+    document.getElementById('profileCountry').value = data?.country || '';
+    document.getElementById('profileAccountType').value = data?.account_type || '';
+    profileMessage(data ? 'تم تحميل بيانات حسابك. يمكنك تعديلها وحفظها.' : 'أكمل بيانات ملفك الشخصي ثم اضغط حفظ بياناتي.');
+  } catch (error) {
+    profileMessage('حدث خطأ أثناء تحميل الملف الشخصي: ' + (error.message || 'حاول مجدداً.'),true);
+  }
 }
 
 async function saveProfile() {
-  const {data:sessionData,error:sessionError} = await supabaseClient.auth.getSession();
-  if (sessionError) { profileMessage(sessionError.message,true); return; }
-  const user = sessionData.session?.user;
-  if (!user) { profileMessage('سجّل الدخول أولاً لحفظ بياناتك.',true); return; }
+  try {
+    const {data:sessionData,error:sessionError} = await supabaseClient.auth.getSession();
+    if (sessionError) { profileMessage(sessionError.message,true); return; }
+    const user = sessionData.session?.user;
+    if (!user) { profileMessage('سجّل الدخول أولاً لحفظ بياناتك.',true); return; }
 
-  const fullName = document.getElementById('profileFullName').value.trim();
-  const companyName = document.getElementById('profileCompany').value.trim();
-  const country = document.getElementById('profileCountry').value.trim();
-  const accountType = document.getElementById('profileAccountType').value;
-  if (!fullName) { profileMessage('اكتب الاسم الكامل أولاً.',true); return; }
-  if (!country) { profileMessage('اكتب الدولة أولاً.',true); return; }
-  if (!accountType) { profileMessage('اختر نوع الحساب أولاً.',true); return; }
+    const fullName = document.getElementById('profileFullName').value.trim();
+    const companyName = document.getElementById('profileCompany').value.trim();
+    const country = document.getElementById('profileCountry').value.trim();
+    const accountType = document.getElementById('profileAccountType').value;
+    if (!fullName) { profileMessage('اكتب الاسم الكامل أولاً.',true); return; }
+    if (!country) { profileMessage('اكتب الدولة أولاً.',true); return; }
+    if (!accountType) { profileMessage('اختر نوع الحساب أولاً.',true); return; }
 
-  profileMessage('جارٍ حفظ بياناتك...');
-  const profile = {
-    id: user.id,
-    full_name: fullName,
-    company_name: companyName || null,
-    country,
-    account_type: accountType
-  };
-  // upsert ينشئ السجل إن لم يكن موجوداً ويحدّثه إن كان موجوداً.
-  const {error} = await supabaseClient
-    .from('Profiles')
-    .upsert(profile,{onConflict:'id'});
-
-  if (error) { profileMessage('تعذر حفظ البيانات: ' + error.message,true); return; }
-  profileMessage('تم حفظ بياناتك بنجاح.');
+    profileMessage('جارٍ حفظ بياناتك...');
+    const profile = {
+      id:user.id,
+      full_name:fullName,
+      company_name:companyName || null,
+      country,
+      account_type:accountType
+    };
+    const {error} = await supabaseClient.from('Profiles').upsert(profile,{onConflict:'id'});
+    if (error) { profileMessage('تعذر حفظ البيانات: ' + error.message,true); return; }
+    // مزامنة الاسم في بيانات Auth أيضاً لتسهيل استخدامه في بقية المنصة.
+    const {error:metadataError} = await supabaseClient.auth.updateUser({data:{full_name:fullName}});
+    if (metadataError) {
+      profileMessage('حُفظ الملف الشخصي، لكن تعذرت مزامنة الاسم في الحساب: ' + metadataError.message,true);
+      return;
+    }
+    profileMessage('تم حفظ بياناتك بنجاح. أهلاً بك في مكسب عرب.');
+  } catch (error) {
+    profileMessage('حدث خطأ أثناء حفظ البيانات: ' + (error.message || 'حاول مجدداً.'),true);
+  }
 }
 
 supabaseClient.auth.onAuthStateChange((_event,session) => {
   const btn = document.getElementById('authButton');
   btn.textContent = session?.user ? 'حسابي / خروج' : 'دخول / تسجيل';
-  if (session?.user) authMessage('أنت مسجل الدخول: ' + (session.user.email || ''));
-  else document.getElementById('profileEditor').style.display = 'none';
+  if (session?.user) {
+    authMessage('أنت مسجل الدخول: ' + (session.user.email || ''));
+    if (authPanel.style.display === 'block') setTimeout(() => loadProfile(),0);
+  } else {
+    document.getElementById('profileEditor').style.display = 'none';
+  }
 });
 
-supabaseClient.auth.getSession().then(({data}) => {
+supabaseClient.auth.getSession().then(({data,error}) => {
+  if (error) { authMessage('تعذر التحقق من الجلسة: ' + error.message,true); return; }
   const btn = document.getElementById('authButton');
   if (data.session) {
     btn.textContent = 'حسابي / خروج';
     authMessage('أنت مسجل الدخول: ' + (data.session.user.email || ''));
+  } else {
+    btn.textContent = 'دخول / تسجيل';
   }
-});
+}).catch(error => authMessage('تعذر الاتصال بخدمة الحسابات: ' + (error.message || 'حاول مجدداً.'),true));
 
 const pages = ['products','suppliers','opportunities','shipping','aiPage'];
 function hideAll() {
