@@ -182,7 +182,7 @@ async function loadProfile(){
  try{const {data:sessionData,error:sessionError}=await supabaseClient.auth.getSession();if(sessionError){profileMessage(sessionError.message,true);return}
  const user=sessionData.session?.user;if(!user){editor.style.display='none';return}
  editor.style.display='block';profileMessage('جارٍ تحميل بيانات حسابك...');
- const {data,error}=await supabaseClient.from('Profiles').select('user_id,full_name,company_name,country,account_type').eq('user_id',user.id).maybeSingle();
+ const {data,error}=await supabaseClient.from('Profiles').select('id,full_name,company_name,country,account_type').eq('id',user.id).maybeSingle();
  if(error){profileMessage('تعذر تحميل البيانات: '+error.message,true);return}
  document.getElementById('profileFullName').value=data?.full_name||user.user_metadata?.full_name||'';
  document.getElementById('profileCompany').value=data?.company_name||'';
@@ -198,89 +198,4 @@ async function saveProfile(){
  if(!fullName||!country||!accountType){profileMessage('أكمل الاسم والدولة ونوع الحساب أولاً.',true);return}
  profileMessage('جارٍ حفظ بياناتك...');
  const profile={full_name:fullName,company_name:companyName||null,country,account_type:accountType};
- const {data:updatedRows,error:updateError}=await supabaseClient.from('Profiles').update(profile).eq('user_id',user.id).select('user_id');
- if(updateError){profileMessage('تعذر حفظ البيانات: '+updateError.message,true);return}
- if(!updatedRows||updatedRows.length===0){const {error:insertError}=await supabaseClient.from('Profiles').insert({...profile,user_id:user.id});if(insertError){profileMessage('تعذر إنشاء الملف الشخصي: '+insertError.message,true);return}}
- const {error:metadataError}=await supabaseClient.auth.updateUser({data:{full_name:fullName}});
- if(metadataError){profileMessage('حُفظ الملف الشخصي، لكن تعذرت مزامنة الاسم: '+metadataError.message,true);return}
- profileMessage('تم حفظ بياناتك بنجاح. أهلاً بك في مكسب عرب.')
- }catch(error){profileMessage('حدث خطأ أثناء حفظ البيانات: '+(error.message||'حاول مجدداً.'),true)}
-}
-supabaseClient.auth.onAuthStateChange((_event,session)=>{
- document.getElementById('authButton').textContent=session?.user?'حسابي / خروج':'دخول / تسجيل';
- if(session?.user){authMessage('أنت مسجل الدخول: '+(session.user.email||''));if(authPanel.style.display==='block')setTimeout(()=>loadProfile(),0)}
- else{document.getElementById('profileEditor').style.display='none';loadRequests()}
-});
-supabaseClient.auth.getSession().then(({data,error})=>{
- if(error){authMessage('تعذر التحقق من الجلسة: '+error.message,true);return}
- const btn=document.getElementById('authButton');if(data.session){btn.textContent='حسابي / خروج';authMessage('أنت مسجل الدخول: '+(data.session.user.email||''))}else btn.textContent='دخول / تسجيل'
-}).catch(error=>authMessage('تعذر الاتصال بخدمة الحسابات: '+(error.message||'حاول مجدداً.')));
-function escapeHTML(value){return String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]))}
-function renderRequests(containerId,rows,isMine=false){
- const container=document.getElementById(containerId);container.replaceChildren();
- if(!rows||rows.length===0){const empty=document.createElement('div');empty.className='empty';empty.textContent=isMine?'ليس لديك طلبات حتى الآن.':'لا توجد فرص معتمدة حالياً.';container.appendChild(empty);return}
- rows.forEach(item=>{
-  const card=document.createElement('article');card.className='item';
-  const tag=document.createElement('span');tag.className='tag';tag.textContent=isMine?(item.status==='approved'?'تمت الموافقة':item.status==='rejected'?'مرفوض':'قيد المراجعة'):'فرصة معتمدة';
-  const title=document.createElement('h3');title.textContent=item.title||'';
-  const type=document.createElement('p');type.textContent='النوع: '+(item.request_type||'');
-  const country=document.createElement('p');country.textContent='الدولة: '+(item.country||'');
-  const details=document.createElement('p');details.textContent=item.details||'';
-  card.append(tag,title,type,country,details);
-  if(isMine){const contact=document.createElement('p');contact.textContent='طريقة التواصل: '+(item.contact_method||'');card.appendChild(contact)}
-  container.appendChild(card)
- })
-}
-async function loadRequests(){
- const approvedBox=document.getElementById('approvedRequests'),mineBox=document.getElementById('myRequests');
- if(!approvedBox||!mineBox)return;
- approvedBox.textContent='جارٍ تحميل الفرص...';mineBox.textContent='جارٍ تحميل طلباتك...';
- try{
-  const {data:approved,error:approvedError}=await supabaseClient.from('requests').select('id,title,request_type,country,details,status,created_at').eq('status','approved').order('created_at',{ascending:false});
-  if(approvedError)throw approvedError;renderRequests('approvedRequests',approved,false);
-  const {data:sessionData,error:sessionError}=await supabaseClient.auth.getSession();if(sessionError)throw sessionError;
-  const user=sessionData.session?.user;if(!user){mineBox.textContent='سجّل الدخول لمشاهدة طلباتك وإرسال طلب جديد.';return}
-  const {data:mine,error:mineError}=await supabaseClient.from('requests').select('id,title,request_type,country,details,contact_method,status,created_at').eq('user_id',user.id).order('created_at',{ascending:false});
-  if(mineError)throw mineError;renderRequests('myRequests',mine,true)
- }catch(error){approvedBox.textContent='تعذر تحميل الفرص: '+error.message;mineBox.textContent='تعذر تحميل طلباتك. تحقق من اتصال قاعدة البيانات وسياسات القراءة.'}
-}
-async function submitRequest(){
- const button=document.getElementById('submitRequestButton');
- try{
-  const {data:sessionData,error:sessionError}=await supabaseClient.auth.getSession();if(sessionError)throw sessionError;
-  const user=sessionData.session?.user;if(!user){requestMessage('سجّل الدخول أولاً حتى تتمكن من إرسال طلب.',true);openAuth();return}
-  const title=document.getElementById('requestTitle').value.trim(),requestType=document.getElementById('requestType').value,country=document.getElementById('requestCountry').value.trim(),details=document.getElementById('requestDetails').value.trim(),contact=document.getElementById('requestContact').value.trim();
-  if(!title||!requestType||!country||!details||!contact){requestMessage('يرجى تعبئة جميع الحقول قبل الإرسال.',true);return}
-  button.disabled=true;button.textContent='جارٍ الإرسال...';requestMessage('جارٍ إرسال طلبك...');
-  const {error}=await supabaseClient.from('requests').insert({user_id:user.id,title,request_type:requestType,country,details,contact_method:contact,status:'pending'});
-  if(error)throw error;
-  ['requestTitle','requestType','requestCountry','requestDetails','requestContact'].forEach(id=>document.getElementById(id).value='');
-  requestMessage('تم إرسال طلبك بنجاح. سيبقى قيد المراجعة ولن يظهر للعامة إلا بعد موافقة الإدارة.');
-  await loadRequests()
- }catch(error){requestMessage('تعذر إرسال الطلب: '+(error.message||'حاول مجدداً.'),true)}
- finally{button.disabled=false;button.textContent='إرسال للمراجعة'}
-}
-const pages=['products','suppliers','opportunities','shipping','aiPage'];
-function hideAll(){document.getElementById('homeView').style.display='none';document.getElementById('hero').style.display='none';pages.forEach(id=>document.getElementById(id).classList.remove('active'));document.getElementById('searchResults').style.display='none'}
-function showHome(){hideAll();document.getElementById('homeView').style.display='block';document.getElementById('hero').style.display='grid';window.scrollTo({top:0,behavior:'smooth'})}
-function openPage(id){hideAll();document.getElementById(id).classList.add('active');if(id==='opportunities')loadRequests();window.scrollTo({top:0,behavior:'smooth'})}
-function openAI(prompt){openPage('aiPage');if(prompt){document.getElementById('chatInput').value=prompt;sendChat()}}
-function sendChat(){
- const input=document.getElementById('chatInput'),value=input.value.trim();if(!value)return;
- const box=document.getElementById('messages'),userBubble=document.createElement('div');userBubble.className='bubble user';userBubble.textContent=value;box.appendChild(userBubble);
- let reply='هذه نسخة تجريبية؛ يمكنك فتح قسم المنتجات أو الموردين أو الفرص من الصفحة الرئيسية.';
- if(/مورد|مصنع/.test(value))reply='للبحث عن مورد، افتح قسم «الموردون والمصانع». حالياً نعرض أمثلة فقط.';
- else if(/سعر|مقارن/.test(value))reply='ميزة مقارنة الأسعار ستحتاج عروض أسعار حقيقية من موردين موثقين. لم يتم تفعيلها بعد.';
- else if(/شريك|فرص/.test(value))reply='قسم «الفرص والشراكات» يتيح إرسال الطلبات، وستراجعها الإدارة قبل النشر.';
- else if(/منتج|سوق/.test(value))reply='يمكنك تصفح قسم «المنتجات والأسواق». النتائج الحالية أمثلة وليست مخزوناً حقيقياً.';
- const botBubble=document.createElement('div');botBubble.className='bubble bot';botBubble.textContent=reply;box.appendChild(botBubble);input.value='';box.scrollTop=box.scrollHeight
-}
-function searchNow(){
- const query=document.getElementById('searchInput').value.trim();if(!query){alert('اكتب كلمة البحث أولاً.');return}
- hideAll();const results=document.getElementById('searchResults');results.style.display='block';
- results.innerHTML='<button class="back" onclick="showHome()">← العودة للرئيسية</button><div class="pageintro"><h2>نتائج البحث التجريبية</h2><p>بحثت عن: <b>'+escapeHTML(query)+'</b></p><p>لا توجد نتائج حقيقية متصلة حالياً؛ اختر القسم الذي تريد استكشافه:</p><div class="chips"><button onclick="openPage(\\'products\\')">المنتجات</button><button onclick="openPage(\\'suppliers\\')">الموردون</button><button onclick="openPage(\\'opportunities\\')">الفرص</button></div></div>';
- window.scrollTo({top:0,behavior:'smooth'})
-}
-</script>
-</body>
-</html>
+ const {data:updatedRows,error:updateError}=await supabaseClie
