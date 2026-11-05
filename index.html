@@ -182,7 +182,7 @@ async function loadProfile(){
  try{const {data:sessionData,error:sessionError}=await supabaseClient.auth.getSession();if(sessionError){profileMessage(sessionError.message,true);return}
  const user=sessionData.session?.user;if(!user){editor.style.display='none';return}
  editor.style.display='block';profileMessage('جارٍ تحميل بيانات حسابك...');
- const {data,error}=await supabaseClient.from('Profiles').select('id,full_name,company_name,country,account_type').eq('id',user.id).maybeSingle();
+ const {data,error}=await supabaseClient.from('Profiles').select('user_id,full_name,company_name,country,account_type').eq('user_id',user.id).maybeSingle();
  if(error){profileMessage('تعذر تحميل البيانات: '+error.message,true);return}
  document.getElementById('profileFullName').value=data?.full_name||user.user_metadata?.full_name||'';
  document.getElementById('profileCompany').value=data?.company_name||'';
@@ -198,9 +198,9 @@ async function saveProfile(){
  if(!fullName||!country||!accountType){profileMessage('أكمل الاسم والدولة ونوع الحساب أولاً.',true);return}
  profileMessage('جارٍ حفظ بياناتك...');
  const profile={full_name:fullName,company_name:companyName||null,country,account_type:accountType};
- const {data:updatedRows,error:updateError}=await supabaseClient.from('Profiles').update(profile).eq('id',user.id).select('id');
+ const {data:updatedRows,error:updateError}=await supabaseClient.from('Profiles').update(profile).eq('user_id',user.id).select('user_id');
  if(updateError){profileMessage('تعذر حفظ البيانات: '+updateError.message,true);return}
- if(!updatedRows||updatedRows.length===0){const {error:insertError}=await supabaseClient.from('Profiles').insert({...profile,id:user.id});if(insertError){profileMessage('تعذر إنشاء الملف الشخصي: '+insertError.message,true);return}}
+ if(!updatedRows||updatedRows.length===0){const {error:insertError}=await supabaseClient.from('Profiles').insert({...profile,user_id:user.id});if(insertError){profileMessage('تعذر إنشاء الملف الشخصي: '+insertError.message,true);return}}
  const {error:metadataError}=await supabaseClient.auth.updateUser({data:{full_name:fullName}});
  if(metadataError){profileMessage('حُفظ الملف الشخصي، لكن تعذرت مزامنة الاسم: '+metadataError.message,true);return}
  profileMessage('تم حفظ بياناتك بنجاح. أهلاً بك في مكسب عرب.')
