@@ -1,3 +1,5 @@
+HTML
+
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
@@ -7,36 +9,51 @@
 <title>مكسب عرب | MAKSA ARAB</title>
 <style>
 :root{--navy:#101b2d;--navy2:#1d3554;--gold:#e8b85b;--bg:#f3f5f8;--ink:#182235;--muted:#718096;--line:#e5eaf0;--green:#16866b;--red:#b42318}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif}
 header{background:linear-gradient(125deg,var(--navy),var(--navy2));color:#fff;padding:16px 5vw 30px}
 .top{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.brand{font-size:22px;font-weight:800}.brand b{color:var(--gold)}nav{display:flex;gap:12px;flex-wrap:wrap}
-nav button,.login{background:transparent;color:#e4eaf2;border:0;cursor:pointer;font-size:13px}
-.login{border:1px solid #73839a;padding:9px 12px;border-radius:10px}
+.brand{font-size:22px;font-weight:800}.brand b{color:var(--gold)}
+nav{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+nav button,.login{background:transparent;color:#e4eaf2;border:0;cursor:pointer;font-size:13px;padding:8px}
+.login{border:1px solid #73839a;border-radius:10px}
 .hero{max-width:1100px;margin:38px auto 0;display:grid;grid-template-columns:1.2fr .8fr;gap:22px;align-items:center}
-.eyebrow{color:var(--gold);font-size:13px;font-weight:bold}.hero h1{font-size:clamp(28px,5vw,44px);line-height:1.4;margin:9px 0}
-.hero p{color:#d5deea;line-height:1.9}.search{display:flex;background:white;padding:6px;border-radius:13px;max-width:650px}
+.eyebrow{color:var(--gold);font-size:13px;font-weight:bold}
+.hero h1{font-size:clamp(28px,5vw,44px);line-height:1.4;margin:9px 0}
+.hero p{color:#d5deea;line-height:1.9}
+.search{display:flex;background:white;padding:6px;border-radius:13px;max-width:650px}
 .search input{flex:1;min-width:0;border:0;outline:0;padding:12px;font-size:14px}
 .search button,.gold{background:var(--gold);border:0;border-radius:9px;padding:11px 16px;font-weight:bold;cursor:pointer;color:#172235}
 button:disabled{opacity:.55;cursor:not-allowed}
 .ai{background:white;color:var(--ink);padding:18px;border-radius:17px;box-shadow:0 15px 35px #0003}
-.aihead{display:flex;gap:10px;align-items:center}.brain{width:42px;height:42px;border-radius:12px;background:#fff3d9;display:grid;place-items:center;font-size:23px}
-.ai h3{margin:0 0 4px}.ai small{color:var(--green);font-weight:bold}.ai p{font-size:13px;color:var(--muted);line-height:1.8}
-.chips{display:flex;gap:7px;flex-wrap:wrap}.chips button{border:1px solid var(--line);background:#f5f7fa;border-radius:20px;padding:8px 10px;font-size:12px;cursor:pointer}
-main{max-width:1100px;margin:25px auto;padding:0 5vw 45px}.heading{display:flex;justify-content:space-between;align-items:end;margin:26px 0 13px}
+.aihead{display:flex;gap:10px;align-items:center}
+.brain{width:42px;height:42px;border-radius:12px;background:#fff3d9;display:grid;place-items:center;font-size:23px}
+.ai h3{margin:0 0 4px}.ai small{color:var(--green);font-weight:bold}
+.ai p{font-size:13px;color:var(--muted);line-height:1.8}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chips button{border:1px solid var(--line);background:#f5f7fa;border-radius:20px;padding:8px 10px;font-size:12px;cursor:pointer}
+main{max-width:1100px;margin:25px auto;padding:0 5vw 45px}
+.heading{display:flex;justify-content:space-between;align-items:end;margin:26px 0 13px}
 .heading h2{font-size:21px;margin:0}.heading span{font-size:12px;color:var(--muted)}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.tile,.item,.panel{background:white;border:1px solid var(--line);border-radius:14px;padding:16px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.tile,.item,.panel{background:white;border:1px solid var(--line);border-radius:14px;padding:16px}
 .tile{cursor:pointer;transition:.15s}.tile:hover{transform:translateY(-2px);border-color:var(--gold)}
-.ico{font-size:24px}.tile h3{font-size:15px;margin:9px 0 5px}.tile p,.item p{font-size:12px;color:var(--muted);line-height:1.7;margin:7px 0}
-.items{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.tag{display:inline-block;background:#eaf7f2;color:var(--green);padding:5px 9px;border-radius:18px;font-size:11px}
+.ico{font-size:24px}.tile h3{font-size:15px;margin:9px 0 5px}
+.tile p,.item p{font-size:12px;color:var(--muted);line-height:1.7;margin:7px 0}
+.items{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tag{display:inline-block;background:#eaf7f2;color:var(--green);padding:5px 9px;border-radius:18px;font-size:11px}
 .tag.pending{background:#fff4d9;color:#805b12}.tag.rejected{background:#ffeded;color:var(--red)}
-.item h3{font-size:15px;margin:10px 0 7px}.item .meta{border-top:1px solid var(--line);margin-top:10px;padding-top:9px;color:#8994a5;font-size:11px}
-.page{display:none}.page.active{display:block}.back{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 13px;cursor:pointer;margin-bottom:15px}
-.pageintro{background:#fff;border-radius:15px;padding:18px;margin-bottom:14px}.pageintro p{color:var(--muted);font-size:13px;line-height:1.8}
+.item h3{font-size:15px;margin:10px 0 7px}
+.item .meta{border-top:1px solid var(--line);margin-top:10px;padding-top:9px;color:#8994a5;font-size:11px}
+.page{display:none}.page.active{display:block}
+.back{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 13px;cursor:pointer;margin-bottom:15px}
+.pageintro{background:#fff;border-radius:15px;padding:18px;margin-bottom:14px}
+.pageintro p{color:var(--muted);font-size:13px;line-height:1.8}
 .chatbox{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;max-width:760px}
 .messages{min-height:170px;max-height:330px;overflow:auto;background:#f7f8fa;border-radius:10px;padding:12px;margin-bottom:10px}
 .bubble{padding:10px 12px;border-radius:12px;margin:7px 0;max-width:90%;font-size:13px;line-height:1.8}
-.bot{background:#fff;border:1px solid var(--line);margin-left:auto}.user{background:#e9f3ff;margin-right:auto}
+.bot{background:#fff;border:1px solid var(--line);margin-left:auto}
+.user{background:#e9f3ff;margin-right:auto}
 .chatrow{display:flex;gap:7px}.chatrow input{flex:1;min-width:0;border:1px solid var(--line);border-radius:9px;padding:12px}
 .empty{padding:20px;background:white;border-radius:12px;color:var(--muted);font-size:13px;grid-column:1/-1}
 .notice{background:#fff8e9;border:1px solid #f1dfb9;color:#76551a;padding:13px;border-radius:11px;font-size:12px;line-height:1.8;margin-top:20px}
@@ -44,10 +61,28 @@ main{max-width:1100px;margin:25px auto;padding:0 5vw 45px}.heading{display:flex;
 .auth-panel label,.profile-editor label,.request-form label{display:block;margin:10px 0 5px}
 .auth-panel input,.profile-editor input,.profile-editor select,.request-form input,.request-form select,.request-form textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;background:#fff;font-family:inherit}
 .auth-panel input[type=email],.auth-panel input[type=password]{direction:ltr}
-.auth-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.profile-editor{display:none;border-top:1px solid var(--line);margin-top:18px;padding-top:16px}
-.status{font-size:13px;line-height:1.8;color:var(--green)}.error{color:var(--red)!important}
+.auth-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.profile-editor{display:none;border-top:1px solid var(--line);margin-top:18px;padding-top:16px}
+.status{font-size:13px;line-height:1.8;color:var(--green)}
+.error{color:var(--red)!important}
 footer{text-align:center;background:var(--navy);color:#cbd5e1;padding:20px;font-size:12px}
-@media(max-width:760px){nav{display:none}.hero{grid-template-columns:1fr;margin-top:25px}.cards{grid-template-columns:repeat(2,1fr)}.items{grid-template-columns:1fr}.top{align-items:flex-start}.brand{font-size:19px}}
+
+/* إصلاح قائمة الهاتف وإظهار زر إدارة المنصة */
+@media(max-width:760px){
+ .top{align-items:flex-start;flex-wrap:wrap}
+ .brand{font-size:19px}
+ .login{margin-inline-start:auto}
+ nav{display:flex;width:100%;gap:5px;flex-wrap:wrap;order:3}
+ nav button{font-size:12px;padding:8px 5px;min-height:36px}
+ .hero{grid-template-columns:1fr;margin-top:25px}
+ .cards{grid-template-columns:repeat(2,1fr)}
+ .items{grid-template-columns:1fr}
+}
+@media(max-width:380px){
+ nav{gap:2px}
+ nav button{font-size:11px;padding:7px 3px}
+ .cards{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -55,22 +90,39 @@ footer{text-align:center;background:var(--navy);color:#cbd5e1;padding:20px;font-
 <div class="top">
 <div class="brand">مكسب <b>عرب</b> <small style="font-size:10px;color:#cbd5e1;font-weight:400">MAKSA ARAB</small></div>
 <nav>
-<button onclick="showHome()">الرئيسية</button><button onclick="openPage('products')">المنتجات</button>
-<button onclick="openPage('suppliers')">الموردون</button><button onclick="openPage('opportunities')">الفرص</button>
-<button onclick="openPage('shipping')">الشحن</button><button id="adminNavButton" style="display:none" onclick="openPage('adminPage')">إدارة المنصة</button>
+<button onclick="showHome()">الرئيسية</button>
+<button onclick="openPage('products')">المنتجات</button>
+<button onclick="openPage('suppliers')">الموردون</button>
+<button onclick="openPage('opportunities')">الفرص</button>
+<button onclick="openPage('shipping')">الشحن</button>
+<button id="adminNavButton" style="display:none" onclick="openPage('adminPage')">إدارة المنصة</button>
 </nav>
 <button class="login" id="authButton" onclick="openAuth()">دخول / تسجيل</button>
 </div>
 <section class="hero" id="hero">
-<div><div class="eyebrow">منصة التجارة والفرص الذكية</div><h1>خلّي بحثك عن المكسب<br>يبدأ من مكان واحد.</h1>
+<div>
+<div class="eyebrow">منصة التجارة والفرص الذكية</div>
+<h1>خلّي بحثك عن المكسب<br>يبدأ من مكان واحد.</h1>
 <p>اكتشف المنتجات والموردين والفرص التجارية من واجهة واحدة.</p>
-<div class="search"><input id="searchInput" placeholder="اكتب اسم منتج أو مورد أو فرصة..." onkeydown="if(event.key==='Enter')searchNow()"><button onclick="searchNow()">ابحث الآن</button></div></div>
-<div class="ai"><div class="aihead"><div class="brain">🧠</div><div><h3>مكسب الذكي</h3><small>مساعدك التجاري</small></div></div>
+<div class="search">
+<input id="searchInput" placeholder="اكتب اسم منتج أو مورد أو فرصة..." onkeydown="if(event.key==='Enter')searchNow()">
+<button onclick="searchNow()">ابحث الآن</button>
+</div>
+</div>
+<div class="ai">
+<div class="aihead"><div class="brain">🧠</div><div><h3>مكسب الذكي</h3><small>مساعدك التجاري</small></div></div>
 <p>مساعدك لاختيار القسم المناسب وصياغة طلبك التجاري.</p>
-<div class="chips"><button onclick="openAI('أبحث عن مورد')">أبحث عن مورد</button><button onclick="openAI('أريد مقارنة أسعار')">مقارنة أسعار</button><button onclick="openAI('أبحث عن شريك')">شريك تجاري</button><button onclick="openAI('أريد اكتشاف سوق')">اكتشاف الأسواق</button></div>
-<button class="gold" style="width:100%;margin-top:12px" onclick="openAI('')">افتح مكسب الذكي ←</button></div>
+<div class="chips">
+<button onclick="openAI('أبحث عن مورد')">أبحث عن مورد</button>
+<button onclick="openAI('أريد مقارنة أسعار')">مقارنة أسعار</button>
+<button onclick="openAI('أبحث عن شريك')">شريك تجاري</button>
+<button onclick="openAI('أريد اكتشاف سوق')">اكتشاف الأسواق</button>
+</div>
+<button class="gold" style="width:100%;margin-top:12px" onclick="openAI('')">افتح مكسب الذكي ←</button>
+</div>
 </section>
 </header>
+
 <main>
 <section id="homeView">
 <div class="heading"><h2>استكشف مكسب عرب</h2><span>اضغط على أي قسم لفتحه</span></div>
@@ -78,57 +130,107 @@ footer{text-align:center;background:var(--navy);color:#cbd5e1;padding:20px;font-
 <article class="tile" onclick="openPage('products')"><div class="ico">📦</div><h3>المنتجات والأسواق</h3><p>تصفح المنتجات والفئات التجارية.</p></article>
 <article class="tile" onclick="openPage('suppliers')"><div class="ico">🏭</div><h3>الموردون والمصانع</h3><p>استكشف ملفات الموردين والمصانع.</p></article>
 <article class="tile" onclick="openPage('opportunities')"><div class="ico">🤝</div><h3>الفرص والشراكات</h3><p>فرص التعاون والشراء والبيع.</p></article>
-<article class="tile" onclick="openPage('shipping')"><div class="ico">🚚</div><h3>الشحن والخدمات</h3><p>خدمات النقل والتخليص اللوجستي.</p></article></div>
+<article class="tile" onclick="openPage('shipping')"><div class="ico">🚚</div><h3>الشحن والخدمات</h3><p>خدمات النقل والتخليص اللوجستي.</p></article>
+</div>
 <div class="heading"><h2>نماذج من محتوى المنصة</h2><span>ليست عروضاً حقيقية</span></div>
 <div class="items">
 <article class="item"><span class="tag">مثال تجريبي</span><h3>طلب توريد مواد تغليف</h3><p>نموذج لطلب تجاري يمكن عرضه بعد المراجعة.</p><div class="meta">توريد منتجات · غير منشور</div></article>
 <article class="item"><span class="tag">مثال تجريبي</span><h3>مصنع يبحث عن موزعين</h3><p>نموذج فرصة تعاون مع موزعين في أسواق جديدة.</p><div class="meta">شراكات · غير منشور</div></article>
-<article class="item"><span class="tag">مثال تجريبي</span><h3>مقارنة عروض شحن</h3><p>نموذج لعرض خيارات الشحن والتكلفة والمدة.</p><div class="meta">خدمات لوجستية · غير منشور</div></article></div>
+<article class="item"><span class="tag">مثال تجريبي</span><h3>مقارنة عروض شحن</h3><p>نموذج لعرض خيارات الشحن والتكلفة والمدة.</p><div class="meta">خدمات لوجستية · غير منشور</div></article>
+</div>
 </section>
-<section class="page" id="products"><button class="back" onclick="showHome()">← العودة للرئيسية</button><div class="pageintro"><h2>📦 المنتجات والأسواق</h2><p>هذه بيانات عرض تجريبية وليست منتجات معروضة للبيع.</p></div>
-<div class="items"><article class="item"><span class="tag">مثال تجريبي</span><h3>مواد تغليف</h3><p>عبوات وكراتين ومواد تغليف متنوعة.</p></article><article class="item"><span class="tag">مثال تجريبي</span><h3>مواد غذائية</h3><p>منتجات غذائية بالجملة والتجزئة.</p></article><article class="item"><span class="tag">مثال تجريبي</span><h3>معدات صناعية</h3><p>معدات وقطع غيار للمصانع والورش.</p></article></div></section>
-<section class="page" id="suppliers"><button class="back" onclick="showHome()">← العودة للرئيسية</button><div class="pageintro"><h2>🏭 الموردون والمصانع</h2><p>لن نعرض مورداً حقيقياً قبل التحقق من بياناته.</p></div>
-<div class="items"><article class="item"><span class="tag">ملف تجريبي</span><h3>مورد مواد تغليف</h3><p>التخصص: عبوات ومواد تغليف.</p><div class="meta">الحالة: غير موثق – نموذج فقط</div></article><article class="item"><span class="tag">ملف تجريبي</span><h3>مصنع منتجات غذائية</h3><p>التخصص: تصنيع وتعبئة غذائية.</p><div class="meta">الحالة: غير موثق – نموذج فقط</div></article></div></section>
-<section class="page" id="opportunities"><button class="back" onclick="showHome()">← العودة للرئيسية</button>
+
+<section class="page" id="products">
+<button class="back" onclick="showHome()">← العودة للرئيسية</button>
+<div class="pageintro"><h2>📦 المنتجات والأسواق</h2><p>هذه بيانات عرض تجريبية وليست منتجات معروضة للبيع.</p></div>
+<div class="items">
+<article class="item"><span class="tag">مثال تجريبي</span><h3>مواد تغليف</h3><p>عبوات وكراتين ومواد تغليف متنوعة.</p></article>
+<article class="item"><span class="tag">مثال تجريبي</span><h3>مواد غذائية</h3><p>منتجات غذائية بالجملة والتجزئة.</p></article>
+<article class="item"><span class="tag">مثال تجريبي</span><h3>معدات صناعية</h3><p>معدات وقطع غيار للمصانع والورش.</p></article>
+</div>
+</section>
+
+<section class="page" id="suppliers">
+<button class="back" onclick="showHome()">← العودة للرئيسية</button>
+<div class="pageintro"><h2>🏭 الموردون والمصانع</h2><p>لن نعرض مورداً حقيقياً قبل التحقق من بياناته.</p></div>
+<div class="items">
+<article class="item"><span class="tag">ملف تجريبي</span><h3>مورد مواد تغليف</h3><p>التخصص: عبوات ومواد تغليف.</p><div class="meta">الحالة: غير موثق – نموذج فقط</div></article>
+<article class="item"><span class="tag">ملف تجريبي</span><h3>مصنع منتجات غذائية</h3><p>التخصص: تصنيع وتعبئة غذائية.</p><div class="meta">الحالة: غير موثق – نموذج فقط</div></article>
+</div>
+</section>
+
+<section class="page" id="opportunities">
+<button class="back" onclick="showHome()">← العودة للرئيسية</button>
 <div class="pageintro"><h2>🤝 الفرص التجارية والشراكات</h2><p>أرسل طلبك التجاري، وستراجعه الإدارة قبل نشره. لن يظهر الطلب للعامة إلا بعد الموافقة.</p></div>
-<div class="panel request-form"><h3>إرسال طلب أو فرصة تجارية</h3>
+<div class="panel request-form">
+<h3>إرسال طلب أو فرصة تجارية</h3>
 <label for="requestTitle">عنوان الطلب</label><input id="requestTitle" maxlength="150" placeholder="مثال: أبحث عن مورد للمواد الغذائية">
-<label for="requestType">نوع الطلب</label><select id="requestType"><option value="">اختر نوع الطلب</option><option value="شراء">طلب شراء</option><option value="بيع">عرض بيع</option><option value="توريد">طلب توريد</option><option value="شراكة">شراكة تجارية</option><option value="توزيع">بحث عن موزعين</option><option value="خدمات">طلب خدمات</option></select>
+<label for="requestType">نوع الطلب</label>
+<select id="requestType"><option value="">اختر نوع الطلب</option><option value="شراء">طلب شراء</option><option value="بيع">عرض بيع</option><option value="توريد">طلب توريد</option><option value="شراكة">شراكة تجارية</option><option value="توزيع">بحث عن موزعين</option><option value="خدمات">طلب خدمات</option></select>
 <label for="requestCountry">الدولة</label><input id="requestCountry" maxlength="100" placeholder="مثال: سوريا">
 <label for="requestDetails">تفاصيل الطلب</label><textarea id="requestDetails" rows="5" maxlength="5000" placeholder="اكتب تفاصيل طلبك..."></textarea>
 <label for="requestContact">طريقة التواصل</label><input id="requestContact" maxlength="250" placeholder="البريد أو رقم الهاتف أو واتساب">
-<button class="gold" style="margin-top:14px" id="submitRequestButton" onclick="submitRequest()">إرسال للمراجعة</button><p id="requestStatus" class="status" role="status" aria-live="polite"></p></div>
-<div class="heading"><h2>الفرص المعتمدة</h2><span>تظهر بعد موافقة الإدارة</span></div><div id="approvedRequests" class="items"><div class="empty">جارٍ تحميل الفرص...</div></div>
-<div class="heading"><h2>طلباتي</h2><span>متابعة حالة طلباتك</span></div><div id="myRequests" class="items"><div class="empty">سجّل الدخول لمشاهدة طلباتك.</div></div>
+<button class="gold" style="margin-top:14px" id="submitRequestButton" onclick="submitRequest()">إرسال للمراجعة</button>
+<p id="requestStatus" class="status" role="status" aria-live="polite"></p>
+</div>
+<div class="heading"><h2>الفرص المعتمدة</h2><span>تظهر بعد موافقة الإدارة</span></div>
+<div id="approvedRequests" class="items"><div class="empty">جارٍ تحميل الفرص...</div></div>
+<div class="heading"><h2>طلباتي</h2><span>متابعة حالة طلباتك</span></div>
+<div id="myRequests" class="items"><div class="empty">سجّل الدخول لمشاهدة طلباتك.</div></div>
 </section>
-<section class="page" id="adminPage"><button class="back" onclick="showHome()">← العودة للرئيسية</button>
+
+<section class="page" id="adminPage">
+<button class="back" onclick="showHome()">← العودة للرئيسية</button>
 <div class="pageintro"><h2>🛡️ إدارة منصة مكسب عرب</h2><p>مراجعة الطلبات قبل نشرها. الموافقة تنشر الطلب للعامة، والرفض يبقيه مخفياً.</p><p id="adminStatus" class="status" role="status" aria-live="polite">جارٍ التحقق من صلاحيات المدير...</p></div>
 <div class="heading"><h2>طلبات الأعضاء</h2><button class="back" onclick="loadAdminPanel()">تحديث القائمة ↻</button></div>
 <div id="adminRequests" class="items"><div class="empty">جارٍ تحميل الطلبات...</div></div>
 </section>
-<section class="page" id="shipping"><button class="back" onclick="showHome()">← العودة للرئيسية</button><div class="pageintro"><h2>🚚 الشحن والخدمات اللوجستية</h2><p>هذا القسم مخصص لاحقاً لشركات الشحن والنقل والتخليص ومقارنة الخدمات.</p></div>
-<div class="items"><article class="item"><span class="tag">قسم قيد التجهيز</span><h3>الشحن البري</h3><p>خيارات النقل البري بين المدن والدول.</p></article><article class="item"><span class="tag">قسم قيد التجهيز</span><h3>الشحن البحري</h3><p>خدمات الحاويات والشحن البحري.</p></article><article class="item"><span class="tag">قسم قيد التجهيز</span><h3>التخليص الجمركي</h3><p>خدمات التخليص والإجراءات المساندة.</p></article></div></section>
-<section class="page" id="aiPage"><button class="back" onclick="showHome()">← العودة للرئيسية</button><div class="pageintro"><h2>🧠 مكسب الذكي</h2><p>مساعد تجاري تجريبي. لا يعرض بيانات سوق حقيقية أو يتصل بموردين حتى يتم ربط خدمة الذكاء الاصطناعي الآمنة.</p></div>
-<div class="chatbox"><div class="messages" id="messages"><div class="bubble bot">أهلاً بك في مكسب الذكي. أخبرني ما الذي تبحث عنه: مورد، موزع، شريك، منتج، أو خدمة شحن.</div></div>
-<div class="chatrow"><input id="chatInput" placeholder="مثلاً: أبحث عن مورد مواد تغليف..." onkeydown="if(event.key==='Enter')sendChat()"><button class="gold" onclick="sendChat()">إرسال</button></div></div></section>
+
+<section class="page" id="shipping">
+<button class="back" onclick="showHome()">← العودة للرئيسية</button>
+<div class="pageintro"><h2>🚚 الشحن والخدمات اللوجستية</h2><p>هذا القسم مخصص لاحقاً لشركات الشحن والنقل والتخليص ومقارنة الخدمات.</p></div>
+<div class="items">
+<article class="item"><span class="tag">قسم قيد التجهيز</span><h3>الشحن البري</h3><p>خيارات النقل البري بين المدن والدول.</p></article>
+<article class="item"><span class="tag">قسم قيد التجهيز</span><h3>الشحن البحري</h3><p>خدمات الحاويات والشحن البحري.</p></article>
+<article class="item"><span class="tag">قسم قيد التجهيز</span><h3>التخليص الجمركي</h3><p>خدمات التخليص والإجراءات المساندة.</p></article>
+</div>
+</section>
+
+<section class="page" id="aiPage">
+<button class="back" onclick="showHome()">← العودة للرئيسية</button>
+<div class="pageintro"><h2>🧠 مكسب الذكي</h2><p>مساعد تجاري تجريبي. لا يعرض بيانات سوق حقيقية أو يتصل بموردين حتى يتم ربط خدمة الذكاء الاصطناعي الآمنة.</p></div>
+<div class="chatbox">
+<div class="messages" id="messages"><div class="bubble bot">أهلاً بك في مكسب الذكي. أخبرني ما الذي تبحث عنه: مورد، موزع، شريك، منتج، أو خدمة شحن.</div></div>
+<div class="chatrow"><input id="chatInput" placeholder="مثلاً: أبحث عن مورد مواد تغليف..." onkeydown="if(event.key==='Enter')sendChat()"><button class="gold" onclick="sendChat()">إرسال</button></div>
+</div>
+</section>
+
 <section class="results" id="searchResults" style="display:none"></section>
 <div class="notice"><b>تنبيه:</b> الحسابات والملفات الشخصية والطلبات مرتبطة بـ Supabase. كل طلب جديد يبقى قيد المراجعة ولا يظهر للعامة إلا بعد موافقة المدير. المنتجات والموردون والبحث ما زالت أقساماً تجريبية.</div>
-<section id="authPanel" class="auth-panel"><button class="back" onclick="closeAuth()">← إغلاق</button><h2 style="margin-top:0">حساب مكسب عرب</h2>
+
+<section id="authPanel" class="auth-panel">
+<button class="back" onclick="closeAuth()">← إغلاق</button>
+<h2 style="margin-top:0">حساب مكسب عرب</h2>
 <p style="color:var(--muted);font-size:13px;line-height:1.8">أنشئ حساباً أو سجّل الدخول. ستبقى الإعلانات والفرص قيد المراجعة قبل نشرها.</p>
 <label for="authName">الاسم الكامل</label><input id="authName" autocomplete="name" placeholder="الاسم الكامل">
 <label for="authEmail">البريد الإلكتروني</label><input id="authEmail" type="email" autocomplete="email" placeholder="name@example.com">
 <label for="authPassword">كلمة المرور</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="6 أحرف على الأقل">
 <div class="auth-actions"><button class="gold" onclick="signUp()">إنشاء حساب</button><button class="back" onclick="signIn()">تسجيل الدخول</button><button class="back" onclick="signOut()">تسجيل الخروج</button></div>
 <p id="authStatus" class="status" role="status"></p>
-<div id="profileEditor" class="profile-editor"><h3>بيانات حسابي</h3>
+<div id="profileEditor" class="profile-editor">
+<h3>بيانات حسابي</h3>
 <label for="profileFullName">الاسم الكامل</label><input id="profileFullName" type="text" autocomplete="name" placeholder="اكتب اسمك الكامل">
 <label for="profileCompany">اسم الشركة أو النشاط التجاري</label><input id="profileCompany" type="text" autocomplete="organization" placeholder="اختياري">
 <label for="profileCountry">الدولة</label><input id="profileCountry" type="text" autocomplete="country-name" placeholder="مثال: سوريا، السعودية، الإمارات">
-<label for="profileAccountType">نوع الحساب</label><select id="profileAccountType"><option value="">اختر نوع الحساب</option><option value="buyer">مشتري</option><option value="supplier">مورد / مصنع</option><option value="both">مشتري ومورد</option><option value="service_provider">مقدم خدمات</option></select>
-<button class="gold" style="margin-top:12px" onclick="saveProfile()">حفظ بياناتي</button><p id="profileStatus" class="status" role="status"></p></div>
+<label for="profileAccountType">نوع الحساب</label>
+<select id="profileAccountType"><option value="">اختر نوع الحساب</option><option value="buyer">مشتري</option><option value="supplier">مورد / مصنع</option><option value="both">مشتري ومورد</option><option value="service_provider">مقدم خدمات</option></select>
+<button class="gold" style="margin-top:12px" onclick="saveProfile()">حفظ بياناتي</button>
+<p id="profileStatus" class="status" role="status"></p>
+</div>
 </section>
 </main>
 <footer>مكسب عرب MAKSA ARAB · رامي رستم — المؤسس والمدير العام</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 'use strict';
@@ -138,122 +240,237 @@ const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHA
 const authPanel=document.getElementById('authPanel');
 const pages=['products','suppliers','opportunities','shipping','aiPage','adminPage'];
 const $=id=>document.getElementById(id);
-function setMessage(id,message,isError=false){const el=$(id);if(!el)return;el.textContent=message;el.classList.toggle('error',isError)}
+
+function setMessage(id,message,isError=false){
+ const el=$(id);if(!el)return;el.textContent=message;el.classList.toggle('error',isError);
+}
 function openAuth(){authPanel.style.display='block';authPanel.scrollIntoView({behavior:'smooth',block:'center'});loadProfile()}
 function closeAuth(){authPanel.style.display='none'}
-function escapeHTML(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
 async function signUp(){
  const fullName=$('authName').value.trim(),email=$('authEmail').value.trim().toLowerCase(),password=$('authPassword').value;
  if(!fullName||!email||password.length<6){setMessage('authStatus','أدخل الاسم والبريد وكلمة مرور من 6 أحرف على الأقل.',true);return}
  setMessage('authStatus','جارٍ إنشاء الحساب...');
- try{const {data,error}=await supabaseClient.auth.signUp({email,password,options:{data:{full_name:fullName}}});if(error)throw error;
- if(data.session){setMessage('authStatus','تم إنشاء الحساب وتسجيل الدخول. أكمل بيانات ملفك الشخصي.');await loadProfile();await loadAdminPanel()}
- else setMessage('authStatus','تم إرسال طلب التسجيل. افحص بريدك لتأكيد الحساب، ثم سجّل الدخول.')
+ try{
+  const {data,error}=await supabaseClient.auth.signUp({email,password,options:{data:{full_name:fullName}}});
+  if(error)throw error;
+  if(data.session){setMessage('authStatus','تم إنشاء الحساب وتسجيل الدخول. أكمل بيانات ملفك الشخصي.');await loadProfile();await loadAdminPanel()}
+  else setMessage('authStatus','تم إرسال طلب التسجيل. افحص بريدك لتأكيد الحساب، ثم سجّل الدخول.')
  }catch(e){setMessage('authStatus','تعذر إنشاء الحساب: '+e.message,true)}
 }
+
 async function signIn(){
  const email=$('authEmail').value.trim().toLowerCase(),password=$('authPassword').value;
  if(!email||!password){setMessage('authStatus','أدخل البريد الإلكتروني وكلمة المرور.',true);return}
  setMessage('authStatus','جارٍ تسجيل الدخول...');
- try{const {error}=await supabaseClient.auth.signInWithPassword({email,password});if(error)throw error;
- setMessage('authStatus','تم تسجيل الدخول بنجاح. أهلاً بك في مكسب عرب.');await loadProfile();await loadRequests();await loadAdminPanel()
+ try{
+  const {error}=await supabaseClient.auth.signInWithPassword({email,password});
+  if(error)throw error;
+  setMessage('authStatus','تم تسجيل الدخول بنجاح. أهلاً بك في مكسب عرب.');
+  await loadProfile();await loadRequests();await loadAdminPanel();
  }catch(e){setMessage('authStatus','تعذر تسجيل الدخول: '+e.message,true)}
 }
+
 async function signOut(){
- try{const {error}=await supabaseClient.auth.signOut();if(error)throw error;
- $('profileEditor').style.display='none';$('authButton').textContent='دخول / تسجيل';$('adminNavButton').style.display='none';setMessage('authStatus','تم تسجيل الخروج.');showHome();await loadRequests()
+ try{
+  const {error}=await supabaseClient.auth.signOut();if(error)throw error;
+  $('profileEditor').style.display='none';$('authButton').textContent='دخول / تسجيل';$('adminNavButton').style.display='none';
+  setMessage('authStatus','تم تسجيل الخروج.');showHome();await loadRequests();
  }catch(e){setMessage('authStatus','تعذر تسجيل الخروج: '+e.message,true)}
 }
+
 async function loadProfile(){
  const editor=$('profileEditor');
- try{const {data:sessionData,error:sessionError}=await supabaseClient.auth.getSession();if(sessionError)throw sessionError;
- const user=sessionData.session?.user;if(!user){editor.style.display='none';return}
- editor.style.display='block';setMessage('profileStatus','جارٍ تحميل بيانات حسابك...');
- const {data,error}=await supabaseClient.from('Profiles').select('user_id,full_name,company_name,country,account_type').eq('user_id',user.id).maybeSingle();if(error)throw error;
- $('profileFullName').value=data?.full_name||user.user_metadata?.full_name||'';
- $('profileCompany').value=data?.company_name||'';$('profileCountry').value=data?.country||'';$('profileAccountType').value=data?.account_type||'';
- setMessage('profileStatus',data?'تم تحميل بيانات حسابك.':'أكمل بيانات ملفك الشخصي ثم اضغط حفظ بياناتي.')
+ try{
+  const {data:sessionData,error:sessionError}=await supabaseClient.auth.getSession();if(sessionError)throw sessionError;
+  const user=sessionData.session?.user;if(!user){editor.style.display='none';return}
+  editor.style.display='block';setMessage('profileStatus','جارٍ تحميل بيانات حسابك...');
+  const {data,error}=await supabaseClient.from('Profiles').select('user_id,full_name,company_name,country,account_type').eq('user_id',user.id).maybeSingle();
+  if(error)throw error;
+  $('profileFullName').value=data?.full_name||user.user_metadata?.full_name||'';
+  $('profileCompany').value=data?.company_name||'';
+  $('profileCountry').value=data?.country||'';
+  $('profileAccountType').value=data?.account_type||'';
+  setMessage('profileStatus',data?'تم تحميل بيانات حسابك.':'أكمل بيانات ملفك الشخصي ثم اضغط حفظ بياناتي.');
  }catch(e){setMessage('profileStatus','تعذر تحميل الملف الشخصي: '+e.message,true)}
 }
+
 async function saveProfile(){
- try{const {data:sd,error:se}=await supabaseClient.auth.getSession();if(se)throw se;const user=sd.session?.user;if(!user){setMessage('profileStatus','سجّل الدخول أولاً.',true);return}
- const profile={full_name:$('profileFullName').value.trim(),company_name:$('profileCompany').value.trim()||null,country:$('profileCountry').value.trim(),account_type:$('profileAccountType').value};
- if(!profile.full_name||!profile.country||!profile.account_type){setMessage('profileStatus','أكمل الاسم والدولة ونوع الحساب أولاً.',true);return}
- setMessage('profileStatus','جارٍ حفظ البيانات...');
- const {data:rows,error:updateError}=await supabaseClient.from('Profiles').update(profile).eq('user_id',user.id).select('user_id');if(updateError)throw updateError;
- if(!rows?.length){const {error:insertError}=await supabaseClient.from('Profiles').insert({...profile,user_id:user.id});if(insertError)throw insertError}
- const {error:metaError}=await supabaseClient.auth.updateUser({data:{full_name:profile.full_name}});if(metaError)throw metaError;
- setMessage('profileStatus','تم حفظ بياناتك بنجاح.')
+ try{
+  const {data:sd,error:se}=await supabaseClient.auth.getSession();if(se)throw se;
+  const user=sd.session?.user;if(!user){setMessage('profileStatus','سجّل الدخول أولاً.',true);return}
+  const profile={
+   full_name:$('profileFullName').value.trim(),
+   company_name:$('profileCompany').value.trim()||null,
+   country:$('profileCountry').value.trim(),
+   account_type:$('profileAccountType').value
+  };
+  if(!profile.full_name||!profile.country||!profile.account_type){setMessage('profileStatus','أكمل الاسم والدولة ونوع الحساب أولاً.',true);return}
+  setMessage('profileStatus','جارٍ حفظ البيانات...');
+  const {data:rows,error:updateError}=await supabaseClient.from('Profiles').update(profile).eq('user_id',user.id).select('user_id');
+  if(updateError)throw updateError;
+  if(!rows?.length){
+   const {error:insertError}=await supabaseClient.from('Profiles').insert({...profile,user_id:user.id});
+   if(insertError)throw insertError;
+  }
+  const {error:metaError}=await supabaseClient.auth.updateUser({data:{full_name:profile.full_name}});
+  if(metaError)throw metaError;
+  setMessage('profileStatus','تم حفظ بياناتك بنجاح.');
  }catch(e){setMessage('profileStatus','تعذر حفظ البيانات: '+e.message,true)}
 }
+
 async function loadRequests(){
  const approvedBox=$('approvedRequests'),mineBox=$('myRequests');if(!approvedBox||!mineBox)return;
  approvedBox.textContent='جارٍ تحميل الفرص...';mineBox.textContent='جارٍ تحميل طلباتك...';
  try{
-  const {data:approved,error:ae}=await supabaseClient.from('requests').select('id,title,request_type,country,details,status,created_at').eq('status','approved').order('created_at',{ascending:false});if(ae)throw ae;
+  const {data:approved,error:ae}=await supabaseClient.from('requests').select('id,title,request_type,country,details,status,created_at').eq('status','approved').order('created_at',{ascending:false});
+  if(ae)throw ae;
   renderRequests('approvedRequests',approved,false);
-  const {data:sd,error:se}=await supabaseClient.auth.getSession();if(se)throw se;const user=sd.session?.user;
+  const {data:sd,error:se}=await supabaseClient.auth.getSession();if(se)throw se;
+  const user=sd.session?.user;
   if(!user){mineBox.textContent='سجّل الدخول لمشاهدة طلباتك وإرسال طلب جديد.';return}
-  const {data:mine,error:me}=await supabaseClient.from('requests').select('id,title,request_type,country,details,contact_method,status,created_at').eq('user_id',user.id).order('created_at',{ascending:false});if(me)throw me;
-  renderRequests('myRequests',mine,true)
+  const {data:mine,error:me}=await supabaseClient.from('requests').select('id,title,request_type,country,details,contact_method,status,created_at').eq('user_id',user.id).order('created_at',{ascending:false});
+  if(me)throw me;
+  renderRequests('myRequests',mine,true);
  }catch(e){approvedBox.textContent='تعذر تحميل الفرص: '+e.message;mineBox.textContent='تعذر تحميل طلباتك.'}
 }
+
 function renderRequests(containerId,rows,isMine){
  const box=$(containerId);box.replaceChildren();
- if(!rows?.length){const e=document.createElement('div');e.className='empty';e.textContent=isMine?'ليس لديك طلبات حتى الآن.':'لا توجد فرص معتمدة حالياً.';box.appendChild(e);return}
- rows.forEach(r=>{const card=document.createElement('article');card.className='item';const tag=document.createElement('span');tag.className='tag '+(r.status==='pending'?'pending':r.status==='rejected'?'rejected':'');tag.textContent=isMine?(r.status==='approved'?'تمت الموافقة':r.status==='rejected'?'مرفوض':'قيد المراجعة'):'فرصة معتمدة';
- const title=document.createElement('h3');title.textContent=r.title||'';const type=document.createElement('p');type.textContent='النوع: '+(r.request_type||'');const country=document.createElement('p');country.textContent='الدولة: '+(r.country||'');const details=document.createElement('p');details.textContent=r.details||'';card.append(tag,title,type,country,details);
- if(isMine){const contact=document.createElement('p');contact.textContent='التواصل: '+(r.contact_method||'');card.appendChild(contact)}box.appendChild(card)})
+ if(!rows?.length){
+  const e=document.createElement('div');e.className='empty';
+  e.textContent=isMine?'ليس لديك طلبات حتى الآن.':'لا توجد فرص معتمدة حالياً.';
+  box.appendChild(e);return;
+ }
+ rows.forEach(r=>{
+  const card=document.createElement('article');card.className='item';
+  const tag=document.createElement('span');tag.className='tag '+(r.status==='pending'?'pending':r.status==='rejected'?'rejected':'');
+  tag.textContent=isMine?(r.status==='approved'?'تمت الموافقة':r.status==='rejected'?'مرفوض':'قيد المراجعة'):'فرصة معتمدة';
+  const title=document.createElement('h3');title.textContent=r.title||'';
+  const type=document.createElement('p');type.textContent='النوع: '+(r.request_type||'');
+  const country=document.createElement('p');country.textContent='الدولة: '+(r.country||'');
+  const details=document.createElement('p');details.textContent=r.details||'';
+  card.append(tag,title,type,country,details);
+  if(isMine){const contact=document.createElement('p');contact.textContent='التواصل: '+(r.contact_method||'');card.appendChild(contact)}
+  box.appendChild(card);
+ });
 }
+
 async function submitRequest(){
  const button=$('submitRequestButton');
- try{const {data:sd,error:se}=await supabaseClient.auth.getSession();if(se)throw se;const user=sd.session?.user;if(!user){setMessage('requestStatus','سجّل الدخول أولاً حتى تتمكن من إرسال طلب.',true);openAuth();return}
- const title=$('requestTitle').value.trim(),request_type=$('requestType').value,country=$('requestCountry').value.trim(),details=$('requestDetails').value.trim(),contact_method=$('requestContact').value.trim();
- if(!title||!request_type||!country||!details||!contact_method){setMessage('requestStatus','يرجى تعبئة جميع الحقول قبل الإرسال.',true);return}
- button.disabled=true;button.textContent='جارٍ الإرسال...';setMessage('requestStatus','جارٍ إرسال طلبك...');
- const {error}=await supabaseClient.from('requests').insert({user_id:user.id,title,request_type,country,details,contact_method,status:'pending'});if(error)throw error;
- ['requestTitle','requestType','requestCountry','requestDetails','requestContact'].forEach(id=>$(id).value='');
- setMessage('requestStatus','تم إرسال طلبك. سيبقى قيد المراجعة ولن يظهر للعامة إلا بعد موافقة الإدارة.');await loadRequests()
+ try{
+  const {data:sd,error:se}=await supabaseClient.auth.getSession();if(se)throw se;
+  const user=sd.session?.user;
+  if(!user){setMessage('requestStatus','سجّل الدخول أولاً حتى تتمكن من إرسال طلب.',true);openAuth();return}
+  const title=$('requestTitle').value.trim();
+  const request_type=$('requestType').value;
+  const country=$('requestCountry').value.trim();
+  const details=$('requestDetails').value.trim();
+  const contact_method=$('requestContact').value.trim();
+  if(!title||!request_type||!country||!details||!contact_method){setMessage('requestStatus','يرجى تعبئة جميع الحقول قبل الإرسال.',true);return}
+  button.disabled=true;button.textContent='جارٍ الإرسال...';setMessage('requestStatus','جارٍ إرسال طلبك...');
+  const {error}=await supabaseClient.from('requests').insert({user_id:user.id,title,request_type,country,details,contact_method,status:'pending'});
+  if(error)throw error;
+  ['requestTitle','requestType','requestCountry','requestDetails','requestContact'].forEach(id=>$(id).value='');
+  setMessage('requestStatus','تم إرسال طلبك. سيبقى قيد المراجعة ولن يظهر للعامة إلا بعد موافقة الإدارة.');
+  await loadRequests();
  }catch(e){setMessage('requestStatus','تعذر إرسال الطلب: '+e.message,true)}
  finally{button.disabled=false;button.textContent='إرسال للمراجعة'}
 }
+
 async function loadAdminPanel(){
- const nav=$('adminNavButton'),box=$('adminRequests'),status=$('adminStatus');if(!nav||!box||!status)return;nav.style.display='none';
- try{const {data:sd,error:se}=await supabaseClient.auth.getSession();if(se)throw se;const user=sd.session?.user;
- if(!user){status.textContent='سجّل الدخول بحساب المدير للوصول إلى لوحة الإدارة.';return}
- const {data:profile,error:pe}=await supabaseClient.from('Profiles').select('role').eq('user_id',user.id).maybeSingle();if(pe)throw pe;
- if(profile?.role!=='admin'){status.textContent='هذا الحساب لا يملك صلاحية إدارة المنصة.';return}
- nav.style.display='inline-block';status.textContent='تم التحقق من صلاحية المدير. يمكنك مراجعة الطلبات أدناه.';
- const {data:rows,error}=await supabaseClient.from('requests').select('id,title,request_type,country,details,contact_method,status,created_at').order('created_at',{ascending:false});if(error)throw error;
- box.replaceChildren();if(!rows?.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='لا توجد طلبات حالياً.';box.appendChild(empty);return}
- rows.forEach(r=>{const card=document.createElement('article');card.className='item';const tag=document.createElement('span');tag.className='tag '+(r.status==='pending'?'pending':r.status==='rejected'?'rejected':'');tag.textContent=r.status==='approved'?'تمت الموافقة والنشر':r.status==='rejected'?'مرفوض':'قيد المراجعة';
- const title=document.createElement('h3');title.textContent=r.title||'طلب بدون عنوان';const info=document.createElement('p');info.textContent='النوع: '+(r.request_type||'—')+' · الدولة: '+(r.country||'—');const details=document.createElement('p');details.textContent=r.details||'';const contact=document.createElement('p');contact.textContent='التواصل: '+(r.contact_method||'—');card.append(tag,title,info,details,contact);
- if(r.status==='pending'){const actions=document.createElement('div');actions.className='auth-actions';const approve=document.createElement('button');approve.className='gold';approve.textContent='موافقة ونشر';approve.onclick=()=>updateRequestStatus(r.id,'approved');const reject=document.createElement('button');reject.className='back';reject.textContent='رفض الطلب';reject.onclick=()=>updateRequestStatus(r.id,'rejected');actions.append(approve,reject);card.appendChild(actions)}box.appendChild(card)})
- }catch(e){status.textContent='تعذر تحميل لوحة الإدارة: '+e.message;status.classList.add('error');box.textContent='تحقق من صلاحيات المدير وسياسات قراءة الطلبات.'}
+ const nav=$('adminNavButton'),box=$('adminRequests'),status=$('adminStatus');
+ if(!nav||!box||!status)return;
+ nav.style.display='none';
+ try{
+  const {data:sd,error:se}=await supabaseClient.auth.getSession();if(se)throw se;
+  const user=sd.session?.user;
+  if(!user){status.textContent='سجّل الدخول بحساب المدير للوصول إلى لوحة الإدارة.';return}
+  const {data:profile,error:pe}=await supabaseClient.from('Profiles').select('role').eq('user_id',user.id).maybeSingle();
+  if(pe)throw pe;
+  if(profile?.role!=='admin'){status.textContent='هذا الحساب لا يملك صلاحية إدارة المنصة.';return}
+  nav.style.display='inline-block';
+  status.textContent='تم التحقق من صلاحية المدير. يمكنك مراجعة الطلبات أدناه.';
+  const {data:rows,error}=await supabaseClient.from('requests').select('id,title,request_type,country,details,contact_method,status,created_at').order('created_at',{ascending:false});
+  if(error)throw error;
+  box.replaceChildren();
+  if(!rows?.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='لا توجد طلبات حالياً.';box.appendChild(empty);return}
+  rows.forEach(r=>{
+   const card=document.createElement('article');card.className='item';
+   const tag=document.createElement('span');tag.className='tag '+(r.status==='pending'?'pending':r.status==='rejected'?'rejected':'');
+   tag.textContent=r.status==='approved'?'تمت الموافقة والنشر':r.status==='rejected'?'مرفوض':'قيد المراجعة';
+   const title=document.createElement('h3');title.textContent=r.title||'طلب بدون عنوان';
+   const info=document.createElement('p');info.textContent='النوع: '+(r.request_type||'—')+' · الدولة: '+(r.country||'—');
+   const details=document.createElement('p');details.textContent=r.details||'';
+   const contact=document.createElement('p');contact.textContent='التواصل: '+(r.contact_method||'—');
+   card.append(tag,title,info,details,contact);
+   if(r.status==='pending'){
+    const actions=document.createElement('div');actions.className='auth-actions';
+    const approve=document.createElement('button');approve.className='gold';approve.textContent='موافقة ونشر';approve.onclick=()=>updateRequestStatus(r.id,'approved');
+    const reject=document.createElement('button');reject.className='back';reject.textContent='رفض الطلب';reject.onclick=()=>updateRequestStatus(r.id,'rejected');
+    actions.append(approve,reject);card.appendChild(actions);
+   }
+   box.appendChild(card);
+  });
+ }catch(e){status.textContent='تعذر تحميل لوحة الإدارة: '+e.message;status.classList.add('error');box.textContent='تحقق من صلاحيات المدير وسياسات RLS.'}
 }
+
 async function updateRequestStatus(id,status){
- if(!['approved','rejected'].includes(status))return;const label=status==='approved'?'الموافقة ونشر الطلب':'رفض الطلب';if(!confirm('هل تؤكد '+label+'؟'))return;
- try{const {data,error}=await supabaseClient.from('requests').update({status}).eq('id',id).eq('status','pending').select('id');if(error)throw error;if(!data?.length)throw new Error('لم يتم تحديث الطلب. تحقق من صلاحيات المدير وسياسات RLS.');
- await loadAdminPanel();await loadRequests();alert('تم تحديث حالة الطلب بنجاح.')
+ if(!['approved','rejected'].includes(status))return;
+ const label=status==='approved'?'الموافقة ونشر الطلب':'رفض الطلب';
+ if(!confirm('هل تؤكد '+label+'؟'))return;
+ try{
+  const {data,error}=await supabaseClient.from('requests').update({status}).eq('id',id).eq('status','pending').select('id');
+  if(error)throw error;
+  if(!data?.length)throw new Error('لم يتم تحديث الطلب. تحقق من صلاحيات المدير وسياسات RLS.');
+  await loadAdminPanel();await loadRequests();alert('تم تحديث حالة الطلب بنجاح.');
  }catch(e){alert('تعذر تحديث الطلب: '+e.message)}
 }
+
 supabaseClient.auth.onAuthStateChange((_event,session)=>{
  $('authButton').textContent=session?.user?'حسابي / خروج':'دخول / تسجيل';
- if(session?.user){if(authPanel.style.display==='block')setTimeout(loadProfile,0);setTimeout(loadAdminPanel,0)}
- else{$('profileEditor').style.display='none';$('adminNavButton').style.display='none';loadRequests()}
+ if(session?.user){
+  if(authPanel.style.display==='block')setTimeout(loadProfile,0);
+  setTimeout(loadAdminPanel,0);
+ }else{
+  $('profileEditor').style.display='none';
+  $('adminNavButton').style.display='none';
+  loadRequests();
+ }
 });
+
 async function initialize(){
- try{const {data,error}=await supabaseClient.auth.getSession();if(error)throw error;
- if(data.session){$('authButton').textContent='حسابي / خروج';await loadAdminPanel()}else $('authButton').textContent='دخول / تسجيل';
- await loadRequests()
+ try{
+  const {data,error}=await supabaseClient.auth.getSession();if(error)throw error;
+  if(data.session){$('authButton').textContent='حسابي / خروج';await loadAdminPanel()}
+  else $('authButton').textContent='دخول / تسجيل';
+  await loadRequests();
  }catch(e){console.warn('Supabase initialization:',e.message)}
 }
-function hideAll(){$('homeView').style.display='none';$('hero').style.display='none';pages.forEach(id=>$(id).classList.remove('active'));$('searchResults').style.display='none'}
-function showHome(){hideAll();$('homeView').style.display='block';$('hero').style.display='grid';window.scrollTo({top:0,behavior:'smooth'})}
-function openPage(id){if(!pages.includes(id))return;hideAll();$(id).classList.add('active');if(id==='opportunities')loadRequests();if(id==='adminPage')loadAdminPanel();window.scrollTo({top:0,behavior:'smooth'})}
-function openAI(prompt){openPage('aiPage');if(prompt){$('chatInput').value=prompt;sendChat()}}
+
+function hideAll(){
+ $('homeView').style.display='none';$('hero').style.display='none';
+ pages.forEach(id=>$(id).classList.remove('active'));
+ $('searchResults').style.display='none';
+}
+function showHome(){
+ hideAll();$('homeView').style.display='block';$('hero').style.display='grid';
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function openPage(id){
+ if(!pages.includes(id))return;
+ hideAll();$(id).classList.add('active');
+ if(id==='opportunities')loadRequests();
+ if(id==='adminPage')loadAdminPanel();
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function openAI(prompt){
+ openPage('aiPage');
+ if(prompt){$('chatInput').value=prompt;sendChat()}
+}
 function sendChat(){
- const input=$('chatInput'),value=input.value.trim();if(!value)return;const box=$('messages');
+ const input=$('chatInput'),value=input.value.trim();if(!value)return;
+ const box=$('messages');
  const u=document.createElement('div');u.className='bubble user';u.textContent=value;box.appendChild(u);
  let reply='أقدر أساعدك بتحديد الخطوة المناسبة. وضّح نوع المنتج أو الخدمة والدولة والكمية المطلوبة.';
  if(/مورد|مصنع/.test(value))reply='للوصول إلى مورد مناسب، حدّد المنتج والدولة والكمية. يمكنك أيضاً إرسال طلب في قسم «الفرص» ليبقى قيد مراجعة الإدارة. حالياً دليل الموردين الحقيقي لم يُفعّل بعد.';
@@ -261,14 +478,24 @@ function sendChat(){
  else if(/شريك|موزع|فرص/.test(value))reply='يمكنك إرسال فرصة شراكة أو طلب موزعين من قسم «الفرص والشراكات». لن يظهر الطلب للزوار إلا بعد موافقة الإدارة.';
  else if(/شحن|نقل|تخليص/.test(value))reply='أخبرني بلد الانطلاق وبلد الوصول ونوع البضاعة والوزن التقريبي. قسم الشحن قيد التجهيز حالياً.';
  else if(/منتج|سوق|دولة/.test(value))reply='اكتب اسم المنتج والدولة المستهدفة والكمية التقريبية. نتائج الأسواق الحقيقية ستُضاف بعد ربط مصادر البيانات والتحقق منها.';
- const b=document.createElement('div');b.className='bubble bot';b.textContent=reply;box.appendChild(b);input.value='';box.scrollTop=box.scrollHeight
+ const b=document.createElement('div');b.className='bubble bot';b.textContent=reply;box.appendChild(b);
+ input.value='';box.scrollTop=box.scrollHeight;
 }
 function searchNow(){
- const query=$('searchInput').value.trim();if(!query){alert('اكتب كلمة البحث أولاً.');return}hideAll();const results=$('searchResults');results.replaceChildren();results.style.display='block';
+ const query=$('searchInput').value.trim();
+ if(!query){alert('اكتب كلمة البحث أولاً.');return}
+ hideAll();const results=$('searchResults');results.replaceChildren();results.style.display='block';
  const back=document.createElement('button');back.className='back';back.textContent='← العودة للرئيسية';back.onclick=showHome;
- const intro=document.createElement('div');intro.className='pageintro';const h=document.createElement('h2');h.textContent='نتائج البحث التجريبية';const p=document.createElement('p');p.textContent='بحثت عن: '+query;const note=document.createElement('p');note.textContent='البحث المباشر في قاعدة المنتجات لم يُفعّل بعد. اختر القسم المناسب:';const chips=document.createElement('div');chips.className='chips';
- [['المنتجات','products'],['الموردون','suppliers'],['الفرص','opportunities']].forEach(([label,id])=>{const btn=document.createElement('button');btn.textContent=label;btn.onclick=()=>openPage(id);chips.appendChild(btn)});
- intro.append(h,p,note,chips);results.append(back,intro);window.scrollTo({top:0,behavior:'smooth'})
+ const intro=document.createElement('div');intro.className='pageintro';
+ const h=document.createElement('h2');h.textContent='نتائج البحث التجريبية';
+ const p=document.createElement('p');p.textContent='بحثت عن: '+query;
+ const note=document.createElement('p');note.textContent='البحث المباشر في قاعدة المنتجات لم يُفعّل بعد. اختر القسم المناسب:';
+ const chips=document.createElement('div');chips.className='chips';
+ [['المنتجات','products'],['الموردون','suppliers'],['الفرص','opportunities']].forEach(([label,id])=>{
+  const btn=document.createElement('button');btn.textContent=label;btn.onclick=()=>openPage(id);chips.appendChild(btn);
+ });
+ intro.append(h,p,note,chips);results.append(back,intro);
+ window.scrollTo({top:0,behavior:'smooth'});
 }
 initialize();
 </script>
