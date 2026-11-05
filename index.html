@@ -1,1244 +1,1286 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#101b2d">
 <title>مكسب عرب | MAKSA ARAB</title>
-<style>
-:root{--navy:#101b2d;--navy2:#1d3554;--gold:#e8b85b;--bg:#f3f5f8;--ink:#182235;--muted:#718096;--line:#e5eaf0;--green:#16866b;--red:#b42318}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif}
-header{background:linear-gradient(125deg,var(--navy),var(--navy2));color:#fff;padding:16px 5vw 30px}
-.top{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.brand{font-size:22px;font-weight:800}.brand b{color:var(--gold)}
-nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-nav button,.login{background:transparent;color:#e4eaf2;border:0;cursor:pointer;font-size:13px;padding:8px}
-.login{border:1px solid #73839a;border-radius:10px}
-.hero{max-width:1100px;margin:38px auto 0;display:grid;grid-template-columns:1.2fr .8fr;gap:22px;align-items:center}
-.eyebrow{color:var(--gold);font-size:13px;font-weight:bold}
-.hero h1{font-size:clamp(28px,5vw,44px);line-height:1.4;margin:9px 0}
-.hero p{color:#d5deea;line-height:1.9}
-.search{display:flex;background:white;padding:6px;border-radius:13px;max-width:650px}
-.search input{flex:1;min-width:0;border:0;outline:0;padding:12px;font-size:14px}
-.search button,.gold{background:var(--gold);border:0;border-radius:9px;padding:11px 16px;font-weight:bold;cursor:pointer;color:#172235}
-button:disabled{opacity:.55;cursor:not-allowed}
-.ai{background:white;color:var(--ink);padding:18px;border-radius:17px;box-shadow:0 15px 35px #0003}
-.aihead{display:flex;gap:10px;align-items:center}
-.brain{width:42px;height:42px;border-radius:12px;background:#fff3d9;display:grid;place-items:center;font-size:23px}
-.ai h3{margin:0 0 4px}.ai small{color:var(--green);font-weight:bold}
-.ai p{font-size:13px;color:var(--muted);line-height:1.8}
-.chips{display:flex;gap:7px;flex-wrap:wrap}
-.chips button{border:1px solid var(--line);background:#f5f7fa;border-radius:20px;padding:8px 10px;font-size:12px;cursor:pointer}
-main{max-width:1100px;margin:25px auto;padding:0 5vw 45px}
-.heading{display:flex;justify-content:space-between;align-items:end;margin:26px 0 13px;gap:10px}
-.heading h2{font-size:21px;margin:0}.heading span{font-size:12px;color:var(--muted)}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.tile,.item,.panel{background:white;border:1px solid var(--line);border-radius:14px;padding:16px}
-.tile{cursor:pointer;transition:.15s}.tile:hover{transform:translateY(-2px);border-color:var(--gold)}
-.ico{font-size:24px}.tile h3{font-size:15px;margin:9px 0 5px}
-.tile p,.item p{font-size:12px;color:var(--muted);line-height:1.7;margin:7px 0}
-.items{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.tag{display:inline-block;background:#eaf7f2;color:var(--green);padding:5px 9px;border-radius:18px;font-size:11px}
-.tag.pending{background:#fff4d9;color:#805b12}.tag.rejected{background:#ffeded;color:var(--red)}
-.item h3{font-size:15px;margin:10px 0 7px}
-.item .meta{border-top:1px solid var(--line);margin-top:10px;padding-top:9px;color:#8994a5;font-size:11px}
-.page{display:none}.page.active{display:block}
-.back{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 13px;cursor:pointer;margin-bottom:15px}
-.pageintro{background:#fff;border-radius:15px;padding:18px;margin-bottom:14px}
-.pageintro p{color:var(--muted);font-size:13px;line-height:1.8}
-.chatbox{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;max-width:760px}
-.messages{min-height:170px;max-height:360px;overflow:auto;background:#f7f8fa;border-radius:10px;padding:12px;margin-bottom:10px}
-.bubble{padding:10px 12px;border-radius:12px;margin:7px 0;max-width:92%;font-size:13px;line-height:1.9;white-space:pre-line}
-.bot{background:#fff;border:1px solid var(--line);margin-left:auto}
-.user{background:#e9f3ff;margin-right:auto}
-.chatrow{display:flex;gap:7px}
-.chatrow input{flex:1;min-width:0;border:1px solid var(--line);border-radius:9px;padding:12px}
-.empty{padding:20px;background:white;border-radius:12px;color:var(--muted);font-size:13px;grid-column:1/-1}
-.notice{background:#fff8e9;border:1px solid #f1dfb9;color:#76551a;padding:13px;border-radius:11px;font-size:12px;line-height:1.8;margin-top:20px}
-.auth-panel{display:none;max-width:560px;margin:18px auto;background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px}
-.auth-panel label,.profile-editor label,.request-form label{display:block;margin:10px 0 5px}
-.auth-panel input,.profile-editor input,.profile-editor select,.request-form input,.request-form select,.request-form textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;background:#fff;font-family:inherit}
-.auth-panel input[type=email],.auth-panel input[type=password]{direction:ltr}
-.auth-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.profile-editor{display:none;border-top:1px solid var(--line);margin-top:18px;padding-top:16px}
-.status{font-size:13px;line-height:1.8;color:var(--green)}.error{color:var(--red)!important}
-footer{text-align:center;background:var(--navy);color:#cbd5e1;padding:20px;font-size:12px}
 
-/* أدوات الصور والفيديو */
-.media-section{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin:16px 0}
-.media-section h3{margin-top:0}
-.media-help{font-size:12px;color:var(--muted);line-height:1.8}
-.media-picker{display:block;width:100%;padding:13px;border:2px dashed #cbd5e1;border-radius:12px;background:#f8fafc;cursor:pointer}
-.media-preview{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
-.media-preview-item{border:1px solid var(--line);border-radius:10px;padding:7px;min-width:0}
-.media-preview-item img,.media-preview-item video{width:100%;height:120px;object-fit:cover;border-radius:7px;background:#edf0f4}
-.media-preview-item p{font-size:11px;overflow-wrap:anywhere}
-.media-preview-item button{border:0;background:#ffeded;color:var(--red);border-radius:7px;padding:6px 9px;cursor:pointer}
-.media-caption{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;font-family:inherit}
-.media-status{font-size:12px;line-height:1.8;margin-top:9px}
-.media-approved{color:var(--green)}
-.media-pending{color:#805b12}
-@media(max-width:760px){
-.top{align-items:flex-start}
-.brand{font-size:19px}
-.login{margin-inline-start:auto}
-nav{width:100%;gap:4px;order:3}
-nav button{font-size:12px;padding:8px 5px;min-height:36px}
-.hero{grid-template-columns:1fr;margin-top:25px}
-.cards{grid-template-columns:repeat(2,1fr)}
-.items{grid-template-columns:1fr}
-.media-preview{grid-template-columns:repeat(2,minmax(0,1fr))}
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root{
+  --navy:#101b2d;
+  --navy2:#172943;
+  --gold:#d6ad55;
+  --gold2:#f0d38a;
+  --white:#ffffff;
+  --muted:#aebbd0;
+  --bg:#f3f5f8;
+  --green:#198754;
+  --red:#dc3545;
+  --border:#dce2ea;
 }
-@media(max-width:380px){
-nav{gap:2px}
-nav button{font-size:11px;padding:7px 3px}
-.cards{grid-template-columns:1fr}
-.media-preview{grid-template-columns:1fr}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Tahoma,Arial,sans-serif;
+  background:var(--bg);
+  color:#202b3c;
+}
+button,input,select,textarea{font-family:inherit}
+button{cursor:pointer}
+header{
+  background:linear-gradient(135deg,var(--navy),#203a5c);
+  color:white;
+  padding:15px 5%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:15px;
+  border-bottom:3px solid var(--gold);
+}
+.logo{
+  font-size:25px;
+  font-weight:bold;
+  color:var(--gold2);
+}
+.logo small{
+  display:block;
+  color:white;
+  font-size:11px;
+  letter-spacing:2px;
+  margin-top:4px;
+}
+nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+nav button{
+  background:transparent;
+  color:white;
+  border:1px solid #53647b;
+  padding:9px 12px;
+  border-radius:7px;
+}
+nav button:hover{
+  background:var(--gold);
+  color:var(--navy);
+}
+nav #adminNavButton{
+  display:none;
+  border-color:var(--gold);
+  color:var(--gold2);
+}
+.container{
+  width:min(1150px,94%);
+  margin:25px auto;
+}
+.hero{
+  background:linear-gradient(120deg,#101b2d,#25466c);
+  color:white;
+  padding:65px 25px;
+  text-align:center;
+  border-radius:15px;
+  position:relative;
+  overflow:hidden;
+}
+.hero h1{
+  color:var(--gold2);
+  font-size:clamp(28px,5vw,46px);
+  margin:0 0 15px;
+}
+.hero p{
+  max-width:700px;
+  margin:0 auto 25px;
+  line-height:2;
+  color:#e2e9f2;
+}
+.gold-btn{
+  background:var(--gold);
+  color:var(--navy);
+  border:0;
+  border-radius:8px;
+  padding:12px 20px;
+  font-weight:bold;
+}
+.gold-btn:hover{background:var(--gold2)}
+.dark-btn{
+  background:var(--navy);
+  color:white;
+  border:0;
+  border-radius:8px;
+  padding:11px 17px;
+}
+.outline-btn{
+  background:transparent;
+  border:1px solid var(--gold);
+  color:var(--gold2);
+  border-radius:8px;
+  padding:11px 17px;
+}
+.section-title{
+  color:var(--navy);
+  border-right:5px solid var(--gold);
+  padding-right:12px;
+  margin:25px 0 18px;
+}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
+}
+.card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 3px 12px #1729430c;
+}
+.card h3{color:var(--navy);margin-top:0}
+.card p{line-height:1.8;color:#59677a}
+.panel{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:22px;
+  margin-bottom:20px;
+}
+.view{display:none}
+.view.active{display:block}
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
+}
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+.field label{font-weight:bold;color:var(--navy)}
+.field input,.field select,.field textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccd5e1;
+  border-radius:7px;
+  background:white;
+  font-size:14px;
+}
+.field textarea{min-height:110px;resize:vertical}
+.full{grid-column:1/-1}
+.notice{
+  padding:12px;
+  border-radius:8px;
+  background:#fff8e8;
+  border:1px solid #f0d38a;
+  color:#765b20;
+  line-height:1.8;
+}
+.status{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+}
+.pending{background:#fff1cf;color:#805c00}
+.approved{background:#d8f3e4;color:#176b3b}
+.rejected{background:#fde0e0;color:#a32020}
+.media-preview{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:12px;
+}
+.media-preview img,.media-preview video{
+  width:150px;
+  height:110px;
+  object-fit:cover;
+  border-radius:8px;
+  border:1px solid var(--border);
+}
+.item{
+  background:white;
+  padding:16px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  margin-bottom:12px;
+}
+.item h3{margin-top:0;color:var(--navy)}
+.item-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+.approve-btn,.reject-btn{
+  border:0;
+  padding:9px 14px;
+  border-radius:7px;
+  color:white;
+}
+.approve-btn{background:var(--green)}
+.reject-btn{background:var(--red)}
+.hidden{display:none!important}
+footer{
+  background:var(--navy);
+  color:white;
+  text-align:center;
+  padding:25px 15px;
+  margin-top:45px;
+  line-height:2;
+}
+footer strong{color:var(--gold2)}
+@media(max-width:650px){
+  header{justify-content:center;text-align:center}
+  nav{justify-content:center}
+  .hero{padding:45px 18px}
+  .container{width:94%}
 }
 </style>
 </head>
+
 <body>
+
 <header>
-<div class="top">
-<div class="brand">مكسب <b>عرب</b> <small style="font-size:10px;color:#cbd5e1;font-weight:400">MAKSA ARAB</small></div>
-<nav>
-<button onclick="showHome()">الرئيسية</button>
-<button onclick="openPage('products')">المنتجات</button>
-<button onclick="openPage('suppliers')">الموردون</button>
-<button onclick="openPage('opportunities')">الفرص</button>
-<button onclick="openPage('shipping')">الشحن</button>
-<button id="adminNavButton" style="display:none" onclick="openPage('adminPage')">إدارة المنصة</button>
-</nav>
-<button class="login" id="authButton" onclick="openAuth()">دخول / تسجيل</button>
-</div>
-<section class="hero" id="hero">
-<div>
-<div class="eyebrow">منصة التجارة والفرص الذكية</div>
-<h1>خلّي بحثك عن المكسب<br>يبدأ من مكان واحد.</h1>
-<p>اكتشف المنتجات والموردين والفرص التجارية من واجهة واحدة.</p>
-<div class="search">
-<input id="searchInput" placeholder="اكتب اسم منتج أو مورد أو فرصة..." onkeydown="if(event.key==='Enter')searchNow()">
-<button onclick="searchNow()">ابحث الآن</button>
-</div>
-</div>
-<div class="ai">
-<div class="aihead">
-<div class="brain">🧠</div>
-<div><h3>مكسب الذكي</h3><small>مساعدك التجاري</small></div>
-</div>
-<p>مساعدك لفهم احتياجك التجاري وتجهيز طلب واضح للمراجعة.</p>
-<div class="chips">
-<button onclick="openAI('أبحث عن مورد')">أبحث عن مورد</button>
-<button onclick="openAI('أريد مقارنة أسعار')">مقارنة أسعار</button>
-<button onclick="openAI('أبحث عن شريك')">شريك تجاري</button>
-<button onclick="openAI('أريد اكتشاف الأسواق')">اكتشاف الأسواق</button>
-</div>
-<button class="gold" style="width:100%;margin-top:12px" onclick="openAI('')">افتح مكسب الذكي ←</button>
-</div>
-</section>
+  <div class="logo">
+    مكسب عرب
+    <small>MAKSA ARAB</small>
+  </div>
+
+  <nav>
+    <button onclick="showView('homeView')">الرئيسية</button>
+    <button onclick="showView('opportunitiesView')">الفرص والطلبات</button>
+    <button onclick="showView('suppliersView')">الموردون</button>
+    <button onclick="showView('mediaView')">الصور والفيديو</button>
+    <button onclick="showView('aiView')">مكسب الذكي</button>
+    <button onclick="showView('profileView')">حسابي</button>
+    <button id="adminNavButton" onclick="showView('adminView')">الإدارة</button>
+    <button id="loginNavButton" onclick="showView('authView')">دخول / تسجيل</button>
+    <button id="logoutNavButton" class="hidden" onclick="logout()">خروج</button>
+  </nav>
 </header>
-<main>
-<section id="homeView">
-<div class="heading"><h2>استكشف مكسب عرب</h2><span>اضغط على أي قسم لفتحه</span></div>
-<div class="cards">
-<article class="tile" onclick="openPage('products')"><div class="ico">📦</div><h3>المنتجات والأسواق</h3><p>تصفح المنتجات والفئات التجارية.</p></article>
-<article class="tile" onclick="openPage('suppliers')"><div class="ico">🏭</div><h3>الموردون والمصانع</h3><p>استكشف ملفات الموردين والمصانع.</p></article>
-<article class="tile" onclick="openPage('opportunities')"><div class="ico">🤝</div><h3>الفرص والشراكات</h3><p>فرص التعاون والشراء والبيع.</p></article>
-<article class="tile" onclick="openPage('shipping')"><div class="ico">🚚</div><h3>الشحن والخدمات</h3><p>خدمات النقل والتخليص اللوجستي.</p></article>
-</div>
-<div class="heading"><h2>نماذج من محتوى المنصة</h2><span>ليست عروضاً حقيقية</span></div>
-<div class="items">
-<article class="item"><span class="tag">مثال تجريبي</span><h3>طلب توريد مواد تغليف</h3><p>نموذج لطلب تجاري يمكن عرضه بعد المراجعة.</p><div class="meta">توريد منتجات · غير منشور</div></article>
-<article class="item"><span class="tag">مثال تجريبي</span><h3>مصنع يبحث عن موزعين</h3><p>نموذج فرصة تعاون مع موزعين في أسواق جديدة.</p><div class="meta">شراكات · غير منشور</div></article>
-<article class="item"><span class="tag">مثال تجريبي</span><h3>مقارنة عروض شحن</h3><p>نموذج لعرض خيارات الشحن والتكلفة والمدة.</p><div class="meta">خدمات لوجستية · غير منشور</div></article>
-</div>
-</section><section class="page" id="products">
-<button class="back" onclick="showHome()">← العودة للرئيسية</button>
-<div class="pageintro">
-<h2>📦 المنتجات والأسواق</h2>
-<p>هذه بيانات عرض تجريبية وليست منتجات معروضة للبيع.</p>
-</div>
-<div class="media-section">
-<h3>إضافة صور أو فيديو للمنتج</h3>
-<p class="media-help">يمكنك اختيار حتى 12 صورة أو فيديو، بحد أقصى 50 ميغابايت للملف الواحد. ستبقى الملفات بانتظار مراجعة الإدارة قبل نشرها.</p>
-<input class="media-picker" id="productMedia" type="file" accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime" multiple onchange="previewMedia('productMedia','productPreview','productMediaStatus')">
-<div class="media-preview" id="productPreview"></div>
-<input class="media-caption" id="productCaption" maxlength="250" placeholder="وصف مختصر للصور أو الفيديو (اختياري)">
-<button class="gold" style="margin-top:10px" onclick="uploadMedia('product')">رفع الوسائط للمراجعة</button>
-<p class="media-status" id="productMediaStatus" aria-live="polite"></p>
-</div>
-<div class="items">
-<article class="item"><span class="tag">مثال تجريبي</span><h3>مواد تغليف</h3><p>عبوات وكراتين ومواد تغليف متنوعة.</p></article>
-<article class="item"><span class="tag">مثال تجريبي</span><h3>مواد غذائية</h3><p>منتجات غذائية بالجملة والتجزئة.</p></article>
-<article class="item"><span class="tag">مثال تجريبي</span><h3>معدات صناعية</h3><p>معدات وقطع غيار للمصانع والورش.</p></article>
-</div>
-</section>
 
-<section class="page" id="suppliers">
-<button class="back" onclick="showHome()">← العودة للرئيسية</button>
-<div class="pageintro">
-<h2>🏭 الموردون والمصانع</h2>
-<p>لن نعرض مورداً حقيقياً قبل التحقق من بياناته.</p>
-</div>
-<div class="media-section">
-<h3>صور وفيديو للمصنع أو المورد</h3>
-<p class="media-help">أضف صور المصنع أو المنتجات أو فيديو تعريفي. الملفات تنتظر موافقة الإدارة قبل ظهورها للعامة.</p>
-<input class="media-picker" id="supplierMedia" type="file" accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime" multiple onchange="previewMedia('supplierMedia','supplierPreview','supplierMediaStatus')">
-<div class="media-preview" id="supplierPreview"></div>
-<input class="media-caption" id="supplierCaption" maxlength="250" placeholder="وصف مختصر للوسائط (اختياري)">
-<button class="gold" style="margin-top:10px" onclick="uploadMedia('supplier')">رفع الوسائط للمراجعة</button>
-<p class="media-status" id="supplierMediaStatus" aria-live="polite"></p>
-</div>
-<div class="items">
-<article class="item"><span class="tag">ملف تجريبي</span><h3>مورد مواد تغليف</h3><p>التخصص: عبوات ومواد تغليف.</p><div class="meta">غير موثق – نموذج فقط</div></article>
-<article class="item"><span class="tag">ملف تجريبي</span><h3>مصنع منتجات غذائية</h3><p>التخصص: تصنيع وتعبئة غذائية.</p><div class="meta">غير موثق – نموذج فقط</div></article>
-<article class="item"><span class="tag">ملف تجريبي</span><h3>مورد معدات صناعية</h3><p>التخصص: معدات وقطع غيار.</p><div class="meta">غير موثق – نموذج فقط</div></article>
-</div>
-</section>
+<main class="container">
 
-<section class="page" id="opportunities">
-<button class="back" onclick="showHome()">← العودة للرئيسية</button>
-<div class="pageintro">
-<h2>🤝 الفرص والطلبات التجارية</h2>
-<p>أرسل طلبك ليبقى قيد المراجعة حتى موافقة الإدارة.</p>
-</div>
-<div class="panel request-form">
-<h3>إضافة طلب تجاري</h3>
-<label for="requestTitle">عنوان الطلب</label>
-<input id="requestTitle" maxlength="180" placeholder="مثال: أبحث عن مورد زيت زيتون">
-<label for="requestType">نوع الطلب</label>
-<select id="requestType">
-<option value="">اختر نوع الطلب</option>
-<option value="شراء">طلب شراء</option>
-<option value="بيع">عرض بيع</option>
-<option value="توريد">طلب توريد</option>
-<option value="شراكة">شراكة تجارية</option>
-<option value="توزيع">بحث عن موزعين</option>
-<option value="خدمات">طلب خدمات</option>
-</select>
-<label for="requestCountry">الدولة</label>
-<input id="requestCountry" maxlength="100" placeholder="مثال: سوريا">
-<label for="requestDetails">تفاصيل الطلب</label>
-<textarea id="requestDetails" rows="5" maxlength="5000" placeholder="اكتب تفاصيل طلبك..."></textarea>
-<label for="requestContact">طريقة التواصل</label>
-<input id="requestContact" maxlength="250" placeholder="البريد أو رقم الهاتف أو واتساب">
+  <!-- الصفحة الرئيسية -->
+  <section id="homeView" class="view active">
+    <div class="hero">
+      <h1>مكسب عرب | MAKSA ARAB</h1>
+      <p>
+        منصة عربية تجمع التجار والموردين والمشترين،
+        وتفتح أبواب الفرص التجارية والعمل والتعاون،
+        وتسهّل الوصول إلى الأسواق العربية والعالمية.
+      </p>
+      <button class="gold-btn" onclick="showView('authView')">
+        ابدأ رحلتك مع مكسب عرب
+      </button>
+      <button class="outline-btn" onclick="showView('opportunitiesView')">
+        استكشف الفرص
+      </button>
+    </div>
 
-<div class="media-section">
-<h3>إرفاق صور أو فيديو مع الطلب</h3>
-<p class="media-help">اختياري: حتى 12 ملفاً، وبحد أقصى 50 ميغابايت لكل ملف. المرفقات لا تُنشر قبل مراجعة الإدارة.</p>
-<input class="media-picker" id="opportunityMedia" type="file" accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime" multiple onchange="previewMedia('opportunityMedia','opportunityPreview','opportunityMediaStatus')">
-<div class="media-preview" id="opportunityPreview"></div>
-<input class="media-caption" id="opportunityCaption" maxlength="250" placeholder="وصف مختصر للمرفقات (اختياري)">
-<p class="media-status" id="opportunityMediaStatus" aria-live="polite"></p>
-</div>
+    <h2 class="section-title">ماذا تقدم مكسب عرب؟</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>التجارة بالجملة</h3>
+        <p>ربط التجار بالموردين والمشترين وتسهيل عرض المنتجات والطلبات.</p>
+      </div>
+      <div class="card">
+        <h3>فرص الأعمال</h3>
+        <p>اكتشاف فرص التعاون والشراكة والعمل في الأسواق العربية.</p>
+      </div>
+      <div class="card">
+        <h3>الصور والفيديو</h3>
+        <p>إضافة صور وفيديوهات للمنتجات والعروض بعد مراجعتها واعتمادها.</p>
+      </div>
+      <div class="card">
+        <h3>مكسب الذكي</h3>
+        <p>مساعد رقمي يساعدك في الوصول إلى خدمات ومعلومات المنصة.</p>
+      </div>
+    </div>
+  </section>
 
-<button class="gold" style="margin-top:14px" id="submitRequestButton" onclick="submitRequest()">إرسال للمراجعة</button>
-<p id="requestStatus" class="status" role="status" aria-live="polite"></p>
-</div>
-<div class="heading"><h2>الفرص المعتمدة</h2><span>تظهر بعد موافقة الإدارة</span></div>
-<div id="approvedRequests" class="items"><div class="empty">جارٍ تحميل الفرص...</div></div>
-<div class="heading"><h2>طلباتي</h2><span>متابعة حالة طلباتك</span></div>
-<div id="myRequests" class="items"><div class="empty">سجّل الدخول لمشاهدة طلباتك.</div></div>
-</section>
+  <!-- الفرص والطلبات -->
+  <section id="opportunitiesView" class="view">
+    <h2 class="section-title">الفرص والطلبات التجارية</h2>
 
-<section class="page" id="adminPage">
-<button class="back" onclick="showHome()">← العودة للرئيسية</button>
-<div class="pageintro">
-<h2>🛡️ إدارة منصة مكسب عرب</h2>
-<p>مراجعة الطلبات قبل نشرها. الموافقة تنشر الطلب للعامة، والرفض يبقيه مخفياً.</p>
-<p id="adminStatus" class="status" role="status" aria-live="polite">جارٍ التحقق من صلاحيات المدير...</p>
-</div>
-<div class="heading">
-<h2>طلبات الأعضاء</h2>
-<button class="back" onclick="loadAdminPanel()">تحديث القائمة ↻</button>
-</div>
-<div id="adminRequests" class="items"><div class="empty">جارٍ تحميل الطلبات...</div></div>
-</section>
+    <div class="panel">
+      <h3>إضافة طلب أو فرصة جديدة</h3>
+      <div class="notice">
+        جميع الطلبات الجديدة تخضع لمراجعة الإدارة قبل ظهورها للزوار.
+      </div>
 
-<section class="page" id="shipping">
-<button class="back" onclick="showHome()">← العودة للرئيسية</button>
-<div class="pageintro">
-<h2>🚚 الشحن والخدمات اللوجستية</h2>
-<p>هذا القسم مخصص لشركات الشحن والنقل والتخليص ومقارنة الخدمات.</p>
-</div>
-<div class="items">
-<article class="item"><span class="tag">قسم قيد التجهيز</span><h3>الشحن البري</h3><p>خيارات النقل البري بين المدن والدول.</p></article>
-<article class="item"><span class="tag">قسم قيد التجهيز</span><h3>الشحن البحري</h3><p>خدمات الحاويات والشحن البحري.</p></article>
-<article class="item"><span class="tag">قسم قيد التجهيز</span><h3>التخليص الجمركي</h3><p>خدمات التخليص والإجراءات المساندة.</p></article>
-</div>
-</section>
+      <form id="requestForm">
+        <div class="form-grid">
+          <div class="field">
+            <label for="requestTitle">عنوان الطلب</label>
+            <input id="requestTitle" required maxlength="150"
+              placeholder="مثال: مطلوب مورد مواد غذائية">
+          </div>
 
-<section class="page" id="aiPage">
-<button class="back" onclick="showHome()">← العودة للرئيسية</button>
-<div class="pageintro">
-<h2>🧠 مكسب الذكي</h2>
-<p>مساعد تجاري تفاعلي لتنظيم احتياجاتك وصياغة طلب تجاري. لا يدّعي امتلاك أسعار مباشرة أو قاعدة موردين موثقة قبل ربط مصادرها.</p>
-</div>
-<div class="chatbox">
-<div class="messages" id="messages">
-<div class="bubble bot">أهلاً بك في مكسب الذكي. أستطيع مساعدتك في تجهيز طلب مورد أو مقارنة أسعار أو شراكة أو شحن أو دراسة سوق أولية. ما الذي تبحث عنه؟</div>
-</div>
-<div class="chatrow">
-<input id="chatInput" placeholder="مثلاً: أبحث عن مورد مواد تغليف في سوريا، 5 أطنان..." onkeydown="if(event.key==='Enter')sendChat()">
-<button class="gold" onclick="sendChat()">إرسال</button>
-</div>
-</div>
-</section>
+          <div class="field">
+            <label for="requestType">نوع الطلب</label>
+            <select id="requestType" required>
+              <option value="">اختر النوع</option>
+              <option value="شراء">طلب شراء</option>
+              <option value="بيع">عرض بيع</option>
+              <option value="توريد">طلب توريد</option>
+              <option value="شراكة">فرصة شراكة</option>
+              <option value="عمل">فرصة عمل</option>
+              <option value="أخرى">أخرى</option>
+            </select>
+          </div>
 
-<section class="results" id="searchResults" style="display:none"></section>
-<div class="notice">
-<b>تنبيه:</b> الحسابات والملفات الشخصية والطلبات مرتبطة بـ Supabase. كل طلب جديد يبقى قيد المراجعة ولا يظهر للعامة إلا بعد موافقة المدير. المنتجات والموردون والبحث المباشر ما زالت أقساماً تجريبية.
-</div>
+          <div class="field">
+            <label for="requestCountry">الدولة</label>
+            <input id="requestCountry" required placeholder="الدولة">
+          </div>
 
-<section id="authPanel" class="auth-panel">
-<button class="back" onclick="closeAuth()">← إغلاق</button>
-<h2 style="margin-top:0">حساب مكسب عرب</h2>
-<p style="color:var(--muted);font-size:13px;line-height:1.8">أنشئ حساباً أو سجّل الدخول. ستبقى الإعلانات والفرص قيد المراجعة قبل نشرها.</p>
-<label for="authName">الاسم الكامل</label>
-<input id="authName" autocomplete="name" placeholder="الاسم الكامل">
-<label for="authEmail">البريد الإلكتروني</label>
-<input id="authEmail" type="email" autocomplete="email" placeholder="name@example.com">
-<label for="authPassword">كلمة المرور</label>
-<input id="authPassword" type="password" autocomplete="current-password" placeholder="6 أحرف على الأقل">
-<div class="auth-actions">
-<button class="gold" onclick="signUp()">إنشاء حساب</button>
-<button class="back" onclick="signIn()">تسجيل الدخول</button>
-<button class="back" onclick="signOut()">تسجيل الخروج</button>
-</div>
-<p id="authStatus" class="status" role="status"></p>
+          <div class="field">
+            <label for="requestContact">طريقة التواصل</label>
+            <input id="requestContact" required
+              placeholder="رقم الهاتف أو وسيلة التواصل">
+          </div>
 
-<div id="profileEditor" class="profile-editor">
-<h3>بيانات حسابي</h3>
-<label for="profileFullName">الاسم الكامل</label>
-<input id="profileFullName" type="text" autocomplete="name" placeholder="اكتب اسمك الكامل">
-<label for="profileCompany">اسم الشركة أو النشاط التجاري</label>
-<input id="profileCompany" type="text" autocomplete="organization" placeholder="اختياري">
-<label for="profileCountry">الدولة</label>
-<input id="profileCountry" type="text" autocomplete="country-name" placeholder="مثال: سوريا، السعودية، الإمارات">
-<label for="profileAccountType">نوع الحساب</label>
-<select id="profileAccountType">
-<option value="">اختر نوع الحساب</option>
-<option value="buyer">مشتري</option>
-<option value="supplier">مورد / مصنع</option>
-<option value="both">مشتري ومورد</option>
-<option value="service_provider">مقدم خدمات</option>
-</select>
+          <div class="field full">
+            <label for="requestDetails">تفاصيل الطلب</label>
+            <textarea id="requestDetails" required
+              placeholder="اكتب تفاصيل العرض أو الطلب..."></textarea>
+          </div>
 
-<div class="media-section">
-<h3>الصورة الشخصية أو شعار الشركة</h3>
-<p class="media-help">اختر صورة واحدة. ستُرفع وفق سياسة التخزين المعتمدة في Supabase.</p>
-<input class="media-picker" id="profileMedia" type="file" accept="image/jpeg,image/png,image/webp,image/gif" onchange="previewMedia('profileMedia','profilePreview','profileMediaStatus',true)">
-<div class="media-preview" id="profilePreview"></div>
-<p class="media-status" id="profileMediaStatus" aria-live="polite"></p>
-</div>
+          <div class="field full">
+            <label for="requestFiles">إرفاق صور أو فيديو</label>
+            <input id="requestFiles" type="file"
+              accept="image/*,video/mp4,video/webm,video/quicktime"
+              multiple>
+            <div id="requestMediaPreview" class="media-preview"></div>
+            <small>يمكنك اختيار صور وفيديوهات متعددة.</small>
+          </div>
 
-<button class="gold" style="margin-top:12px" onclick="saveProfile()">حفظ بياناتي</button>
-<p id="profileStatus" class="status" role="status"></p>
-</div>
-</section>
+          <div class="field full">
+            <button class="gold-btn" type="submit">
+              إرسال الطلب للمراجعة
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <h3 class="section-title">الطلبات المعتمدة</h3>
+    <div id="publicRequestsList">
+      <p>سيتم عرض الطلبات المعتمدة هنا.</p>
+    </div>
+  </section>
+
+  <!-- الموردون -->
+  <section id="suppliersView" class="view">
+    <h2 class="section-title">دليل الموردين</h2>
+    <div class="panel">
+      <p>مساحة عرض الموردين والخدمات التجارية المعتمدة في مكسب عرب.</p>
+      <div id="suppliersList">جارٍ تحميل الموردين...</div>
+    </div>
+  </section>
+
+  <!-- الصور والفيديو -->
+  <section id="mediaView" class="view">
+    <h2 class="section-title">معرض الصور والفيديو</h2>
+    <div class="panel">
+      <p>
+        يمكنك إضافة صور وفيديوهات مرتبطة بعروضك وطلباتك.
+        لن تظهر المواد المنشورة في المنصة قبل موافقة الإدارة.
+      </p>
+      <button class="gold-btn" onclick="showView('opportunitiesView')">
+        أضف صوراً أو فيديو مع طلبك
+      </button>
+    </div>
+    <div id="publicMediaList"></div>
+  </section>  <!-- مكسب الذكي -->
+  <section id="aiView" class="view">
+    <h2 class="section-title">مكسب الذكي</h2>
+    <div class="panel">
+      <h3>المساعد الذكي لمنصة مكسب عرب</h3>
+      <p>اكتب سؤالك أو استفسارك حول التجارة والفرص واستخدام المنصة.</p>
+      <div class="field">
+        <textarea id="aiQuestion" placeholder="كيف يمكنني إيجاد مورد؟"></textarea>
+      </div>
+      <button class="gold-btn" onclick="askMaksaAI()">إرسال السؤال</button>
+      <div id="aiAnswer" class="notice hidden" style="margin-top:15px"></div>
+    </div>
+  </section>
+
+  <!-- الملف الشخصي -->
+  <section id="profileView" class="view">
+    <h2 class="section-title">ملفي الشخصي</h2>
+    <div class="panel">
+      <div id="profileMessage" class="notice">
+        سجّل الدخول لعرض ملفك الشخصي.
+      </div>
+
+      <form id="profileForm">
+        <div class="form-grid">
+          <div class="field">
+            <label for="profileName">الاسم الكامل</label>
+            <input id="profileName" required>
+          </div>
+
+          <div class="field">
+            <label for="profileCompany">اسم الشركة أو النشاط</label>
+            <input id="profileCompany">
+          </div>
+
+          <div class="field">
+            <label for="profileCountry">الدولة</label>
+            <input id="profileCountry">
+          </div>
+
+          <div class="field">
+            <label for="profileType">نوع الحساب</label>
+            <select id="profileType">
+              <option value="مشتري">مشتري</option>
+              <option value="تاجر">تاجر</option>
+              <option value="مورد">مورد</option>
+              <option value="شركة">شركة</option>
+              <option value="مستثمر">مستثمر</option>
+              <option value="أخرى">أخرى</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <button type="submit" class="gold-btn">حفظ بياناتي</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- تسجيل الدخول -->
+  <section id="authView" class="view">
+    <h2 class="section-title">الدخول والتسجيل</h2>
+    <div class="panel">
+      <div class="form-grid">
+        <div class="field">
+          <label for="authEmail">البريد الإلكتروني</label>
+          <input id="authEmail" type="email" required
+            placeholder="name@example.com">
+        </div>
+
+        <div class="field">
+          <label for="authPassword">كلمة المرور</label>
+          <input id="authPassword" type="password" required
+            minlength="6" placeholder="ستة أحرف على الأقل">
+        </div>
+      </div>
+
+      <div class="item-actions">
+        <button class="gold-btn" onclick="login()">تسجيل الدخول</button>
+        <button class="dark-btn" onclick="register()">إنشاء حساب جديد</button>
+      </div>
+
+      <div id="authMessage" class="notice hidden" style="margin-top:15px"></div>
+    </div>
+  </section>
+
+  <!-- لوحة الإدارة -->
+  <section id="adminView" class="view">
+    <h2 class="section-title">لوحة إدارة مكسب عرب</h2>
+
+    <div class="notice">
+      هذه اللوحة مخصصة لحسابات الإدارة المصرح لها فقط.
+      الموافقة أو الرفض تتم من خلال قاعدة البيانات وليس بمجرد إظهار الزر.
+    </div>
+
+    <div class="cards" style="margin:18px 0">
+      <div class="card">
+        <h3>الطلبات المعلقة</h3>
+        <strong id="pendingCount">0</strong>
+      </div>
+      <div class="card">
+        <h3>الطلبات المعتمدة</h3>
+        <strong id="approvedCount">0</strong>
+      </div>
+      <div class="card">
+        <h3>الطلبات المرفوضة</h3>
+        <strong id="rejectedCount">0</strong>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>طلبات تحتاج إلى مراجعة</h3>
+      <div id="adminRequestsList">جارٍ التحميل...</div>
+    </div>
+
+    <div class="panel">
+      <h3>الصور والفيديوهات المرفقة</h3>
+      <div id="adminMediaList">جارٍ التحميل...</div>
+    </div>
+  </section>
+
 </main>
-<footer>مكسب عرب MAKSA ARAB · رامي رستم — المؤسس والمدير العام</footer><!-- MAKSA ARAB - PART 3 -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<footer>
+  <strong>MAKSA ARAB | مكسب عرب</strong>
+  <br>
+  منصة عربية للتجارة والفرص والتعاون
+  <br>
+  رامي رستم — المؤسس والمدير العام
+</footer>
 
 <script>
-/* =================================
-   1. إعداد الاتصال بقاعدة البيانات
-================================= */
-
+/* إعداد الاتصال بقاعدة البيانات */
 const SUPABASE_URL = 'https://nvpcensxvgmxdpqnenrw.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY =
+  'sb_publishable_Iwd05yggg2IZUPJrnY3L6w_WoIJgERM';
 
-const SUPABASE_ANON_KEY = 'sb_publishable_Iwd05yggg2IZUPJrnY3L6w_WoIJgERM';
-
-const db = window.supabase.createClient(
+const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
-  SUPABASE_ANON_KEY
+  SUPABASE_PUBLISHABLE_KEY
 );
 
 let currentUser = null;
-let currentSession = null;
-let selectedMedia = {};
-let profileImageUrl = null;
+let currentProfile = null;
+let selectedRequestFiles = [];
 
-const MEDIA_BUCKET = 'maksa-media';
-const AI_FUNCTION = 'maksa-ai';
-
-
-/* =================================
-   2. أدوات مساعدة
-================================= */
-
-function el(id) {
+/* أدوات مساعدة */
+function byId(id){
   return document.getElementById(id);
 }
 
-function status(id, message, error = false) {
-  const node = el(id);
-  if (!node) return;
-  node.textContent = message;
-  node.classList.toggle('error', error);
+function showMessage(id,message){
+  const el = byId(id);
+  if(!el) return;
+  el.textContent = message;
+  el.classList.remove('hidden');
 }
 
-function escapeHTML(value) {
-  return String(value ?? '').replace(/[&<>"']/g, char => ({
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;'
-  })[char]);
-}
-
-function requireLogin() {
-  if (currentUser) return true;
-
-  openAuth();
-  status('authStatus', 'يرجى تسجيل الدخول أولاً.', true);
-  return false;
-}
-
-function fileIsAllowed(file) {
-  const allowed = [
-    'image/jpeg',
-    'image/png',
-    'image/webp',
-    'image/gif',
-    'video/mp4',
-    'video/webm',
-    'video/quicktime'
-  ];
-
-  return allowed.includes(file.type) &&
-         file.size <= 50 * 1024 * 1024;
-}
-
-
-/* =================================
-   3. التنقل بين صفحات المنصة
-================================= */
-
-function showHome() {
-  document.querySelectorAll('.page').forEach(page => {
-    page.classList.remove('active');
-  });
-
-  el('homeView').style.display = 'block';
-  el('hero').style.display = 'grid';
-
-  const results = el('searchResults');
-  if (results) results.style.display = 'none';
-
-  el('authPanel').style.display = 'none';
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function openPage(pageId) {
-  if (pageId === 'adminPage' && !isAdmin()) {
-    alert('هذه الصفحة مخصصة لإدارة المنصة.');
+function showView(viewId){
+  if(viewId === 'adminView' && !currentProfileIsAdmin()){
+    alert('هذه الصفحة مخصصة للإدارة فقط.');
     return;
   }
 
-  el('homeView').style.display = 'none';
-  el('hero').style.display = 'none';
-  el('authPanel').style.display = 'none';
-
-  document.querySelectorAll('.page').forEach(page => {
-    page.classList.remove('active');
+  document.querySelectorAll('.view').forEach(view=>{
+    view.classList.remove('active');
   });
 
-  const page = el(pageId);
+  const target = byId(viewId);
+  if(target) target.classList.add('active');
 
-  if (page) {
-    page.classList.add('active');
-  }
-
-  if (pageId === 'opportunities') {
-    loadApprovedRequests();
-    loadMyRequests();
-  }
-
-  if (pageId === 'adminPage') {
-    loadAdminPanel();
-  }
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if(viewId === 'adminView') loadAdminPanel();
+  if(viewId === 'opportunitiesView') loadPublicRequests();
+  if(viewId === 'suppliersView') loadSuppliers();
+  if(viewId === 'profileView') loadProfile();
 }
 
-function openAI(question = '') {
-  openPage('aiPage');
-
-  if (question) {
-    el('chatInput').value = question;
-  }
-
-  el('chatInput').focus();
+function currentProfileIsAdmin(){
+  return !!(
+    currentProfile &&
+    currentProfile.role === 'admin'
+  );
 }
 
-function openAuth() {
-  el('homeView').style.display = 'none';
-  el('hero').style.display = 'none';
+/* عرض حالة الدخول */
+function updateNavigation(){
+  const loggedIn = !!currentUser;
 
-  document.querySelectorAll('.page').forEach(page => {
-    page.classList.remove('active');
-  });
+  byId('loginNavButton').classList.toggle('hidden',loggedIn);
+  byId('logoutNavButton').classList.toggle('hidden',!loggedIn);
 
-  el('authPanel').style.display = 'block';
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  byId('adminNavButton').style.display =
+    currentProfileIsAdmin() ? 'inline-block' : 'none';
 }
 
-function closeAuth() {
-  el('authPanel').style.display = 'none';
-  showHome();
-}
+/* التسجيل */
+async function register(){
+  const email = byId('authEmail').value.trim();
+  const password = byId('authPassword').value;
 
-
-/* =================================
-   4. التسجيل وإنشاء الحساب
-================================= */
-
-async function signUp() {
-  const name = el('authName').value.trim();
-  const email = el('authEmail').value.trim();
-  const password = el('authPassword').value;
-
-  if (!name || !email || password.length < 6) {
-    status(
-      'authStatus',
-      'أدخل الاسم والبريد وكلمة مرور من 6 أحرف على الأقل.',
-      true
-    );
+  if(!email || password.length < 6){
+    showMessage('authMessage','أدخل بريداً إلكترونياً وكلمة مرور من 6 أحرف على الأقل.');
     return;
   }
 
-  status('authStatus', 'جارٍ إنشاء الحساب...');
-
-  const { data, error } = await db.auth.signUp({
-    email,
-    password,
-    options: {
-      data: {
-        full_name: name
-      }
-    }
-  });
-
-  if (error) {
-    status('authStatus', error.message, true);
-    return;
-  }
-
-  if (data.user && data.session) {
-    currentUser = data.user;
-    currentSession = data.session;
-
-    await saveProfile();
-    status('authStatus', 'تم إنشاء الحساب بنجاح.');
-    await refreshAccount();
-  } else {
-    status(
-      'authStatus',
-      'تم إرسال رسالة تأكيد إلى بريدك الإلكتروني. أكّد الحساب ثم سجّل الدخول.'
-    );
-  }
-}
-
-
-/* =================================
-   5. تسجيل الدخول والخروج
-================================= */
-
-async function signIn() {
-  const email = el('authEmail').value.trim();
-  const password = el('authPassword').value;
-
-  if (!email || !password) {
-    status('authStatus', 'أدخل البريد وكلمة المرور.', true);
-    return;
-  }
-
-  status('authStatus', 'جارٍ تسجيل الدخول...');
-
-  const { data, error } = await db.auth.signInWithPassword({
+  const {data,error} = await supabaseClient.auth.signUp({
     email,
     password
   });
 
-  if (error) {
-    status('authStatus', error.message, true);
+  if(error){
+    showMessage('authMessage','تعذر إنشاء الحساب: '+error.message);
+    return;
+  }
+
+  showMessage(
+    'authMessage',
+    'تم إرسال طلب إنشاء الحساب. إذا كان تأكيد البريد مفعّلاً، تحقق من بريدك الإلكتروني.'
+  );
+}
+
+/* تسجيل الدخول */
+async function login(){
+  const email = byId('authEmail').value.trim();
+  const password = byId('authPassword').value;
+
+  if(!email || !password){
+    showMessage('authMessage','يرجى إدخال البريد الإلكتروني وكلمة المرور.');
+    return;
+  }
+
+  const {data,error} = await supabaseClient.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if(error){
+    showMessage('authMessage','فشل تسجيل الدخول: '+error.message);
     return;
   }
 
   currentUser = data.user;
-  currentSession = data.session;
+  await loadProfile();
+  updateNavigation();
 
-  await refreshAccount();
-
-  status('authStatus', 'أهلاً بك في مكسب عرب.');
+  showMessage('authMessage','تم تسجيل الدخول بنجاح.');
+  showView('homeView');
 }
 
-async function signOut() {
-  const { error } = await db.auth.signOut();
+/* تسجيل الخروج */
+async function logout(){
+  const {error} = await supabaseClient.auth.signOut();
 
-  if (error) {
-    status('authStatus', error.message, true);
+  if(error){
+    alert('تعذر تسجيل الخروج: '+error.message);
     return;
   }
 
   currentUser = null;
-  currentSession = null;
-
-  el('profileEditor').style.display = 'none';
-  el('adminNavButton').style.display = 'none';
-  el('authButton').textContent = 'دخول / تسجيل';
-
-  status('authStatus', 'تم تسجيل الخروج بنجاح.');
-
-  showHome();
+  currentProfile = null;
+  updateNavigation();
+  showView('homeView');
 }
 
+/* قراءة الملف الشخصي */
+async function loadProfile(){
+  if(!currentUser) return;
 
-/* =================================
-   6. تحميل بيانات الحساب
-================================= */
+  const {data,error} = await supabaseClient
+    .from('Profiles')
+    .select('user_id,full_name,company_name,country,account_type,role')
+    .eq('user_id',currentUser.id)
+    .maybeSingle();
 
-async function refreshAccount() {
-  const { data } = await db.auth.getSession();
+  if(error){
+    showMessage('profileMessage','تعذر تحميل الملف الشخصي: '+error.message);
+    return;
+  }
 
-  currentSession = data.session;
-  currentUser = data.session?.user || null;
+  currentProfile = data || null;
 
-  if (!currentUser) return;
+  if(data){
+    byId('profileName').value = data.full_name || '';
+    byId('profileCompany').value = data.company_name || '';
+    byId('profileCountry').value = data.country || '';
+    byId('profileType').value = data.account_type || 'مشتري';
+  }
 
-  el('authButton').textContent = 'حسابي';
+  updateNavigation();
+}
 
-  el('profileEditor').style.display = 'block';
+/* حفظ الملف الشخصي */
+byId('profileForm').addEventListener('submit',async function(event){
+  event.preventDefault();
+
+  if(!currentUser){
+    showMessage('profileMessage','سجّل الدخول أولاً.');
+    return;
+  }
+
+  const profileData = {
+    user_id: currentUser.id,
+    full_name: byId('profileName').value.trim(),
+    company_name: byId('profileCompany').value.trim(),
+    country: byId('profileCountry').value.trim(),
+    account_type: byId('profileType').value
+  };
+
+  const {error} = await supabaseClient
+    .from('Profiles')
+    .upsert(profileData,{onConflict:'user_id'});
+
+  if(error){
+    showMessage('profileMessage','تعذر حفظ البيانات: '+error.message);
+    return;
+  }
 
   await loadProfile();
+  showMessage('profileMessage','تم حفظ بيانات الملف الشخصي بنجاح.');
+});
 
-  if (await checkAdmin()) {
-    el('adminNavButton').style.display = 'inline-block';
-  } else {
-    el('adminNavButton').style.display = 'none';
-  }
-}
+/* التحقق من الجلسة عند فتح الموقع */
+async function initializeMaksa(){
+  const {data,error} = await supabaseClient.auth.getSession();
 
-
-/* =================================
-   7. تحميل الملف الشخصي
-================================= */
-
-async function loadProfile() {
-  if (!currentUser) return;
-
-  const { data, error } = await db
-    .from('Profiles')
-    .select('id,full_name,company_name,country,account_type')
-    .eq('id', currentUser.id)
-    .maybeSingle();
-
-  if (error) {
-    status('profileStatus', error.message, true);
+  if(error){
+    console.error(error);
     return;
   }
 
-  if (data) {
-    el('profileFullName').value = data.full_name || '';
-    el('profileCompany').value = data.company_name || '';
-    el('profileCountry').value = data.country || '';
-    el('profileAccountType').value = data.account_type || '';
-  } else {
-    el('profileFullName').value =
-      currentUser.user_metadata?.full_name || '';
-  }
-}
+  currentUser = data.session ? data.session.user : null;
 
-
-/* =================================
-   8. حفظ الملف الشخصي
-================================= */
-
-async function saveProfile() {
-  if (!requireLogin()) return;
-
-  const profile = {
-    id: currentUser.id,
-    full_name: el('profileFullName').value.trim(),
-    company_name: el('profileCompany').value.trim(),
-    country: el('profileCountry').value.trim(),
-    account_type: el('profileAccountType').value || ''
-  };
-
-  if (!profile.full_name) {
-    status('profileStatus', 'يرجى إدخال الاسم الكامل.', true);
-    return;
+  if(currentUser){
+    await loadProfile();
   }
 
-  status('profileStatus', 'جارٍ حفظ البيانات...');
-
-  const { error } = await db
-    .from('Profiles')
-    .upsert(profile, { onConflict: 'id' });
-
-  if (error) {
-    status('profileStatus', error.message, true);
-    return;
-  }
-
-  status('profileStatus', 'تم حفظ بياناتك بنجاح.');
-}
-
-
-/* =================================
-   9. تحديد صلاحيات الإدارة
-================================= */
-
-async function checkAdmin() {
-  if (!currentUser) return false;
-
-  const { data, error } = await db
-    .from('Profiles')
-    .select('role')
-    .eq('id', currentUser.id)
-    .maybeSingle();
-
-  if (error || !data) return false;
-
-  return data.role === 'admin';
-}
-
-function isAdmin() {
-  return !!currentUser &&
-    currentUser.app_metadata?.role === 'admin';
-}
-
-
-/* =================================
-   10. معاينة الصور والفيديوهات
-================================= */
-
-function previewMedia(inputId, previewId, statusId, single = false) {
-  const input = el(inputId);
-  const preview = el(previewId);
-
-  if (!input || !preview) return;
-
-  const files = Array.from(input.files || []);
-
-  if (files.length > (single ? 1 : 12)) {
-    status(statusId, 'عدد الملفات المسموح به تجاوز الحد.', true);
-    input.value = '';
-    preview.innerHTML = '';
-    return;
-  }
-
-  for (const file of files) {
-    if (!fileIsAllowed(file)) {
-      status(
-        statusId,
-        'نوع الملف غير مسموح أو حجمه أكبر من 50 ميغابايت.',
-        true
-      );
-      input.value = '';
-      preview.innerHTML = '';
-      return;
-    }
-  }
-
-  selectedMedia[inputId] = files;
-
-  preview.innerHTML = '';
-
-  files.forEach(file => {
-    const url = URL.createObjectURL(file);
-    const item = document.createElement('div');
-
-    item.className = 'media-preview-item';
-
-    if (file.type.startsWith('image/')) {
-      item.innerHTML =
-        `<img src="${url}" alt="معاينة الصورة">`;
-    } else {
-      item.innerHTML =
-        `<video src="${url}" controls></video>`;
-    }
-
-    const label = document.createElement('p');
-    label.textContent = file.name;
-
-    item.appendChild(label);
-    preview.appendChild(item);
-  });
-
-  status(statusId, `تم اختيار ${files.length} ملف بنجاح.`);
-}
-
-
-/* =================================
-   11. رفع الوسائط إلى Supabase
-================================= */
-
-async function uploadFiles(inputId, folder) {
-  if (!requireLogin()) return null;
-
-  const files = selectedMedia[inputId] || [];
-
-  if (!files.length) return [];
-
-  const uploaded = [];
-
-  for (const file of files) {
-    const cleanName = file.name
-      .replace(/[^a-zA-Z0-9._-]/g, '_');
-
-    const path =
-      `${folder}/${currentUser.id}/${Date.now()}_${cleanName}`;
-
-    const { data, error } = await db.storage
-      .from(MEDIA_BUCKET)
-      .upload(path, file, {
-        cacheControl: '3600',
-        upsert: false,
-        contentType: file.type
-      });
-
-    if (error) {
-      throw new Error(error.message);
-    }
-
-    uploaded.push({
-      path: data.path,
-      name: file.name,
-      type: file.type,
-      size: file.size
-    });
-  }
-
-  return uploaded;
-}
-
-async function uploadMedia(type) {
-  if (!requireLogin()) return;
-
-  const inputId = type + 'Media';
-  const statusId = type + 'MediaStatus';
-
-  status(statusId, 'جارٍ رفع الملفات...');
-
-  try {
-    const files = await uploadFiles(inputId, type);
-
-    if (!files || !files.length) {
-      status(statusId, 'اختر ملفات أولاً.', true);
-      return;
-    }
-
-    status(
-      statusId,
-      'تم رفع الملفات. الملفات محفوظة وتحتاج إلى مراجعة الإدارة.'
-    );
-
-    selectedMedia[inputId] = [];
-
-  } catch (error) {
-    status(statusId, error.message, true);
-  }
-}
-
-
-/* =================================
-   12. إرسال طلب تجاري
-================================= */
-
-async function submitRequest() {
-  if (!requireLogin()) return;
-
-  const title = el('requestTitle').value.trim();
-  const type = el('requestType').value;
-  const country = el('requestCountry').value.trim();
-  const details = el('requestDetails').value.trim();
-  const contact = el('requestContact').value.trim();
-
-  if (!title || !type || !country || !details) {
-    status(
-      'requestStatus',
-      'يرجى تعبئة العنوان والنوع والدولة والتفاصيل.',
-      true
-    );
-    return;
-  }
-
-  const button = el('submitRequestButton');
-  button.disabled = true;
-
-  status('requestStatus', 'جارٍ إرسال الطلب...');
-
-  try {
-    const media = await uploadFiles(
-      'opportunityMedia',
-      'opportunities'
-    );
-
-    const { error } = await db
-      .from('requests')
-      .insert({
-        user_id: currentUser.id,
-        title,
-        request_type: type,
-        country,
-        details,
-        contact,
-        status: 'pending'
-      });
-
-    if (error) throw error;
-
-    el('requestTitle').value = '';
-    el('requestType').value = '';
-    el('requestCountry').value = '';
-    el('requestDetails').value = '';
-    el('requestContact').value = '';
-    el('opportunityMedia').value = '';
-    el('opportunityPreview').innerHTML = '';
-
-    selectedMedia.opportunityMedia = [];
-
-    status(
-      'requestStatus',
-      'تم إرسال طلبك بنجاح. أصبح قيد مراجعة الإدارة.'
-    );
-
-    await loadMyRequests();
-
-  } catch (error) {
-    status('requestStatus', error.message, true);
-  } finally {
-    button.disabled = false;
-  }
-}
-
-
-/* =================================
-   13. تحميل الفرص المعتمدة
-================================= */
-
-async function loadApprovedRequests() {
-  const container = el('approvedRequests');
-
-  container.innerHTML =
-    '<div class="empty">جارٍ تحميل الفرص...</div>';
-
-  const { data, error } = await db
-    .from('requests')
-    .select('id,title,request_type,country,details,created_at')
-    .eq('status', 'approved')
-    .order('created_at', { ascending: false });
-
-  if (error) {
-    container.innerHTML =
-      '<div class="empty">تعذر تحميل الفرص حالياً.</div>';
-    return;
-  }
-
-  if (!data?.length) {
-    container.innerHTML =
-      '<div class="empty">لا توجد فرص معتمدة حالياً.</div>';
-    return;
-  }
-
-  container.innerHTML = data.map(item => `
-    <article class="item">
-      <span class="tag">فرصة معتمدة</span>
-      <h3>${escapeHTML(item.title)}</h3>
-      <p>${escapeHTML(item.details)}</p>
-      <div class="meta">
-        ${escapeHTML(item.request_type)} ·
-        ${escapeHTML(item.country)}
-      </div>
-    </article>
-  `).join('');
-}
-
-
-/* =================================
-   14. تحميل طلبات العضو
-================================= */
-
-async function loadMyRequests() {
-  const container = el('myRequests');
-
-  if (!currentUser) {
-    container.innerHTML =
-      '<div class="empty">سجّل الدخول لمشاهدة طلباتك.</div>';
-    return;
-  }
-
-  const { data, error } = await db
-    .from('requests')
-    .select('id,title,request_type,country,status,created_at')
-    .eq('user_id', currentUser.id)
-    .order('created_at', { ascending: false });
-
-  if (error) {
-    container.innerHTML =
-      '<div class="empty">تعذر تحميل طلباتك.</div>';
-    return;
-  }
-
-  if (!data?.length) {
-    container.innerHTML =
-      '<div class="empty">لم ترسل أي طلب حتى الآن.</div>';
-    return;
-  }
-
-  const labels = {
-    pending: 'قيد المراجعة',
-    approved: 'مقبول',
-    rejected: 'مرفوض'
-  };
-
-  container.innerHTML = data.map(item => `
-    <article class="item">
-      <span class="tag ${item.status === 'pending' ? 'pending' : item.status === 'rejected' ? 'rejected' : ''}">
-        ${labels[item.status] || 'قيد المراجعة'}
-      </span>
-      <h3>${escapeHTML(item.title)}</h3>
-      <p>${escapeHTML(item.request_type)} · ${escapeHTML(item.country)}</p>
-    </article>
-  `).join('');
-}
-
-
-/* =================================
-   15. لوحة الإدارة
-================================= */
-
-async function loadAdminPanel() {
-  if (!currentUser || !(await checkAdmin())) {
-    status('adminStatus', 'ليس لديك صلاحية إدارة المنصة.', true);
-    return;
-  }
-
-  status('adminStatus', 'تم التحقق من صلاحيات الإدارة.');
-
-  const container = el('adminRequests');
-
-  container.innerHTML =
-    '<div class="empty">جارٍ تحميل الطلبات...</div>';
-
-  const { data, error } = await db
-    .from('requests')
-    .select('*')
-    .order('created_at', { ascending: false });
-
-  if (error) {
-    container.innerHTML =
-      '<div class="empty">تعذر تحميل الطلبات.</div>';
-    return;
-  }
-
-  if (!data?.length) {
-    container.innerHTML =
-      '<div class="empty">لا توجد طلبات حتى الآن.</div>';
-    return;
-  }
-
-  container.innerHTML = data.map(item => `
-    <article class="item">
-      <span class="tag ${item.status === 'pending' ? 'pending' : item.status === 'rejected' ? 'rejected' : ''}">
-        ${escapeHTML(item.status)}
-      </span>
-      <h3>${escapeHTML(item.title)}</h3>
-      <p>${escapeHTML(item.details)}</p>
-      <p>النوع: ${escapeHTML(item.request_type)}</p>
-      <p>الدولة: ${escapeHTML(item.country)}</p>
-      <p>التواصل: ${escapeHTML(item.contact)}</p>
-      <div class="auth-actions">
-        <button class="gold"
-          onclick="changeRequestStatus('${escapeHTML(item.id)}','approved')">
-          موافقة ونشر
-        </button>
-        <button class="back"
-          onclick="changeRequestStatus('${escapeHTML(item.id)}','rejected')">
-          رفض الطلب
-        </button>
-      </div>
-    </article>
-  `).join('');
-}
-
-
-/* =================================
-   16. الموافقة أو رفض الطلب
-================================= */
-
-async function changeRequestStatus(id, newStatus) {
-  if (!(await checkAdmin())) {
-    alert('ليس لديك صلاحية لتنفيذ هذا الإجراء.');
-    return;
-  }
-
-  const { error } = await db
-    .from('requests')
-    .update({ status: newStatus })
-    .eq('id', id);
-
-  if (error) {
-    alert('تعذر تحديث الطلب: ' + error.message);
-    return;
-  }
-
-  await loadAdminPanel();
-  await loadApprovedRequests();
-  await loadMyRequests();
-}
-
-
-/* =================================
-   17. البحث داخل المنصة
-================================= */
-
-function searchNow() {
-  const query = el('searchInput').value.trim();
-
-  if (!query) {
-    alert('اكتب كلمة البحث أولاً.');
-    return;
-  }
-
-  const results = el('searchResults');
-
-  results.style.display = 'block';
-  results.innerHTML = `
-    <div class="pageintro">
-      <h2>نتائج البحث</h2>
-      <p>بحثت عن: ${escapeHTML(query)}</p>
-      <p>يمكنك استخدام مكسب الذكي لصياغة طلبك التجاري.</p>
-      <button class="gold" onclick="openAI('${escapeHTML(query).replace(/'/g, "\\'")}')">
-        متابعة مع مكسب الذكي
-      </button>
-    </div>
-  `;
-
-  el('homeView').style.display = 'none';
-  el('hero').style.display = 'none';
-
-  document.querySelectorAll('.page').forEach(page => {
-    page.classList.remove('active');
-  });
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-
-/* =================================
-   18. مكسب الذكي - الاتصال الآمن
-================================= */
-
-function addMessage(message, type) {
-  const messages = el('messages');
-  const bubble = document.createElement('div');
-
-  bubble.className = 'bubble ' + type;
-  bubble.textContent = message;
-
-  messages.appendChild(bubble);
-  messages.scrollTop = messages.scrollHeight;
-}
-
-async function sendChat() {
-  const input = el('chatInput');
-  const question = input.value.trim();
-
-  if (!question) return;
-
-  addMessage(question, 'user');
-  input.value = '';
-
-  const button = document.querySelector(
-    '#aiPage .chatrow button'
-  );
-
-  button.disabled = true;
-
-  const waiting = document.createElement('div');
-  waiting.className = 'bubble bot';
-  waiting.textContent = 'مكسب الذكي يفكر...';
-
-  el('messages').appendChild(waiting);
-
-  try {
-    const { data, error } = await db.functions.invoke(
-      AI_FUNCTION,
-      {
-        body: {
-          message: question,
-          language: 'ar'
-        }
-      }
-    );
-
-    waiting.remove();
-
-    if (error) throw error;
-
-    const answer =
-      data?.reply ||
-      data?.answer ||
-      'لم أتمكن من الحصول على إجابة. حاول مرة أخرى.';
-
-    addMessage(answer, 'bot');
-
-  } catch (error) {
-    waiting.remove();
-
-    addMessage(
-      'تعذر الاتصال بالمساعد الذكي حالياً. تحقق من إعداد خدمة الذكاء الاصطناعي وحاول مجدداً.',
-      'bot'
-    );
-
-    console.error('MAKSA AI:', error);
-
-  } finally {
-    button.disabled = false;
-  }
-}
-
-
-/* =================================
-   19. بدء تشغيل المنصة
-================================= */
-
-async function initializeMaksa() {
-  const { data } = await db.auth.getSession();
-
-  currentSession = data.session;
-  currentUser = data.session?.user || null;
-
-  if (currentUser) {
-    await refreshAccount();
-  }
-
-  db.auth.onAuthStateChange((event, session) => {
-    currentSession = session;
-    currentUser = session?.user || null;
-
-    setTimeout(() => {
-      if (currentUser) {
-        refreshAccount();
-      } else {
-        el('profileEditor').style.display = 'none';
-        el('adminNavButton').style.display = 'none';
-        el('authButton').textContent = 'دخول / تسجيل';
-      }
-    }, 0);
-  });
-
-  loadApprovedRequests();
+  updateNavigation();
 }
 
 initializeMaksa();
+</script><script>
+/* معاينة الصور والفيديو قبل الرفع */
+byId('requestFiles').addEventListener('change',function(event){
+  selectedRequestFiles = Array.from(event.target.files || []);
+  const preview = byId('requestMediaPreview');
+  preview.innerHTML = '';
+
+  selectedRequestFiles.forEach(file=>{
+    if(!file.type.startsWith('image/') &&
+       !file.type.startsWith('video/')) return;
+
+    const url = URL.createObjectURL(file);
+    let element;
+
+    if(file.type.startsWith('image/')){
+      element = document.createElement('img');
+      element.src = url;
+      element.alt = file.name;
+    }else{
+      element = document.createElement('video');
+      element.src = url;
+      element.controls = true;
+    }
+
+    preview.appendChild(element);
+  });
+});
+
+/* رفع ملف إلى مخزن Supabase */
+async function uploadMedia(file,requestId){
+  if(!currentUser) throw new Error('يجب تسجيل الدخول أولاً.');
+
+  const allowedTypes = [
+    'image/jpeg','image/png','image/webp','image/gif',
+    'video/mp4','video/webm','video/quicktime'
+  ];
+
+  if(!allowedTypes.includes(file.type)){
+    throw new Error('نوع الملف غير مدعوم: '+file.name);
+  }
+
+  const maxSize = file.type.startsWith('video/')
+    ? 100 * 1024 * 1024
+    : 15 * 1024 * 1024;
+
+  if(file.size > maxSize){
+    throw new Error('حجم الملف أكبر من الحد المسموح: '+file.name);
+  }
+
+  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+  const path =
+    currentUser.id+'/'+
+    crypto.randomUUID()+'_'+safeName;
+
+  const {data:uploaded,error:uploadError} =
+    await supabaseClient.storage
+      .from('maksa-media')
+      .upload(path,file,{
+        cacheControl:'3600',
+        upsert:false,
+        contentType:file.type
+      });
+
+  if(uploadError) throw uploadError;
+
+  const mediaRecord = {
+    user_id:currentUser.id,
+    request_id:requestId,
+    file_path:uploaded.path,
+    file_name:file.name,
+    file_type:file.type,
+    file_size:file.size,
+    review_status:'pending'
+  };
+
+  const {error:recordError} = await supabaseClient
+    .from('media_assets')
+    .insert(mediaRecord);
+
+  if(recordError){
+    await supabaseClient.storage
+      .from('maksa-media')
+      .remove([uploaded.path]);
+
+    throw recordError;
+  }
+
+  return uploaded.path;
+}
+
+/* إرسال طلب جديد */
+byId('requestForm').addEventListener('submit',async function(event){
+  event.preventDefault();
+
+  if(!currentUser){
+    alert('يجب تسجيل الدخول قبل إرسال الطلب.');
+    showView('authView');
+    return;
+  }
+
+  const submitButton = this.querySelector('button[type="submit"]');
+  submitButton.disabled = true;
+  submitButton.textContent = 'جارٍ إرسال الطلب...';
+
+  try{
+    const requestData = {
+      user_id:currentUser.id,
+      title:byId('requestTitle').value.trim(),
+      request_type:byId('requestType').value,
+      country:byId('requestCountry').value.trim(),
+      details:byId('requestDetails').value.trim(),
+      contact_method:byId('requestContact').value.trim(),
+      status:'pending'
+    };
+
+    const {data:request,error:requestError} = await supabaseClient
+      .from('requests')
+      .insert(requestData)
+      .select('id')
+      .single();
+
+    if(requestError) throw requestError;
+
+    for(const file of selectedRequestFiles){
+      await uploadMedia(file,request.id);
+    }
+
+    alert('تم إرسال طلبك وملفاته بنجاح. الطلب بانتظار مراجعة الإدارة.');
+
+    this.reset();
+    selectedRequestFiles = [];
+    byId('requestMediaPreview').innerHTML = '';
+
+    await loadPublicRequests();
+
+  }catch(error){
+    alert('تعذر إرسال الطلب: '+error.message);
+  }finally{
+    submitButton.disabled = false;
+    submitButton.textContent = 'إرسال الطلب للمراجعة';
+  }
+});
+
+/* عرض الطلبات المعتمدة فقط */
+async function loadPublicRequests(){
+  const container = byId('publicRequestsList');
+  container.textContent = 'جارٍ تحميل الطلبات...';
+
+  const {data,error} = await supabaseClient
+    .from('requests')
+    .select('id,title,request_type,country,details,contact_method,created_at')
+    .eq('status','approved')
+    .order('created_at',{ascending:false});
+
+  if(error){
+    container.textContent = 'تعذر تحميل الطلبات: '+error.message;
+    return;
+  }
+
+  container.innerHTML = '';
+
+  if(!data || data.length === 0){
+    container.textContent = 'لا توجد طلبات معتمدة حالياً.';
+    return;
+  }
+
+  data.forEach(request=>{
+    const item = document.createElement('article');
+    item.className = 'item';
+
+    const title = document.createElement('h3');
+    title.textContent = request.title || 'طلب تجاري';
+
+    const details = document.createElement('p');
+    details.textContent = request.details || '';
+
+    const info = document.createElement('p');
+    info.textContent =
+      'النوع: '+(request.request_type || '')+
+      ' | الدولة: '+(request.country || '');
+
+    const contact = document.createElement('p');
+    contact.textContent = 'التواصل: '+(request.contact_method || '');
+
+    item.append(title,info,details,contact);
+    container.appendChild(item);
+  });
+}
+
+/* تحميل الموردين */
+async function loadSuppliers(){
+  const container = byId('suppliersList');
+  container.textContent = 'جارٍ تحميل الموردين...';
+
+  const {data,error} = await supabaseClient
+    .from('suppliers')
+    .select('*')
+    .limit(50);
+
+  if(error){
+    container.textContent = 'تعذر تحميل الموردين: '+error.message;
+    return;
+  }
+
+  container.innerHTML = '';
+
+  if(!data || data.length === 0){
+    container.textContent = 'لا يوجد موردون معروضون حالياً.';
+    return;
+  }
+
+  data.forEach(supplier=>{
+    const item = document.createElement('div');
+    item.className = 'item';
+
+    const heading = document.createElement('h3');
+    heading.textContent =
+      supplier.company_name || supplier.name || 'مورد';
+
+    const description = document.createElement('p');
+    description.textContent =
+      supplier.description || supplier.country || '';
+
+    item.append(heading,description);
+    container.appendChild(item);
+  });
+}
+
+/* معاينة ملف خاص من التخزين */
+async function getMediaPreview(path){
+  const {data,error} = await supabaseClient.storage
+    .from('maksa-media')
+    .createSignedUrl(path,1800);
+
+  if(error) throw error;
+  return data.signedUrl;
+}
+
+/* تحميل لوحة الإدارة */
+async function loadAdminPanel(){
+  if(!currentUser || !currentProfileIsAdmin()){
+    alert('ليس لديك صلاحية الإدارة.');
+    showView('homeView');
+    return;
+  }
+
+  await loadAdminRequests();
+  await loadAdminMedia();
+}
+
+/* الطلبات المعلقة */
+async function loadAdminRequests(){
+  const container = byId('adminRequestsList');
+  container.textContent = 'جارٍ تحميل الطلبات...';
+
+  const {data,error} = await supabaseClient
+    .from('requests')
+    .select('*')
+    .order('created_at',{ascending:false});
+
+  if(error){
+    container.textContent = 'تعذر تحميل الطلبات: '+error.message;
+    return;
+  }
+
+  const requests = data || [];
+
+  byId('pendingCount').textContent =
+    requests.filter(x=>x.status === 'pending').length;
+
+  byId('approvedCount').textContent =
+    requests.filter(x=>x.status === 'approved').length;
+
+  byId('rejectedCount').textContent =
+    requests.filter(x=>x.status === 'rejected').length;
+
+  container.innerHTML = '';
+
+  if(requests.length === 0){
+    container.textContent = 'لا توجد طلبات حالياً.';
+    return;
+  }
+
+  requests.forEach(request=>{
+    const item = document.createElement('article');
+    item.className = 'item';
+
+    const heading = document.createElement('h3');
+    heading.textContent = request.title || 'طلب بدون عنوان';
+
+    const details = document.createElement('p');
+    details.textContent = request.details || '';
+
+    const info = document.createElement('p');
+    info.textContent =
+      'النوع: '+(request.request_type || '')+
+      ' | الدولة: '+(request.country || '');
+
+    const status = document.createElement('span');
+    status.className = 'status '+
+      (request.status === 'approved' ? 'approved' :
+       request.status === 'rejected' ? 'rejected' : 'pending');
+
+    status.textContent =
+      request.status === 'approved' ? 'معتمد' :
+      request.status === 'rejected' ? 'مرفوض' : 'بانتظار المراجعة';
+
+    item.append(heading,details,info,status);
+
+    const actions = document.createElement('div');
+    actions.className = 'item-actions';
+
+    if(request.status !== 'approved'){
+      const approve = document.createElement('button');
+      approve.className = 'approve-btn';
+      approve.textContent = 'موافقة ونشر';
+      approve.onclick = ()=>reviewRequest(request.id,'approved');
+      actions.appendChild(approve);
+    }
+
+    if(request.status !== 'rejected'){
+      const reject = document.createElement('button');
+      reject.className = 'reject-btn';
+      reject.textContent = 'رفض الطلب';
+      reject.onclick = ()=>reviewRequest(request.id,'rejected');
+      actions.appendChild(reject);
+    }
+
+    item.appendChild(actions);
+    container.appendChild(item);
+  });
+}
+
+/* اعتماد أو رفض الطلب */
+async function reviewRequest(requestId,newStatus){
+  if(!currentUser || !currentProfileIsAdmin()){
+    alert('غير مصرح لك بتنفيذ هذا الإجراء.');
+    return;
+  }
+
+  const confirmation = newStatus === 'approved'
+    ? 'هل تريد اعتماد هذا الطلب ونشره؟'
+    : 'هل تريد رفض هذا الطلب؟';
+
+  if(!confirm(confirmation)) return;
+
+  const {error} = await supabaseClient
+    .from('requests')
+    .update({status:newStatus})
+    .eq('id',requestId);
+
+  if(error){
+    alert('تعذر تحديث الطلب: '+error.message);
+    return;
+  }
+
+  alert('تم تحديث حالة الطلب.');
+  await loadAdminRequests();
+}
+
+/* عرض المرفقات للإدارة */
+async function loadAdminMedia(){
+  const container = byId('adminMediaList');
+  container.textContent = 'جارٍ تحميل الملفات...';
+
+  const {data,error} = await supabaseClient
+    .from('media_assets')
+    .select('*')
+    .order('created_at',{ascending:false})
+    .limit(100);
+
+  if(error){
+    container.textContent = 'تعذر تحميل الملفات: '+error.message;
+    return;
+  }
+
+  container.innerHTML = '';
+
+  if(!data || data.length === 0){
+    container.textContent = 'لا توجد ملفات مرفقة حالياً.';
+    return;
+  }
+
+  for(const media of data){
+    const item = document.createElement('article');
+    item.className = 'item';
+
+    const name = document.createElement('p');
+    name.textContent = media.file_name || media.file_path || 'ملف مرفق';
+
+    const status = document.createElement('p');
+    status.textContent = 'حالة المراجعة: '+(media.review_status || 'غير محددة');
+
+    item.append(name,status);
+
+    try{
+      const url = await getMediaPreview(media.file_path);
+
+      if((media.file_type || '').startsWith('image/')){
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = media.file_name || 'صورة مرفقة';
+        img.style.maxWidth = '220px';
+        img.style.maxHeight = '180px';
+        item.appendChild(img);
+      }else if((media.file_type || '').startsWith('video/')){
+        const video = document.createElement('video');
+        video.src = url;
+        video.controls = true;
+        video.style.maxWidth = '300px';
+        item.appendChild(video);
+      }
+    }catch(error){
+      const warning = document.createElement('p');
+      warning.textContent = 'تعذر عرض الملف: '+error.message;
+      item.appendChild(warning);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'item-actions';
+
+    if(media.review_status !== 'approved'){
+      const approve = document.createElement('button');
+      approve.className = 'approve-btn';
+      approve.textContent = 'اعتماد الملف';
+      approve.onclick = ()=>reviewMedia(media.id,'approved');
+      actions.appendChild(approve);
+    }
+
+    if(media.review_status !== 'rejected'){
+      const reject = document.createElement('button');
+      reject.className = 'reject-btn';
+      reject.textContent = 'رفض الملف';
+      reject.onclick = ()=>reviewMedia(media.id,'rejected');
+      actions.appendChild(reject);
+    }
+
+    item.appendChild(actions);
+    container.appendChild(item);
+  }
+}
+
+/* اعتماد أو رفض صورة أو فيديو */
+async function reviewMedia(mediaId,newStatus){
+  if(!currentUser || !currentProfileIsAdmin()){
+    alert('غير مصرح لك بتنفيذ هذا الإجراء.');
+    return;
+  }
+
+  const {error} = await supabaseClient
+    .from('media_assets')
+    .update({review_status:newStatus})
+    .eq('id',mediaId);
+
+  if(error){
+    alert('تعذر تحديث الملف: '+error.message);
+    return;
+  }
+
+  alert('تم تحديث حالة الملف.');
+  await loadAdminMedia();
+}
+</script><script>
+/* المساعد الذكي الأساسي */
+async function askMaksaAI(){
+  const question = byId('aiQuestion').value.trim();
+  const answer = byId('aiAnswer');
+
+  if(!question){
+    alert('اكتب سؤالك أولاً.');
+    return;
+  }
+
+  answer.classList.remove('hidden');
+  answer.textContent = 'جارٍ تجهيز الإجابة...';
+
+  const q = question.toLowerCase();
+
+  if(q.includes('مورد') || q.includes('موردين')){
+    answer.textContent =
+      'للعثور على مورد، افتح قسم الموردين في مكسب عرب، '+
+      'واستعرض الموردين المتاحين حسب الدولة والنشاط التجاري.';
+  }else if(q.includes('طلب') || q.includes('شراء')){
+    answer.textContent =
+      'يمكنك تسجيل الدخول ثم فتح قسم الفرص والطلبات، '+
+      'وإرسال طلبك مع التفاصيل والصور أو الفيديو. '+
+      'سيبقى الطلب بانتظار مراجعة الإدارة.';
+  }else if(q.includes('تسجيل') || q.includes('حساب')){
+    answer.textContent =
+      'افتح قسم دخول / تسجيل، وأدخل بريدك الإلكتروني وكلمة المرور، '+
+      'أو أنشئ حساباً جديداً.';
+  }else if(q.includes('صورة') || q.includes('فيديو')){
+    answer.textContent =
+      'افتح قسم الفرص والطلبات، واختر الصور أو الفيديو من خانة المرفقات. '+
+      'تخضع الملفات لمراجعة الإدارة قبل اعتمادها.';
+  }else{
+    answer.textContent =
+      'أهلاً بك في مكسب عرب. يمكنك استخدام أقسام المنصة '+
+      'للتجارة والطلبات والموردين والفرص. هذه نسخة المساعد الأساسية؛ '+
+      'ولتشغيل ذكاء اصطناعي متصل فعلياً نحتاج ربط خدمة AI عبر خادم آمن.';
+  }
+}
+
+/* تحديث حالة المستخدم عند تغير جلسة الدخول */
+supabaseClient.auth.onAuthStateChange(async(event,session)=>{
+  currentUser = session ? session.user : null;
+
+  if(currentUser){
+    setTimeout(async()=>{
+      await loadProfile();
+      updateNavigation();
+    },0);
+  }else{
+    currentProfile = null;
+    updateNavigation();
+  }
+});
+
+/* تحميل البيانات الأساسية */
+window.addEventListener('DOMContentLoaded',async()=>{
+  await loadPublicRequests();
+  await initializeMaksa();
+});
+
+/* منع ظهور لوحة الإدارة لغير المدير */
+function protectAdminPage(){
+  const adminButton = byId('adminNavButton');
+
+  if(adminButton){
+    adminButton.style.display =
+      currentProfileIsAdmin() ? 'inline-block' : 'none';
+  }
+}
+
+/* إعادة ضبط حالة الإدارة */
+const originalUpdateNavigation = updateNavigation;
+updateNavigation = function(){
+  originalUpdateNavigation();
+  protectAdminPage();
+};
+
+/* تشغيل أولي */
+updateNavigation();
 
 </script>
 
