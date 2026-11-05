@@ -95,11 +95,11 @@ footer{text-align:center;background:var(--navy);color:#cbd5e1;padding:20px;font-
 <article class="item"><span class="tag">مثال تجريبي</span><h3>معدات صناعية</h3><p>معدات وقطع غيار للمصانع والورش.</p></article></div></section>
 <section class="page" id="suppliers"><button class="back" onclick="showHome()">← العودة للرئيسية</button><div class="pageintro"><h2>🏭 الموردون والمصانع</h2><p>لن نعرض مورداً حقيقياً قبل التحقق من بياناته.</p></div><div class="items">
 <article class="item"><span class="tag">ملف تجريبي</span><h3>مورد مواد تغليف</h3><p>التخصص: عبوات ومواد تغليف.</p><div class="meta">غير موثق – نموذج فقط</div></article>
-<article class="item"><span class="tag">ملف تجريبي</span><h3>مصنع منتجات غذائية</h3><p>التخصص: تصنيع وتعبئة غذائية.</p><div class="meta">غير موثق – نموذج فقط</div></article></div></section>
-<section class="page" id="opportunities"><button class="back" onclick="showHome()">← العودة للرئيسية</button>
-<div class="pageintro"><h2>🤝 الفرص التجارية والشراكات</h2><p>أرسل طلبك التجاري، وستراجعه الإدارة قبل نشره. لن يظهر الطلب للعامة إلا بعد الموافقة.</p></div>
-<div class="panel request-form"><h3>إرسال طلب أو فرصة تجارية</h3>
-<label for="requestTitle">عنوان الطلب</label><input id="requestTitle" maxlength="150" placeholder="مثال: أبحث عن مورد للمواد الغذائية">
+<article class="item"><span class="tag">ملف تجريبي</span><h3>مصنع منتجات غذائية</h3><p>التخصص: تصنيع وتعبئة غذائية.</p><div class="meta">غير موثق – نموذج فقط</div></article>
+<article class="item"><span class="tag">ملف تجريبي</span><h3>مورد معدات صناعية</h3><p>التخصص: معدات وقطع غيار.</p><div class="meta">غير موثق – نموذج فقط</div></article></div></section><section class="page" id="opportunities"><button class="back" onclick="showHome()">← العودة للرئيسية</button>
+<div class="pageintro"><h2>🤝 الفرص والطلبات التجارية</h2><p>أرسل طلبك ليبقى قيد المراجعة حتى موافقة الإدارة.</p></div>
+<div class="panel request-form"><h3>إضافة طلب تجاري</h3>
+<label for="requestTitle">عنوان الطلب</label><input id="requestTitle" maxlength="180" placeholder="مثال: أبحث عن مورد زيت زيتون">
 <label for="requestType">نوع الطلب</label><select id="requestType"><option value="">اختر نوع الطلب</option><option value="شراء">طلب شراء</option><option value="بيع">عرض بيع</option><option value="توريد">طلب توريد</option><option value="شراكة">شراكة تجارية</option><option value="توزيع">بحث عن موزعين</option><option value="خدمات">طلب خدمات</option></select>
 <label for="requestCountry">الدولة</label><input id="requestCountry" maxlength="100" placeholder="مثال: سوريا">
 <label for="requestDetails">تفاصيل الطلب</label><textarea id="requestDetails" rows="5" maxlength="5000" placeholder="اكتب تفاصيل طلبك..."></textarea>
@@ -178,36 +178,35 @@ async function loadProfile(){
 async function saveProfile(){
  try{const {data:sd,error:se}=await supabaseClient.auth.getSession();if(se)throw se;const user=sd.session?.user;if(!user){setMessage('profileStatus','سجّل الدخول أولاً.',true);return}
  const profile={full_name:$('profileFullName').value.trim(),company_name:$('profileCompany').value.trim()||null,country:$('profileCountry').value.trim(),account_type:$('profileAccountType').value};
- if(!profile.full_name||!profile.country||!profile.account_type){setMessage('profileStatus','أكمل الاسم والدولة ونوع الحساب أولاً.',true);return}
- setMessage('profileStatus','جارٍ حفظ البيانات...');
- const {data:rows,error:updateError}=await supabaseClient.from('Profiles').update(profile).eq('user_id',user.id).select('user_id');if(updateError)throw updateError;
- if(!rows?.length){const {error:insertError}=await supabaseClient.from('Profiles').insert({...profile,user_id:user.id});if(insertError)throw insertError}
- const {error:metaError}=await supabaseClient.auth.updateUser({data:{full_name:profile.full_name}});if(metaError)throw metaError;setMessage('profileStatus','تم حفظ بياناتك بنجاح.')
+ if(!profile.full_name){setMessage('profileStatus','الاسم الكامل مطلوب.',true);return}
+ const {error}=await supabaseClient.from('Profiles').upsert({user_id:user.id,...profile},{onConflict:'user_id'});if(error)throw error;
+ setMessage('profileStatus','تم حفظ بيانات ملفك الشخصي بنجاح.')
  }catch(e){setMessage('profileStatus','تعذر حفظ البيانات: '+e.message,true)}
+}async function submitRequest(){
+ const title=$('requestTitle').value.trim(),type=$('requestType').value,country=$('requestCountry').value.trim(),details=$('requestDetails').value.trim(),contact=$('requestContact').value.trim();
+ if(!title||!type||!details||!contact){setMessage('requestStatus','أكمل العنوان والنوع والتفاصيل وطريقة التواصل.',true);return}
+ try{
+  const {data:sd,error:se}=await supabaseClient.auth.getSession();if(se)throw se;const user=sd.session?.user;if(!user){setMessage('requestStatus','سجّل الدخول أولاً لإرسال الطلب.',true);openAuth();return}
+  const {error}=await supabaseClient.from('requests').insert({user_id:user.id,title,request_type:type,country,details,contact_method:contact,status:'pending'});if(error)throw error;
+  setMessage('requestStatus','تم إرسال طلبك بنجاح، وهو الآن قيد مراجعة الإدارة.');
+  $('requestTitle').value='';$('requestType').value='';$('requestCountry').value='';$('requestDetails').value='';$('requestContact').value='';
+  await loadRequests();
+ }catch(e){setMessage('requestStatus','تعذر إرسال الطلب: '+e.message,true)}
 }
 async function loadRequests(){
- const approvedBox=$('approvedRequests'),mineBox=$('myRequests');if(!approvedBox||!mineBox)return;
- approvedBox.textContent='جارٍ تحميل الفرص...';mineBox.textContent='جارٍ تحميل طلباتك...';
- try{const {data:approved,error:ae}=await supabaseClient.from('requests').select('id,title,request_type,country,details,status,created_at').eq('status','approved').order('created_at',{ascending:false});if(ae)throw ae;renderRequests('approvedRequests',approved,false);
- const {data:sd,error:se}=await supabaseClient.auth.getSession();if(se)throw se;const user=sd.session?.user;if(!user){mineBox.textContent='سجّل الدخول لمشاهدة طلباتك وإرسال طلب جديد.';return}
- const {data:mine,error:me}=await supabaseClient.from('requests').select('id,title,request_type,country,details,contact_method,status,created_at').eq('user_id',user.id).order('created_at',{ascending:false});if(me)throw me;renderRequests('myRequests',mine,true)
- }catch(e){approvedBox.textContent='تعذر تحميل الفرص: '+e.message;mineBox.textContent='تعذر تحميل طلباتك.'}
-}
-function renderRequests(containerId,rows,isMine){
- const box=$(containerId);box.replaceChildren();if(!rows?.length){const e=document.createElement('div');e.className='empty';e.textContent=isMine?'ليس لديك طلبات حتى الآن.':'لا توجد فرص معتمدة حالياً.';box.appendChild(e);return}
- rows.forEach(r=>{const card=document.createElement('article');card.className='item';const tag=document.createElement('span');tag.className='tag '+(r.status==='pending'?'pending':r.status==='rejected'?'rejected':'');tag.textContent=isMine?(r.status==='approved'?'تمت الموافقة':r.status==='rejected'?'مرفوض':'قيد المراجعة'):'فرصة معتمدة';
- const title=document.createElement('h3');title.textContent=r.title||'';const type=document.createElement('p');type.textContent='النوع: '+(r.request_type||'');const country=document.createElement('p');country.textContent='الدولة: '+(r.country||'');const details=document.createElement('p');details.textContent=r.details||'';card.append(tag,title,type,country,details);
- if(isMine){const contact=document.createElement('p');contact.textContent='التواصل: '+(r.contact_method||'');card.appendChild(contact)}box.appendChild(card)})
-}
-async function submitRequest(){
- const button=$('submitRequestButton');
- try{const {data:sd,error:se}=await supabaseClient.auth.getSession();if(se)throw se;const user=sd.session?.user;if(!user){setMessage('requestStatus','سجّل الدخول أولاً حتى تتمكن من إرسال طلب.',true);openAuth();return}
- const title=$('requestTitle').value.trim(),request_type=$('requestType').value,country=$('requestCountry').value.trim(),details=$('requestDetails').value.trim(),contact_method=$('requestContact').value.trim();
- if(!title||!request_type||!country||!details||!contact_method){setMessage('requestStatus','يرجى تعبئة جميع الحقول قبل الإرسال.',true);return}
- button.disabled=true;button.textContent='جارٍ الإرسال...';setMessage('requestStatus','جارٍ إرسال طلبك...');
- const {error}=await supabaseClient.from('requests').insert({user_id:user.id,title,request_type,country,details,contact_method,status:'pending'});if(error)throw error;
- ['requestTitle','requestType','requestCountry','requestDetails','requestContact'].forEach(id=>$(id).value='');setMessage('requestStatus','تم إرسال طلبك. سيبقى قيد المراجعة ولن يظهر للعامة إلا بعد موافقة الإدارة.');await loadRequests()
- }catch(e){setMessage('requestStatus','تعذر إرسال الطلب: '+e.message,true)}finally{button.disabled=false;button.textContent='إرسال للمراجعة'}
+ const approved=$('approvedRequests'),mine=$('myRequests');if(!approved||!mine)return;
+ try{
+  const {data:rows,error}=await supabaseClient.from('requests').select('id,title,request_type,country,details,status,created_at').eq('status','approved').order('created_at',{ascending:false});if(error)throw error;
+  approved.replaceChildren();
+  if(!rows?.length){approved.innerHTML='<div class="empty">لا توجد فرص معتمدة حالياً.</div>'}
+  else rows.forEach(r=>{const card=document.createElement('article');card.className='item';const tag=document.createElement('span');tag.className='tag';tag.textContent='معتمد';const h=document.createElement('h3');h.textContent=r.title;const p=document.createElement('p');p.textContent=(r.request_type||'طلب تجاري')+' · '+(r.country||'');const d=document.createElement('p');d.textContent=r.details||'';card.append(tag,h,p,d);approved.appendChild(card)});
+  const {data:sd}=await supabaseClient.auth.getSession(),user=sd.session?.user;
+  if(!user){mine.innerHTML='<div class="empty">سجّل الدخول لمشاهدة طلباتك.</div>';return}
+  const {data:myRows,error:myError}=await supabaseClient.from('requests').select('id,title,request_type,country,status,created_at').eq('user_id',user.id).order('created_at',{ascending:false});if(myError)throw myError;
+  mine.replaceChildren();
+  if(!myRows?.length){mine.innerHTML='<div class="empty">لم ترسل أي طلب بعد.</div>';return}
+  myRows.forEach(r=>{const card=document.createElement('article');card.className='item';const tag=document.createElement('span');tag.className='tag '+(r.status==='pending'?'pending':r.status==='rejected'?'rejected':'');tag.textContent=r.status==='approved'?'تمت الموافقة':r.status==='rejected'?'مرفوض':'قيد المراجعة';const h=document.createElement('h3');h.textContent=r.title;const p=document.createElement('p');p.textContent=(r.request_type||'')+' · '+(r.country||'');card.append(tag,h,p);mine.appendChild(card)})
+ }catch(e){approved.innerHTML='<div class="empty">تعذر تحميل الطلبات: '+e.message+'</div>';mine.innerHTML='<div class="empty">تعذر تحميل طلباتك.</div>'}
 }
 async function loadAdminPanel(){
  const nav=$('adminNavButton'),box=$('adminRequests'),status=$('adminStatus');if(!nav||!box||!status)return;nav.style.display='none';
@@ -257,21 +256,30 @@ function prepareOpportunityFromAI(){
  $('requestDetails').value=['تم إعداد هذا الطلب بمساعدة مكسب الذكي.',maksaAIContext.product?'المنتج أو الخدمة: '+maksaAIContext.product:'',maksaAIContext.quantity?'الكمية التقريبية: '+maksaAIContext.quantity:'',maksaAIContext.extra?'التفاصيل: '+maksaAIContext.extra:'','يرجى التواصل لتأكيد المواصفات والشروط.'].filter(Boolean).join('\n');
  openPage('opportunities');setMessage('requestStatus','راجع البيانات وأكمل وسيلة التواصل قبل الإرسال.');$('requestTitle').scrollIntoView({behavior:'smooth',block:'center'});
 }
-function sendChat(){
- const input=$('chatInput'),value=input.value.trim();if(!value)return;addAIBubble('user',value);
+let maksaAIHistory=[];
+let maksaAISending=false;
+async function sendChat(){
+ const input=$('chatInput'),sendButton=input.parentElement.querySelector('button'),value=input.value.trim();
+ if(!value||maksaAISending)return;
+ if(value.length>2000){addAIBubble('bot','الحد الأقصى للرسالة 2000 حرف.');return}
+ const {data:sessionData,error:sessionError}=await supabaseClient.auth.getSession();
+ if(sessionError){addAIBubble('bot','تعذر التحقق من تسجيل الدخول: '+sessionError.message);return}
+ if(!sessionData.session){addAIBubble('bot','لاستخدام مكسب الذكي، سجّل الدخول أولاً ثم أعد إرسال سؤالك.');openAuth();return}
+ addAIBubble('user',value);input.value='';input.disabled=true;sendButton.disabled=true;sendButton.textContent='جارٍ التفكير…';maksaAISending=true;
  const found=detectAIIntent(value);if(found)maksaAIContext.intent=found;
  const details=extractAIDetails(value);if(details.country)maksaAIContext.country=details.country;if(details.quantity)maksaAIContext.quantity=details.quantity;
  if(value.length>8)maksaAIContext.extra=value;
  if(!maksaAIContext.product&&!/مورد|مصنع|شريك|شراكة|موزع|توزيع|شحن|سعر|مقارن|سوق|تصدير|استيراد/.test(value))maksaAIContext.product=value.slice(0,140);
- const intent=maksaAIContext.intent;let reply='';
- if(!intent)reply='حتى أوجّهك بشكل صحيح، اختر هدفك: مورد أو مصنع، مقارنة أسعار، شريك أو موزع، شحن، أو اكتشاف سوق. اكتب طلبك بجملة واحدة.';
- else if(intent==='supplier')reply='سأساعدك في تجهيز طلب توريد. أحتاج اسم المنتج أو مواصفاته، والدولة المطلوبة، والكمية التقريبية. لا أملك حالياً دليلاً مباشراً موثقاً للموردين، لذلك لن أخترع أسماء أو أسعاراً.';
- else if(intent==='pricing')reply='لإعداد مقارنة مفيدة، نحتاج اسم المنتج ومواصفاته والكمية وبلد التسليم. لا توجد حالياً عروض أسعار مباشرة مرتبطة بالمنصة، لذلك سأجهّز لك طلب مقارنة بدلاً من عرض أسعار غير مؤكدة.';
- else if(intent==='partner')reply='للبحث عن شريك أو موزع، حدّد المنتج أو النشاط والدولة المستهدفة ونوع الشراكة. يمكنك تحويل التفاصيل إلى طلب تجاري ليظهر بعد موافقة الإدارة فقط.';
- else if(intent==='shipping')reply='لترتيب طلب شحن، اذكر بلد الانطلاق والوصول ونوع البضاعة والوزن أو عدد الحاويات. لا توجد حالياً أسعار شحن مباشرة أو شركات موثقة داخل المنصة.';
- else reply='لاستكشاف سوق مناسب، اذكر المنتج والدولة أو المنطقة المستهدفة والكمية. سأساعدك في تنظيم دراسة أولية، وأي أرقام سوقية تحتاج إلى مصادر موثوقة قبل اعتمادها.';
- if(maksaAIContext.country)reply+='\nالدولة التي التقطتها من كلامك: '+maksaAIContext.country+'.';if(maksaAIContext.quantity)reply+='\nالكمية التي التقطتها: '+maksaAIContext.quantity+'.';
- addAIBubble('bot',reply);const action=document.createElement('button');action.className='gold';action.style.margin='8px 0';action.textContent='حوّل التفاصيل إلى طلب تجاري';action.onclick=prepareOpportunityFromAI;$('messages').appendChild(action);input.value='';$('messages').scrollTop=$('messages').scrollHeight;
+ const waiting=addAIBubble('bot','مكسب الذكي يعالج طلبك الآن…');
+ try{
+  const {data,error}=await supabaseClient.functions.invoke('maksa-ai',{body:{message:value,history:maksaAIHistory}});
+  if(error){let detail=error.message||'تعذر الاتصال بخدمة الذكاء الاصطناعي.';try{if(error.context){const payload=await error.context.json();if(payload?.error)detail=payload.error}}catch{}throw new Error(detail)}
+  if(!data||typeof data.reply!=='string'||!data.reply.trim())throw new Error(data?.error||'لم يصل رد من مكسب الذكي. حاول مجدداً.');
+  const reply=data.reply.trim();waiting.textContent=reply;
+  maksaAIHistory.push({role:'user',content:value},{role:'assistant',content:reply});maksaAIHistory=maksaAIHistory.slice(-8);
+  const action=document.createElement('button');action.className='gold';action.style.margin='8px 0';action.textContent='حوّل التفاصيل إلى طلب تجاري';action.onclick=prepareOpportunityFromAI;$('messages').appendChild(action);
+ }catch(e){waiting.textContent='تعذر تشغيل مكسب الذكي: '+(e.message||'خطأ غير معروف')+'\nتأكد من إعداد مفتاح OPENAI_API_KEY في أسرار Supabase وأن مفتاحك مخصص لـ OpenAI API، ثم أعد المحاولة.';}
+ finally{input.disabled=false;sendButton.disabled=false;sendButton.textContent='إرسال';maksaAISending=false;input.focus();$('messages').scrollTop=$('messages').scrollHeight}
 }
 function searchNow(){
  const query=$('searchInput').value.trim();if(!query){alert('اكتب كلمة البحث أولاً.');return}hideAll();const results=$('searchResults');results.replaceChildren();results.style.display='block';
