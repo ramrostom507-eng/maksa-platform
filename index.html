@@ -674,7 +674,7 @@ if (window.supabase) {
    GENERAL HELPERS
 ===================================== */
 
-function showMessage}(elementId, message, type = "notice") {
+function showMessage(elementId, message, type = "notice") {
   const element = document.getElementById(elementId);
   if (!element) return;
 
@@ -885,7 +885,7 @@ async function loadCurrentUser() {
       const { data, error } = await supabaseClient
         .from("Profiles")
         .select("*")
-        .eq("id", currentUser.id)
+        .eq("user_id", currentUser.id)
         .maybeSingle();
 
       if (error) {
