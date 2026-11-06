@@ -1,1514 +1,1384 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#101b2d">
-<meta name="description" content="مكسب عرب منصة التجارة والفرص والتعاون العربية">
+<meta name="description" content="مكسب عرب - منصة التجارة والفرص والتعاون العربية">
 <title>مكسب عرب | MAKSA ARAB</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-:root{
---navy:#101b2d;
---navy2:#203a5c;
---gold:#d6ad55;
---gold2:#f0d38a;
---white:#fff;
---muted:#aebbd0;
---bg:#f3f5f8;
---green:#198754;
---red:#dc3545;
---border:#dce2ea;
+:root {
+  --navy: #101b2d;
+  --navy2: #203a5c;
+  --gold: #d6ad55;
+  --gold-light: #f0d38a;
+  --white: #ffffff;
+  --bg: #f3f5f8;
+  --text: #263448;
+  --muted: #718096;
+  --border: #dce2ea;
+  --green: #198754;
+  --red: #dc3545;
+  --radius: 12px;
+  --shadow: 0 4px 18px rgba(16,27,45,.07);
 }
-*{box-sizing:border-box}
-body{
-margin:0;
-font-family:Tahoma,Arial,sans-serif;
-background:var(--bg);
-color:#202b3c;
+
+* {
+  box-sizing: border-box;
 }
-button,input,select,textarea{font-family:inherit}
-button{cursor:pointer}
-header{
-background:linear-gradient(135deg,var(--navy),var(--navy2));
-color:white;
-padding:15px 5%;
-display:flex;
-align-items:center;
-justify-content:space-between;
-flex-wrap:wrap;
-gap:15px;
-border-bottom:3px solid var(--gold);
+
+html {
+  scroll-behavior: smooth;
 }
-.logo{
-font-size:25px;
-font-weight:bold;
-color:var(--gold2);
+
+body {
+  margin: 0;
+  font-family: Tahoma, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
 }
-.logo small{
-display:block;
-color:white;
-font-size:11px;
-letter-spacing:2px;
-margin-top:4px;
+
+button, input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
 }
-nav{
-display:flex;
-flex-wrap:wrap;
-gap:7px;
+
+button {
+  cursor: pointer;
 }
-nav button{
-background:transparent;
-color:white;
-border:1px solid #53647b;
-padding:9px 12px;
-border-radius:7px;
+
+button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
 }
-nav button:hover{
-background:var(--gold);
-color:var(--navy);
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
-nav #adminNavButton{
-display:none;
-border-color:var(--gold);
-color:var(--gold2);
+
+.hidden {
+  display: none !important;
 }
-.container{
-width:min(1150px,94%);
-margin:25px auto;
+
+/* HEADER */
+
+header {
+  background: linear-gradient(135deg,var(--navy),var(--navy2));
+  color: var(--white);
+  padding: 14px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+  border-bottom: 3px solid var(--gold);
 }
-.hero{
-background:linear-gradient(120deg,var(--navy),#25466c);
-color:white;
-padding:65px 25px;
-text-align:center;
-border-radius:15px;
+
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+  color: var(--gold-light);
+  line-height: 1.3;
 }
-.hero h1{
-color:var(--gold2);
-font-size:clamp(28px,5vw,46px);
-margin:0 0 15px;
+
+.logo small {
+  display: block;
+  font-size: 11px;
+  color: white;
+  letter-spacing: 3px;
 }
-.hero p{
-max-width:700px;
-margin:0 auto 25px;
-line-height:2;
-color:#e2e9f2;
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
 }
-.gold-btn{
-background:var(--gold);
-color:var(--navy);
-border:0;
-border-radius:8px;
-padding:12px 20px;
-font-weight:bold;
+
+nav button {
+  padding: 9px 12px;
+  border: 1px solid #53647b;
+  border-radius: 7px;
+  color: white;
+  background: transparent;
+  transition: .2s;
 }
-.gold-btn:hover{background:var(--gold2)}
-.dark-btn{
-background:var(--navy);
-color:white;
-border:0;
-border-radius:8px;
-padding:11px 17px;
+
+nav button:hover {
+  background: var(--gold);
+  color: var(--navy);
 }
-.outline-btn{
-background:transparent;
-border:1px solid var(--gold);
-color:var(--gold2);
-border-radius:8px;
-padding:11px 17px;
+
+#adminNavButton {
+  display: none;
+  border-color: var(--gold);
+  color: var(--gold-light);
 }
-button:disabled{
-opacity:.6;
-cursor:not-allowed;
+
+/* GENERAL LAYOUT */
+
+.container {
+  width: min(1150px,94%);
+  margin: 25px auto;
 }
-.section-title{
-color:var(--navy);
-border-right:5px solid var(--gold);
-padding-right:12px;
-margin:25px 0 18px;
+
+.view {
+  display: none;
 }
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:15px;
+
+.view.active {
+  display: block;
 }
-.card,.panel{
-background:white;
-border:1px solid var(--border);
-border-radius:12px;
-padding:20px;
-box-shadow:0 3px 12px #1729430c;
+
+.hero {
+  background: linear-gradient(120deg,var(--navy),#25466c);
+  color: white;
+  text-align: center;
+  padding: 65px 25px;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
 }
-.card h3{color:var(--navy);margin-top:0}
-.card p{line-height:1.8;color:#59677a}
-.panel{margin-bottom:20px}
-.view{display:none}
-.view.active{display:block}
-.form-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:14px;
+
+.hero h1 {
+  color: var(--gold-light);
+  font-size: clamp(28px,5vw,46px);
+  margin: 0 0 15px;
 }
-.field{
-display:flex;
-flex-direction:column;
-gap:7px;
+
+.hero p {
+  max-width: 750px;
+  margin: 0 auto 25px;
+  line-height: 2;
+  color: #e2e9f2;
 }
-.field label{
-font-weight:bold;
-color:var(--navy);
+
+.section-title {
+  color: var(--navy);
+  border-right: 5px solid var(--gold);
+  padding-right: 12px;
+  margin: 28px 0 18px;
 }
-.field input,.field select,.field textarea{
-width:100%;
-padding:12px;
-border:1px solid #ccd5e1;
-border-radius:7px;
-background:white;
-font-size:14px;
+
+/* BUTTONS */
+
+.gold-btn {
+  background: var(--gold);
+  color: var(--navy);
+  border: 0;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-weight: bold;
 }
-.field textarea{
-min-height:110px;
-resize:vertical;
+
+.gold-btn:hover {
+  background: var(--gold-light);
 }
-.full{grid-column:1/-1}
-.notice{
-padding:12px;
-border-radius:8px;
-background:#fff8e8;
-border:1px solid #f0d38a;
-color:#765b20;
-line-height:1.8;
-white-space:pre-wrap;
+
+.dark-btn {
+  background: var(--navy);
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  padding: 11px 17px;
 }
-.success{
-background:#e4f6eb;
-border-color:#a8dfbd;
-color:#176b3b;
+
+.outline-btn {
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold-light);
+  border-radius: 8px;
+  padding: 11px 17px;
 }
-.error{
-background:#fdeaea;
-border-color:#f2b8b8;
-color:#a32020;
+
+/* CARDS */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 15px;
 }
-.hidden{display:none!important}
-.status{
-display:inline-block;
-padding:5px 9px;
-border-radius:20px;
-font-size:12px;
-font-weight:bold;
+
+.card, .panel {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
 }
-.pending{background:#fff1cf;color:#805c00}
-.approved{background:#d8f3e4;color:#176b3b}
-.rejected{background:#fde0e0;color:#a32020}
-.item{
-background:white;
-padding:16px;
-border:1px solid var(--border);
-border-radius:10px;
-margin-bottom:12px;
+
+.card h3 {
+  color: var(--navy);
+  margin-top: 0;
 }
-.item h3{margin-top:0;color:var(--navy)}
-.item p{line-height:1.8;overflow-wrap:anywhere}
-.item-actions{
-display:flex;
-flex-wrap:wrap;
-gap:8px;
-margin-top:12px;
+
+.card p {
+  color: var(--muted);
+  line-height: 1.9;
 }
-.approve-btn,.reject-btn{
-border:0;
-padding:9px 14px;
-border-radius:7px;
-color:white;
+
+.panel {
+  margin-bottom: 20px;
 }
-.approve-btn{background:var(--green)}
-.reject-btn{background:var(--red)}
-.media-preview{
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-margin-top:12px;
+
+/* FORMS */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 14px;
 }
-.media-preview img,.media-preview video{
-width:150px;
-height:110px;
-object-fit:cover;
-border-radius:8px;
-border:1px solid var(--border);
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
 }
-.media-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:12px;
+
+.field label {
+  font-weight: bold;
+  color: var(--navy);
 }
-.media-grid img,.media-grid video{
-width:100%;
-max-height:220px;
-object-fit:contain;
-border-radius:8px;
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccd5e1;
+  border-radius: 7px;
+  background: white;
+  color: var(--text);
 }
-#aiAnswer{margin-top:15px}
-#aiQuestion{min-height:100px}
-footer{
-background:var(--navy);
-color:white;
-text-align:center;
-padding:25px 15px;
-margin-top:45px;
-line-height:2;
+
+.field textarea {
+  min-height: 110px;
+  resize: vertical;
 }
-footer strong{color:var(--gold2)}
-@media(max-width:650px){
-header{justify-content:center;text-align:center}
-nav{justify-content:center}
-.hero{padding:45px 18px}
-.container{width:94%}
+
+.full {
+  grid-column: 1/-1;
+}
+
+/* MESSAGES */
+
+.notice {
+  padding: 12px;
+  border-radius: 8px;
+  background: #fff8e8;
+  border: 1px solid #f0d38a;
+  color: #765b20;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.success {
+  background: #e4f6eb;
+  border-color: #a8dfbd;
+  color: #176b3b;
+}
+
+.error {
+  background: #fdeaea;
+  border-color: #f2b8b8;
+  color: #a32020;
+}
+
+/* LISTINGS */
+
+.item {
+  background: white;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  overflow-wrap: anywhere;
+}
+
+.item h3 {
+  color: var(--navy);
+  margin-top: 0;
+}
+
+.item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.approve-btn,
+.reject-btn {
+  border: 0;
+  padding: 9px 14px;
+  border-radius: 7px;
+  color: white;
+}
+
+.approve-btn {
+  background: var(--green);
+}
+
+.reject-btn {
+  background: var(--red);
+}
+
+.status {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.pending {
+  background: #fff1cf;
+  color: #805c00;
+}
+
+.approved {
+  background: #d8f3e4;
+  color: #176b3b;
+}
+
+.rejected {
+  background: #fde0e0;
+  color: #a32020;
+}
+
+/* MEDIA */
+
+.media-preview,
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.media-preview img,
+.media-preview video,
+.media-grid img,
+.media-grid video {
+  width: 100%;
+  max-height: 230px;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+/* FOOTER */
+
+footer {
+  background: var(--navy);
+  color: white;
+  text-align: center;
+  padding: 25px 15px;
+  margin-top: 45px;
+  line-height: 2;
+}
+
+footer strong {
+  color: var(--gold-light);
+}
+
+/* MOBILE */
+
+@media(max-width:650px) {
+  header {
+    justify-content: center;
+    text-align: center;
+  }
+
+  nav {
+    justify-content: center;
+  }
+
+  nav button {
+    font-size: 12px;
+    padding: 8px 9px;
+  }
+
+  .hero {
+    padding: 42px 16px;
+  }
+
+  .container {
+    width: 94%;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
-</head><body>
+</head>
+<body>
+
 
 <header>
-<div class="logo">
-مكسب عرب
-<small>MAKSA ARAB</small>
-</div>
-<nav>
-<button onclick="showView('homeView')">الرئيسية</button>
-<button onclick="showView('opportunitiesView')">الفرص والطلبات</button>
-<button onclick="showView('suppliersView')">الموردون</button>
-<button onclick="showView('mediaView')">الصور والفيديو</button>
-<button onclick="showView('aiView')">مكسب الذكي</button>
-<button onclick="showView('profileView')">حسابي</button>
-<button id="adminNavButton" onclick="showView('adminView')">الإدارة</button>
-<button id="loginNavButton" onclick="showView('authView')">دخول / تسجيل</button>
-<button id="logoutNavButton" class="hidden" onclick="logout()">خروج</button>
-</nav>
+  <div class="logo">مكسب <span>عرب</span></div>
+  <nav>
+    <button class="outline-btn" onclick="showView('home')">الرئيسية</button>
+    <button class="outline-btn" onclick="showView('opportunities')">الفرص التجارية</button>
+    <button class="outline-btn" onclick="showView('suppliers')">الموردون</button>
+    <button class="outline-btn" onclick="showView('publish')">أضف إعلاناً</button>
+    <button class="outline-btn" onclick="showView('maksaAI')">مكسب الذكي</button>
+    <button class="outline-btn" onclick="showView('account')">حسابي</button>
+    <button id="adminNavButton" class="outline-btn hidden" onclick="showView('admin')">الإدارة</button>
+  </nav>
 </header>
 
 <main class="container">
 
-<section id="homeView" class="view active">
-<div class="hero">
-<h1>مكسب عرب | MAKSA ARAB</h1>
-<p>
-منصة عربية تجمع التجار والموردين والمشترين،
-وتفتح أبواب الفرص التجارية والعمل والتعاون،
-وتسهّل الوصول إلى الأسواق العربية والعالمية.
-</p>
-<button class="gold-btn" onclick="showView('authView')">
-ابدأ رحلتك مع مكسب عرب
-</button>
-<button class="outline-btn" onclick="showView('opportunitiesView')">
-استكشف الفرص
-</button>
-</div>
+  <!-- الصفحة الرئيسية -->
+  <section id="home" class="view active">
+    <div class="hero">
+      <h1>مكسب عرب | MAKSA ARAB</h1>
+      <p>منصتك العربية للتجارة بالجملة والاستيراد والتصدير وربط التجار والموردين والمشترين.</p>
+      <p>فرص تجارية حقيقية، تعاون أوسع، وأسواق عربية بلا حدود.</p>
+      <button class="gold-btn" onclick="showView('publish')">انضم إلى مكسب عرب</button>
+      <button class="outline-btn" onclick="showView('opportunities')">اكتشف الفرص</button>
+    </div>
 
-<h2 class="section-title">ماذا تقدم مكسب عرب؟</h2>
-<div class="cards">
-<div class="card">
-<h3>التجارة بالجملة</h3>
-<p>ربط التجار بالموردين والمشترين وتسهيل عرض المنتجات والطلبات.</p>
-</div>
-<div class="card">
-<h3>فرص الأعمال</h3>
-<p>اكتشاف فرص التعاون والشراكة والعمل في الأسواق العربية.</p>
-</div>
-<div class="card">
-<h3>الصور والفيديو</h3>
-<p>عرض صور وفيديوهات المنتجات والعروض بعد مراجعتها.</p>
-</div>
-<div class="card">
-<h3>مكسب الذكي</h3>
-<p>مساعد رقمي للتجارة والبحث عن الفرص والموردين.</p>
-</div>
-</div>
-</section>
+    <h2 class="section-title">بوابتك إلى الأسواق العربية</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>التجار والمشترون</h3>
+        <p>اعثر على المنتجات والموردين المناسبين لاحتياجات تجارتك.</p>
+      </div>
+      <div class="card">
+        <h3>الموردون والشركات</h3>
+        <p>اعرض منتجاتك وخدماتك وتواصل مع مشترين من مختلف الدول العربية.</p>
+      </div>
+      <div class="card">
+        <h3>الفرص التجارية</h3>
+        <p>اكتشف طلبات الشراء والتوريد وفرص الاستيراد والتصدير.</p>
+      </div>
+      <div class="card">
+        <h3>مكسب الذكي</h3>
+        <p>مساعد ذكي يساعدك في البحث عن فرص التجارة وصياغة الطلبات.</p>
+      </div>
+    </div>
 
-<section id="opportunitiesView" class="view">
-<h2 class="section-title">الفرص والطلبات التجارية</h2>
-<div class="panel">
-<h3>إضافة طلب أو فرصة جديدة</h3>
-<div class="notice">
-جميع الطلبات الجديدة تخضع لمراجعة الإدارة قبل ظهورها للزوار.
-</div>
-<form id="requestForm">
-<div class="form-grid">
+    <h2 class="section-title">الدول المستهدفة</h2>
+    <div class="panel">
+      <p>سوريا · السعودية · الإمارات · قطر · الكويت · البحرين · عُمان · الأردن · لبنان · العراق</p>
+    </div>
+  </section>
 
-<div class="field">
-<label for="requestTitle">عنوان الطلب</label>
-<input id="requestTitle" required maxlength="150"
-placeholder="مثال: مطلوب مورد مواد غذائية">
-</div>
+  <!-- الفرص التجارية -->
+  <section id="opportunities" class="view">
+    <h2 class="section-title">الفرص والطلبات التجارية</h2>
+    <div class="panel">
+      <p>تصفح طلبات الشراء والتوريد والفرص التجارية المنشورة بعد المراجعة.</p>
+      <div class="form-grid">
+        <div class="field">
+          <label for="searchListings">ابحث عن منتج أو فرصة</label>
+          <input id="searchListings" type="search" placeholder="مثال: زيت زيتون، مواد غذائية">
+        </div>
+        <div class="field">
+          <label for="filterCountry">الدولة</label>
+          <select id="filterCountry">
+            <option value="">كل الدول</option>
+            <option>سوريا</option>
+            <option>السعودية</option>
+            <option>الإمارات</option>
+            <option>قطر</option>
+            <option>الكويت</option>
+            <option>البحرين</option>
+            <option>عُمان</option>
+            <option>الأردن</option>
+            <option>لبنان</option>
+            <option>العراق</option>
+          </select>
+        </div>
+      </div>
+      <button class="dark-btn" onclick="loadListings()">بحث</button>
+    </div>
+    <div id="listingsContainer" class="cards">
+      <div class="notice">سيتم عرض الفرص المعتمدة هنا.</div>
+    </div>
+  </section>
 
-<div class="field">
-<label for="requestType">نوع الطلب</label>
-<select id="requestType" required>
-<option value="">اختر النوع</option>
-<option value="شراء">طلب شراء</option>
-<option value="بيع">عرض بيع</option>
-<option value="توريد">طلب توريد</option>
-<option value="شراكة">فرصة شراكة</option>
-<option value="عمل">فرصة عمل</option>
-<option value="أخرى">أخرى</option>
-</select>
-</div>
+  <!-- الموردون -->
+  <section id="suppliers" class="view">
+    <h2 class="section-title">دليل الموردين والشركات</h2>
+    <div class="panel">
+      <p>ابحث عن الشركات والموردين المسجلين في منصة مكسب عرب.</p>
+      <div class="field">
+        <label for="supplierSearch">اسم الشركة أو المنتج</label>
+        <input id="supplierSearch" type="search" placeholder="اكتب اسم الشركة أو المنتج">
+      </div>
+      <button class="dark-btn" onclick="loadSuppliers()">بحث عن مورد</button>
+    </div>
+    <div id="suppliersContainer" class="cards">
+      <div class="notice">سيظهر الموردون المعتمدون هنا.</div>
+    </div>
+  </section>
 
-<div class="field">
-<label for="requestCountry">الدولة</label>
-<input id="requestCountry" required placeholder="الدولة">
-</div>
+  <!-- إضافة إعلان أو فرصة -->
+  <section id="publish" class="view">
+    <h2 class="section-title">أضف إعلاناً أو طلباً تجارياً</h2>
+    <div class="panel">
+      <div id="publishNotice" class="notice">
+        يجب تسجيل الدخول قبل إرسال إعلان جديد. جميع الإعلانات تخضع للمراجعة قبل النشر.
+      </div>
 
-<div class="field">
-<label for="requestContact">طريقة التواصل</label>
-<input id="requestContact" required
-placeholder="رقم الهاتف أو وسيلة التواصل">
-</div>
+      <form id="listingForm">
+        <div class="form-grid">
+          <div class="field">
+            <label for="listingType">نوع الإعلان</label>
+            <select id="listingType" required>
+              <option value="طلب شراء">طلب شراء</option>
+              <option value="عرض توريد">عرض توريد</option>
+              <option value="فرصة تجارية">فرصة تجارية</option>
+              <option value="خدمة تجارية">خدمة تجارية</option>
+            </select>
+          </div>
 
-<div class="field full">
-<label for="requestDetails">تفاصيل الطلب</label>
-<textarea id="requestDetails" required
-placeholder="اكتب تفاصيل العرض أو الطلب..."></textarea>
-</div>
+          <div class="field">
+            <label for="listingCountry">الدولة</label>
+            <select id="listingCountry" required>
+              <option value="">اختر الدولة</option>
+              <option>سوريا</option>
+              <option>السعودية</option>
+              <option>الإمارات</option>
+              <option>قطر</option>
+              <option>الكويت</option>
+              <option>البحرين</option>
+              <option>عُمان</option>
+              <option>الأردن</option>
+              <option>لبنان</option>
+              <option>العراق</option>
+            </select>
+          </div>
 
-<div class="field full">
-<label for="requestFiles">إرفاق صور أو فيديو</label>
-<input id="requestFiles" type="file"
-accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime"
-multiple>
-<div id="requestMediaPreview" class="media-preview"></div>
-<small>الحد الأقصى 50 ميغابايت لكل ملف.</small>
-</div>
+          <div class="field full">
+            <label for="listingTitle">عنوان الإعلان</label>
+            <input id="listingTitle" type="text" maxlength="150" required placeholder="مثال: مطلوب استيراد زيت زيتون">
+          </div>
 
-<div class="field full">
-<button class="gold-btn" type="submit">إرسال الطلب للمراجعة</button>
-</div>
-</div>
-</form>
-<div id="requestMessage" class="notice hidden"></div>
-</div>
+          <div class="field full">
+            <label for="listingDescription">تفاصيل الإعلان</label>
+            <textarea id="listingDescription" maxlength="3000" required placeholder="اكتب تفاصيل المنتج أو الطلب أو الفرصة"></textarea>
+          </div>
 
-<h3 class="section-title">الطلبات المعتمدة</h3>
-<div id="publicRequestsList">جارٍ تحميل الطلبات...</div>
-</section>
+          <div class="field">
+            <label for="listingQuantity">الكمية (اختياري)</label>
+            <input id="listingQuantity" type="text" maxlength="100" placeholder="مثال: 10 أطنان">
+          </div>
 
-<section id="suppliersView" class="view">
-<h2 class="section-title">دليل الموردين</h2>
-<div class="panel">
-<h3>إضافة بيانات المورد</h3>
-<div class="notice">
-تظهر بيانات الموردين بعد مراجعة الإدارة واعتمادها.
-</div>
-<form id="supplierForm">
-<div class="form-grid">
-<div class="field">
-<label for="supplierCompany">اسم الشركة أو المورد</label>
-<input id="supplierCompany" required maxlength="150">
-</div>
-<div class="field">
-<label for="supplierCountry">الدولة</label>
-<input id="supplierCountry" required>
-</div>
-<div class="field">
-<label for="supplierCity">المدينة</label>
-<input id="supplierCity">
-</div>
-<div class="field full">
-<label for="supplierProducts">المنتجات والخدمات</label>
-<textarea id="supplierProducts" required></textarea>
-</div>
-<div class="field full">
-<button class="gold-btn" type="submit">إرسال بيانات المورد</button>
-</div>
-</div>
-</form>
-<div id="supplierMessage" class="notice hidden"></div>
-</div>
-<h3 class="section-title">الموردون المعتمدون</h3>
-<div id="suppliersList">جارٍ تحميل الموردين...</div>
-</section>
+          <div class="field">
+            <label for="listingContact">وسيلة التواصل</label>
+            <input id="listingContact" type="text" maxlength="150" placeholder="بريد إلكتروني أو هاتف">
+          </div>
+        </div>
 
-<section id="mediaView" class="view">
-<h2 class="section-title">معرض الصور والفيديو</h2>
-<div class="panel">
-<p>
-تظهر هنا الوسائط التي وافقت عليها الإدارة فقط.
-</p>
-<button class="gold-btn" onclick="showView('opportunitiesView')">
-أضف صوراً أو فيديو مع طلبك
-</button>
-</div>
-<div id="publicMediaList" class="media-grid"></div>
-</section>
+        <button type="submit" class="gold-btn">إرسال الإعلان للمراجعة</button>
+      </form>
+    </div>
+  </section>
 
-<section id="aiView" class="view">
-<h2 class="section-title">مكسب الذكي</h2>
-<div class="panel">
-<h3>المساعد الذكي لمنصة مكسب عرب</h3>
-<p>اسأل عن التجارة أو الموردين أو الفرص أو كيفية استخدام المنصة.</p>
-<div class="field">
-<label for="aiQuestion">اكتب سؤالك</label>
-<textarea id="aiQuestion" maxlength="2000"
-placeholder="كيف يمكنني إيجاد مورد للمواد الغذائية؟"></textarea>
-</div>
-<button id="aiSendButton" class="gold-btn" onclick="askMaksaAI()">
-إرسال السؤال
-</button>
-<div id="aiAnswer" class="notice hidden"></div>
-</div>
-</section>
+  <!-- مكسب الذكي -->
+  <section id="maksaAI" class="view">
+    <h2 class="section-title">مكسب الذكي</h2>
+    <div class="panel">
+      <p>مساعدك التجاري الذكي للبحث والتخطيط وصياغة الطلبات التجارية.</p>
+      <div class="field">
+        <label for="aiQuestion">كيف يمكن لمكسب الذكي مساعدتك؟</label>
+        <textarea id="aiQuestion" rows="4" maxlength="3000" placeholder="مثال: أبحث عن موردين لزيت الزيتون في سوريا للتصدير إلى السعودية"></textarea>
+      </div>
+      <button id="askAIButton" class="gold-btn" type="button" onclick="askMaksaAI()">إرسال السؤال</button>
+      <div id="aiResponse" class="notice">اكتب سؤالك التجاري وسيظهر الرد هنا.</div>
+    </div>
+  </section>
 
-<section id="profileView" class="view">
-<h2 class="section-title">ملفي الشخصي</h2>
-<div class="panel">
-<div id="profileMessage" class="notice">
-سجّل الدخول لعرض ملفك الشخصي.
-</div>
-<form id="profileForm">
-<div class="form-grid">
-<div class="field">
-<label for="profileName">الاسم الكامل</label>
-<input id="profileName" required>
-</div>
-<div class="field">
-<label for="profileCompany">اسم الشركة أو النشاط</label>
-<input id="profileCompany">
-</div>
-<div class="field">
-<label for="profileCountry">الدولة</label>
-<input id="profileCountry">
-</div>
-<div class="field">
-<label for="profileType">نوع الحساب</label>
-<select id="profileType">
-<option value="individual">فرد</option>
-<option value="مشتري">مشتري</option>
-<option value="تاجر">تاجر</option>
-<option value="مورد">مورد</option>
-<option value="شركة">شركة</option>
-<option value="مستثمر">مستثمر</option>
-</select>
-</div>
-<div class="field full">
-<button type="submit" class="gold-btn">حفظ بياناتي</button>
-</div>
-</div>
-</form>
-</div>
-</section>
+  <!-- الحساب -->
+  <section id="account" class="view">
+    <h2 class="section-title">حساب المستخدم</h2>
+    <div class="panel">
+      <div id="accountStatus" class="notice">يمكنك تسجيل الدخول أو إنشاء حساب جديد للانضمام إلى مكسب عرب.</div>
 
-<section id="authView" class="view">
-<h2 class="section-title">الدخول والتسجيل</h2>
-<div class="panel">
-<div class="form-grid">
-<div class="field">
-<label for="authEmail">البريد الإلكتروني</label>
-<input id="authEmail" type="email" required
-placeholder="name@example.com">
-</div>
-<div class="field">
-<label for="authPassword">كلمة المرور</label>
-<input id="authPassword" type="password"
-minlength="6" required placeholder="ستة أحرف على الأقل">
-</div>
-</div>
-<div class="item-actions">
-<button class="gold-btn" onclick="login()">تسجيل الدخول</button>
-<button class="dark-btn" onclick="register()">إنشاء حساب جديد</button>
-</div>
-<div id="authMessage" class="notice hidden"></div>
-</div>
-</section>
+      <form id="authForm">
+        <div class="field">
+          <label for="authEmail">البريد الإلكتروني</label>
+          <input id="authEmail" type="email" autocomplete="email" required placeholder="name@example.com">
+        </div>
+        <div class="field">
+          <label for="authPassword">كلمة المرور</label>
+          <input id="authPassword" type="password" autocomplete="current-password" minlength="6" required placeholder="ستة أحرف على الأقل">
+        </div>
+        <div class="field">
+          <label for="authFullName">الاسم الكامل (عند إنشاء حساب)</label>
+          <input id="authFullName" type="text" maxlength="120" autocomplete="name" placeholder="الاسم الكامل">
+        </div>
+        <div class="item-actions">
+          <button class="gold-btn" type="button" onclick="signIn()">تسجيل الدخول</button>
+          <button class="dark-btn" type="button" onclick="signUp()">إنشاء حساب</button>
+          <button class="outline-btn" type="button" onclick="signOut()">تسجيل الخروج</button>
+        </div>
+      </form>
 
-<section id="adminView" class="view">
-<h2 class="section-title">لوحة إدارة مكسب عرب</h2>
-<div class="notice">
-هذه اللوحة مخصصة لحسابات الإدارة المصرح لها فقط.
-</div>
-<div class="cards" style="margin:18px 0">
-<div class="card">
-<h3>الطلبات المعلقة</h3>
-<strong id="pendingCount">0</strong>
-</div>
-<div class="card">
-<h3>الطلبات المعتمدة</h3>
-<strong id="approvedCount">0</strong>
-</div>
-<div class="card">
-<h3>الطلبات المرفوضة</h3>
-<strong id="rejectedCount">0</strong>
-</div>
-</div>
-<div class="panel">
-<h3>طلبات تحتاج إلى مراجعة</h3>
-<div id="adminRequestsList">جارٍ التحميل...</div>
-</div>
-<div class="panel">
-<h3>مراجعة الموردين</h3>
-<div id="adminSuppliersList">جارٍ التحميل...</div>
-</div>
-<div class="panel">
-<h3>الصور والفيديوهات المرفقة</h3>
-<div id="adminMediaList">جارٍ التحميل...</div>
-</div>
-</section>
+      <div id="profileDetails" class="notice hidden"></div>
+    </div>
+  </section>
+
+  <!-- لوحة الإدارة -->
+  <section id="admin" class="view">
+    <h2 class="section-title">لوحة إدارة مكسب عرب</h2>
+    <div id="adminNotice" class="notice">هذه الصفحة مخصصة للمستخدمين المخولين بالإدارة.</div>
+    <div id="adminListings" class="cards"></div>
+  </section>
 
 </main>
 
 <footer>
-<strong>MAKSA ARAB | مكسب عرب</strong>
-<br>
-منصة عربية للتجارة والفرص والتعاون
-<br>
-رامي رستم — المؤسس والمدير العام
-</footer><script>
-/* إعداد Supabase */
-const SUPABASE_URL =
-'https://nvpcensxvgmxdpqnenrw.supabase.co';
+  <strong>MAKSA ARAB | مكسب عرب</strong>
+  <p>منصة عربية للتجارة والفرص والتعاون.</p>
+  <p>رامي رستم — المؤسس والمدير العام</p>
+  <p>© 2026 MAKSA ARAB. جميع الحقوق محفوظة.</p>
+</footer>
 
-const SUPABASE_PUBLISHABLE_KEY =
-'sb_publishable_Iwd05yggg2IZUPJrnY3L6w_WoIJgERM';
+<script>
+/* =====================================
+   MAKSA ARAB - CORE CONFIGURATION
+===================================== */
+// إعدادات Supabase
+const SUPABASE_URL = "https://nvpcensxvgmxdpqnenrw.supabase.co";
 
-const supabaseClient = window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_PUBLISHABLE_KEY
-);
+const SUPABASE_ANON_KEY = "sb_publishable_Iwd05yggg2IZUPJrnY3L6w_WoIJgERM";
 
+let supabaseClient = null;
 let currentUser = null;
 let currentProfile = null;
-let selectedRequestFiles = [];
 
-function byId(id){
-return document.getElementById(id);
+// تهيئة الاتصال
+if (window.supabase) {
+    supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+    console.log("تم الاتصال بـ Supabase بنجاح");
+} else {
+    console.error("مكتبة Supabase غير محملة");
 }
 
-function showMessage(id,message,type='notice'){
-const el=byId(id);
-if(!el)return;
-el.textContent=message;
-el.className='notice '+type;
-el.classList.remove('hidden');
+/* =====================================
+   GENERAL HELPERS
+===================================== */
+
+function showMessage}(elementId, message, type = "notice") {
+  const element = document.getElementById(elementId);
+  if (!element) return;
+
+  element.className = "notice " + type;
+  element.textContent = message;
 }
 
-function currentProfileIsAdmin(){
-return !!(currentProfile && currentProfile.role==='admin');
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, function(char) {
+    const entities = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+    };
+    return entities[char];
+  });
 }
 
-function updateNavigation(){
-const loggedIn=!!currentUser;
-byId('loginNavButton').classList.toggle('hidden',loggedIn);
-byId('logoutNavButton').classList.toggle('hidden',!loggedIn);
-byId('adminNavButton').style.display=
-currentProfileIsAdmin()?'inline-block':'none';
+function requireSupabase() {
+  if (!supabaseClient) {
+    alert("الاتصال بقاعدة البيانات غير جاهز. تحقق من مفتاح Supabase وإعداداته.");
+    return false;
+  }
+  return true;
 }
 
-function showView(viewId){
-if(viewId==='adminView' && !currentProfileIsAdmin()){
-alert('هذه الصفحة مخصصة للإدارة فقط.');
-return;
+/* =====================================
+   PAGE NAVIGATION
+===================================== */
+
+function showView(viewId) {
+  const views = document.querySelectorAll(".view");
+
+  views.forEach(function(view) {
+    view.classList.remove("active");
+  });
+
+  const selectedView = document.getElementById(viewId);
+
+  if (!selectedView) return;
+
+  if (viewId === "admin" && !isAdmin()) {
+    alert("ليس لديك صلاحية الوصول إلى لوحة الإدارة.");
+    return;
+  }
+
+  selectedView.classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
+  if (viewId === "opportunities") loadListings();
+  if (viewId === "suppliers") loadSuppliers();
+  if (viewId === "admin") loadAdminListings();
 }
 
-document.querySelectorAll('.view').forEach(v=>{
-v.classList.remove('active');
+/* =====================================
+   USER PERMISSIONS
+===================================== */
+
+function isAdmin() {
+  // لا تعتبر هذه الدالة بديلاً عن سياسات RLS على الخادم.
+  return Boolean(
+    currentUser &&
+    currentProfile &&
+    currentProfile.role === "admin"
+  );
+}
+
+function updateNavigation() {
+  const adminButton = document.getElementById("adminNavButton");
+
+  if (adminButton) {
+    adminButton.classList.toggle("hidden", !isAdmin());
+  }
+}
+
+/* =====================================
+   AUTHENTICATION
+===================================== */
+
+async function signUp() {
+  if (!requireSupabase()) return;
+
+  const email = document.getElementById("authEmail").value.trim();
+  const password = document.getElementById("authPassword").value;
+  const fullName = document.getElementById("authFullName").value.trim();
+
+  if (!email || !password || password.length < 6 || !fullName) {
+    showMessage(
+      "accountStatus",
+      "أدخل الاسم الكامل والبريد الإلكتروني وكلمة مرور من 6 أحرف على الأقل.",
+      "error"
+    );
+    return;
+  }
+
+  try {
+    const { data, error } = await supabaseClient.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          full_name: fullName
+        }
+      }
+    });
+
+    if (error) throw error;
+
+    if (data.user && !data.session) {
+      showMessage(
+        "accountStatus",
+        "تم إنشاء الحساب. تحقق من بريدك الإلكتروني لتأكيد التسجيل.",
+        "success"
+      );
+    } else {
+      showMessage(
+        "accountStatus",
+        "تم إنشاء الحساب بنجاح.",
+        "success"
+      );
+      await loadCurrentUser();
+    }
+  } catch (error) {
+    showMessage("accountStatus", error.message, "error");
+  }
+}
+
+async function signIn() {
+  if (!requireSupabase()) return;
+
+  const email = document.getElementById("authEmail").value.trim();
+  const password = document.getElementById("authPassword").value;
+
+  if (!email || !password) {
+    showMessage(
+      "accountStatus",
+      "أدخل البريد الإلكتروني وكلمة المرور.",
+      "error"
+    );
+    return;
+  }
+
+  try {
+    const { error } = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+    if (error) throw error;
+
+    await loadCurrentUser();
+
+    showMessage(
+      "accountStatus",
+      "تم تسجيل الدخول بنجاح.",
+      "success"
+    );
+  } catch (error) {
+    showMessage("accountStatus", error.message, "error");
+  }
+}
+
+async function signOut() {
+  if (!requireSupabase()) return;
+
+  try {
+    const { error } = await supabaseClient.auth.signOut();
+    if (error) throw error;
+
+    currentUser = null;
+    currentProfile = null;
+
+    updateNavigation();
+
+    document.getElementById("profileDetails").classList.add("hidden");
+
+    showMessage(
+      "accountStatus",
+      "تم تسجيل الخروج.",
+      "success"
+    );
+  } catch (error) {
+    showMessage("accountStatus", error.message, "error");
+  }
+}
+
+/* =====================================
+   USER PROFILE
+===================================== */
+
+async function loadCurrentUser() {
+  if (!supabaseClient) return;
+
+  try {
+    const {
+      data: { user },
+      error: authError
+    } = await supabaseClient.auth.getUser();
+
+    if (authError) throw authError;
+
+    currentUser = user;
+    currentProfile = null;
+
+    if (currentUser) {
+      const { data, error } = await supabaseClient
+        .from("Profiles")
+        .select("*")
+        .eq("id", currentUser.id)
+        .maybeSingle();
+
+      if (error) {
+        console.warn("Profile loading:", error.message);
+      } else {
+        currentProfile = data;
+      }
+
+      const profileDetails = document.getElementById("profileDetails");
+
+      profileDetails.classList.remove("hidden");
+
+      profileDetails.textContent =
+        "البريد الإلكتروني: " + currentUser.email;
+    }
+
+    updateNavigation();
+
+  } catch (error) {
+    console.error("User loading error:", error.message);
+  }
+}
+
+/* =====================================
+   INITIAL PAGE SETUP
+===================================== */
+
+async function initializeMaksa() {
+  if (!supabaseClient) {
+    showMessage(
+      "accountStatus",
+      "الواجهة جاهزة، لكن الاتصال بقاعدة البيانات يحتاج مفتاح Supabase Publishable الصحيح.",
+      "error"
+    );
+    return;
+  }
+
+  await loadCurrentUser();
+
+  const {
+    data: { subscription }
+  } = supabaseClient.auth.onAuthStateChange(function(event, session) {
+    setTimeout(function() {
+      loadCurrentUser();
+    }, 0);
+  });
+
+  console.log("MAKSA ARAB initialized.");
+}
+
+</script>
+
+<script>
+/* =====================================
+   LISTINGS - MAKSA ARAB
+===================================== */
+
+// إرسال إعلان جديد للمراجعة
+async function submitListing(event) {
+  event.preventDefault();
+
+  if (!requireSupabase()) return;
+
+  if (!currentUser) {
+    showMessage(
+      "publishNotice",
+      "يجب تسجيل الدخول أولاً لإرسال إعلان.",
+      "error"
+    );
+    return;
+  }
+
+  const listing = {
+    user_id: currentUser.id,
+    type: document.getElementById("listingType").value,
+    country: document.getElementById("listingCountry").value,
+    title: document.getElementById("listingTitle").value.trim(),
+    description: document.getElementById("listingDescription").value.trim(),
+    quantity: document.getElementById("listingQuantity").value.trim(),
+    contact: document.getElementById("listingContact").value.trim(),
+    status: "pending"
+  };
+
+  if (!listing.country || !listing.title || !listing.description) {
+    showMessage(
+      "publishNotice",
+      "يرجى تعبئة الدولة والعنوان والتفاصيل.",
+      "error"
+    );
+    return;
+  }
+
+  try {
+    const { error } = await supabaseClient
+      .from("requests")
+      .insert([listing]);
+
+    if (error) throw error;
+
+    document.getElementById("listingForm").reset();
+
+    showMessage(
+      "publishNotice",
+      "وصل إعلانك بنجاح، وهو الآن بانتظار مراجعة الإدارة قبل نشره.",
+      "success"
+    );
+
+  } catch (error) {
+    console.error("Listing submission:", error);
+
+    showMessage(
+      "publishNotice",
+      "تعذر إرسال الإعلان: " + error.message,
+      "error"
+    );
+  }
+}
+
+// عرض الفرص المعتمدة فقط
+async function loadListings() {
+  const container = document.getElementById("listingsContainer");
+
+  if (!container) return;
+
+  if (!requireSupabase()) {
+    container.textContent = "تعذر الاتصال بقاعدة البيانات.";
+    return;
+  }
+
+  container.innerHTML = '<div class="notice">جارٍ تحميل الفرص...</div>';
+
+  try {
+    let query = supabaseClient
+      .from("requests")
+      .select("*")
+      .eq("status", "approved")
+      .order("created_at", { ascending: false });
+
+    const search = document.getElementById("searchListings").value.trim();
+    const country = document.getElementById("filterCountry").value;
+
+    if (country) {
+      query = query.eq("country", country);
+    }
+
+    const { data, error } = await query;
+
+    if (error) throw error;
+
+    let results = data || [];
+
+    if (search) {
+      const term = search.toLowerCase();
+
+      results = results.filter(function(item) {
+        return (
+          String(item.title || "").toLowerCase().includes(term) ||
+          String(item.description || "").toLowerCase().includes(term) ||
+          String(item.type || "").toLowerCase().includes(term)
+        );
+      });
+    }
+
+    if (!results.length) {
+      container.innerHTML = '<div class="notice">لا توجد فرص معتمدة تطابق البحث حالياً.</div>';
+      return;
+    }
+
+    container.innerHTML = results.map(function(item) {
+      return `
+        <article class="card">
+          <h3>${escapeHTML(item.title)}</h3>
+          <p><strong>النوع:</strong> ${escapeHTML(item.type)}</p>
+          <p><strong>الدولة:</strong> ${escapeHTML(item.country)}</p>
+          <p>${escapeHTML(item.description)}</p>
+          ${item.quantity ? `<p><strong>الكمية:</strong> ${escapeHTML(item.quantity)}</p>` : ""}
+          ${item.contact ? `<p><strong>التواصل:</strong> ${escapeHTML(item.contact)}</p>` : ""}
+          <span class="status approved">معتمد</span>
+        </article>
+      `;
+    }).join("");
+
+  } catch (error) {
+    console.error("Listings loading:", error);
+
+    container.innerHTML =
+      '<div class="notice error">تعذر تحميل الفرص. تحقق من إعدادات قاعدة البيانات وسياسات الوصول.</div>';
+  }
+}
+
+/* =====================================
+   SUPPLIERS
+===================================== */
+
+async function loadSuppliers() {
+  const container = document.getElementById("suppliersContainer");
+
+  if (!container) return;
+
+  if (!requireSupabase()) {
+    container.textContent = "تعذر الاتصال بقاعدة البيانات.";
+    return;
+  }
+
+  container.innerHTML = '<div class="notice">جارٍ تحميل الموردين...</div>';
+
+  try {
+    const { data, error } = await supabaseClient
+      .from("suppliers")
+      .select("*")
+      .eq("status", "approved")
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+
+    const search = document
+      .getElementById("supplierSearch")
+      .value.trim()
+      .toLowerCase();
+
+    let results = data || [];
+
+    if (search) {
+      results = results.filter(function(item) {
+        const searchableText = [
+          item.company_name,
+          item.name,
+          item.product,
+          item.description,
+          item.country
+        ].join(" ").toLowerCase();
+
+        return searchableText.includes(search);
+      });
+    }
+
+    if (!results.length) {
+      container.innerHTML =
+        '<div class="notice">لا يوجد موردون معتمدون مطابقون للبحث حالياً.</div>';
+      return;
+    }
+
+    container.innerHTML = results.map(function(item) {
+      const company = item.company_name || item.name || "شركة مسجلة";
+
+      return `
+        <article class="card">
+          <h3>${escapeHTML(company)}</h3>
+          <p><strong>الدولة:</strong> ${escapeHTML(item.country || "غير محددة")}</p>
+          <p><strong>المنتج:</strong> ${escapeHTML(item.product || "غير محدد")}</p>
+          <p>${escapeHTML(item.description || "")}</p>
+          <span class="status approved">مورد معتمد</span>
+        </article>
+      `;
+    }).join("");
+
+  } catch (error) {
+    console.error("Suppliers loading:", error);
+
+    container.innerHTML =
+      '<div class="notice error">تعذر تحميل الموردين. تحقق من وجود جدول suppliers وسياسات الوصول.</div>';
+  }
+}
+
+/* =====================================
+   ADMIN - REVIEW LISTINGS
+===================================== */
+
+async function loadAdminListings() {
+  const container = document.getElementById("adminListings");
+
+  if (!container) return;
+
+  if (!requireSupabase()) return;
+
+  if (!currentUser || !isAdmin()) {
+    showMessage(
+      "adminNotice",
+      "لا تملك صلاحية إدارة الإعلانات.",
+      "error"
+    );
+    return;
+  }
+
+  container.innerHTML = '<div class="notice">جارٍ تحميل الإعلانات...</div>';
+
+  try {
+    const { data, error } = await supabaseClient
+      .from("requests")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+
+    if (!data || !data.length) {
+      container.innerHTML =
+        '<div class="notice">لا توجد إعلانات للمراجعة حالياً.</div>';
+      return;
+    }
+
+    container.innerHTML = data.map(function(item) {
+      const statusClass =
+        item.status === "approved" ? "approved" :
+        item.status === "rejected" ? "rejected" : "pending";
+
+      const statusText =
+        item.status === "approved" ? "معتمد" :
+        item.status === "rejected" ? "مرفوض" : "بانتظار المراجعة";
+
+      return `
+        <article class="card">
+          <h3>${escapeHTML(item.title)}</h3>
+          <p><strong>النوع:</strong> ${escapeHTML(item.type)}</p>
+          <p><strong>الدولة:</strong> ${escapeHTML(item.country)}</p>
+          <p>${escapeHTML(item.description)}</p>
+          <p><strong>الحالة:</strong>
+            <span class="status ${statusClass}">${statusText}</span>
+          </p>
+
+          ${item.status === "pending" ? `
+            <div class="item-actions">
+              <button class="approve-btn"
+                onclick="reviewListing('${escapeHTML(item.id)}','approved')">
+                موافقة ونشر
+              </button>
+              <button class="reject-btn"
+                onclick="reviewListing('${escapeHTML(item.id)}','rejected')">
+                رفض الإعلان
+              </button>
+            </div>
+          ` : ""}
+        </article>
+      `;
+    }).join("");
+
+  } catch (error) {
+    console.error("Admin loading:", error);
+
+    container.innerHTML =
+      '<div class="notice error">تعذر تحميل لوحة الإدارة. تحقق من صلاحيات قاعدة البيانات.</div>';
+  }
+}
+
+// اعتماد الإعلان أو رفضه
+async function reviewListing(listingId, newStatus) {
+  if (!requireSupabase()) return;
+
+  if (!isAdmin()) {
+    alert("غير مسموح لك بتنفيذ هذا الإجراء.");
+    return;
+  }
+
+  const actionText = newStatus === "approved" ? "اعتماد ونشر" : "رفض";
+
+  if (!confirm("هل تريد " + actionText + " هذا الإعلان؟")) {
+    return;
+  }
+
+  try {
+    const { error } = await supabaseClient
+      .from("requests")
+      .update({ status: newStatus })
+      .eq("id", listingId);
+
+    if (error) throw error;
+
+    showMessage(
+      "adminNotice",
+      newStatus === "approved"
+        ? "تم اعتماد الإعلان."
+        : "تم رفض الإعلان.",
+      "success"
+    );
+
+    await loadAdminListings();
+
+  } catch (error) {
+    console.error("Review error:", error);
+
+    showMessage(
+      "adminNotice",
+      "تعذر تحديث حالة الإعلان: " + error.message,
+      "error"
+    );
+  }
+}
+
+/* =====================================
+   FORM EVENT
+===================================== */
+
+document
+  .getElementById("listingForm")
+  .addEventListener("submit", submitListing);
+
+</script>
+
+<script>
+/* =====================================
+   MAKSA AI
+===================================== */
+
+async function askMaksaAI() {
+  const question = document.getElementById("aiQuestion").value.trim();
+  const responseBox = document.getElementById("aiResponse");
+  const button = document.getElementById("askAIButton");
+
+  if (!question) {
+    responseBox.textContent = "اكتب سؤالك أولاً.";
+    return;
+  }
+
+  if (!supabaseClient) {
+    responseBox.textContent =
+      "الاتصال بقاعدة البيانات غير جاهز. تحقق من إعداد Supabase.";
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = "جارٍ التفكير...";
+  responseBox.textContent = "مكسب الذكي يعمل على إعداد الإجابة...";
+
+  try {
+    const { data, error } = await supabaseClient.functions.invoke(
+      "maksa-ai",
+      {
+        body: {
+          question: question,
+          language: "ar",
+          platform: "MAKSA ARAB"
+        }
+      }
+    );
+
+    if (error) throw error;
+
+    const answer =
+      data?.answer ||
+      data?.response ||
+      data?.message ||
+      "لم يصل رد واضح من المساعد الذكي.";
+
+    responseBox.textContent = answer;
+
+  } catch (error) {
+    console.error("MAKSA AI error:", error);
+
+    responseBox.textContent =
+      "تعذر الحصول على رد من مكسب الذكي حالياً. تأكد من نشر Edge Function باسم maksa-ai وإعداد مفتاح الذكاء الاصطناعي على الخادم.";
+  } finally {
+    button.disabled = false;
+    button.textContent = "إرسال السؤال";
+  }
+}
+
+/* =====================================
+   SEARCH EVENTS
+===================================== */
+
+document
+  .getElementById("searchListings")
+  .addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      loadListings();
+    }
+  });
+
+document
+  .getElementById("filterCountry")
+  .addEventListener("change", loadListings);
+
+document
+  .getElementById("supplierSearch")
+  .addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      loadSuppliers();
+    }
+  });
+
+/* =====================================
+   INITIALIZATION
+===================================== */
+
+document.addEventListener("DOMContentLoaded", function() {
+  initializeMaksa();
+  console.log("MAKSA ARAB website is ready.");
 });
 
-const target=byId(viewId);
-if(target)target.classList.add('active');
-
-if(viewId==='adminView')loadAdminPanel();
-if(viewId==='opportunitiesView')loadPublicRequests();
-if(viewId==='suppliersView')loadSuppliers();
-if(viewId==='mediaView')loadPublicMedia();
-if(viewId==='profileView')loadProfile();
-}
-
-/* التسجيل */
-async function register(){
-const email=byId('authEmail').value.trim();
-const password=byId('authPassword').value;
-
-if(!email || password.length<6){
-showMessage('authMessage',
-'أدخل بريداً إلكترونياً وكلمة مرور من 6 أحرف على الأقل.','error');
-return;
-}
-
-const {data,error}=await supabaseClient.auth.signUp({
-email,password
-});
-
-if(error){
-showMessage('authMessage',
-'تعذر إنشاء الحساب: '+error.message,'error');
-return;
-}
-
-if(data.session){
-currentUser=data.user;
-await loadProfile();
-updateNavigation();
-showMessage('authMessage','تم إنشاء الحساب وتسجيل الدخول.','success');
-}else{
-showMessage('authMessage',
-'تم إنشاء طلب التسجيل. تحقق من بريدك الإلكتروني لتأكيد الحساب.');
-}
-}
-
-/* تسجيل الدخول */
-async function login(){
-const email=byId('authEmail').value.trim();
-const password=byId('authPassword').value;
-
-if(!email || !password){
-showMessage('authMessage',
-'يرجى إدخال البريد الإلكتروني وكلمة المرور.','error');
-return;
-}
-
-const {data,error}=await supabaseClient.auth.signInWithPassword({
-email,password
-});
-
-if(error){
-showMessage('authMessage',
-'فشل تسجيل الدخول: '+error.message,'error');
-return;
-}
-
-currentUser=data.user;
-await loadProfile();
-updateNavigation();
-showMessage('authMessage','تم تسجيل الدخول بنجاح.','success');
-showView('homeView');
-}
-
-/* تسجيل الخروج */
-async function logout(){
-const {error}=await supabaseClient.auth.signOut();
-
-if(error){
-alert('تعذر تسجيل الخروج: '+error.message);
-return;
-}
-
-currentUser=null;
-currentProfile=null;
-updateNavigation();
-showView('homeView');
-}
-
-/* قراءة الملف الشخصي */
-async function loadProfile(){
-if(!currentUser)return;
-
-const {data,error}=await supabaseClient
-.from('Profiles')
-.select('id,user_id,full_name,company_name,country,account_type,role')
-.eq('user_id',currentUser.id)
-.maybeSingle();
-
-if(error){
-showMessage('profileMessage',
-'تعذر تحميل الملف الشخصي: '+error.message,'error');
-return;
-}
-
-currentProfile=data||null;
-
-if(data){
-byId('profileName').value=data.full_name||'';
-byId('profileCompany').value=data.company_name||'';
-byId('profileCountry').value=data.country||'';
-byId('profileType').value=data.account_type||'individual';
-}else{
-byId('profileName').value=
-currentUser.user_metadata?.full_name||'';
-byId('profileCompany').value='';
-byId('profileCountry').value='';
-byId('profileType').value='individual';
-}
-
-updateNavigation();
-}
-
-/* حفظ الملف الشخصي */
-byId('profileForm').addEventListener('submit',async function(event){
-event.preventDefault();
-
-if(!currentUser){
-showMessage('profileMessage','سجّل الدخول أولاً.','error');
-showView('authView');
-return;
-}
-
-const profileData={
-user_id:currentUser.id,
-full_name:byId('profileName').value.trim(),
-company_name:byId('profileCompany').value.trim(),
-country:byId('profileCountry').value.trim(),
-account_type:byId('profileType').value
-};
-
-const {error}=await supabaseClient
-.from('Profiles')
-.upsert(profileData,{onConflict:'user_id'});
-
-if(error){
-showMessage('profileMessage',
-'تعذر حفظ البيانات: '+error.message,'error');
-return;
-}
-
-await loadProfile();
-showMessage('profileMessage',
-'تم حفظ بيانات الملف الشخصي بنجاح.','success');
-});
-
-/* معاينة الملفات */
-byId('requestFiles').addEventListener('change',function(event){
-selectedRequestFiles=Array.from(event.target.files||[]);
-const preview=byId('requestMediaPreview');
-preview.innerHTML='';
-
-for(const file of selectedRequestFiles){
-if(!file.type.startsWith('image/') &&
-!file.type.startsWith('video/'))continue;
-
-const url=URL.createObjectURL(file);
-let element;
-
-if(file.type.startsWith('image/')){
-element=document.createElement('img');
-element.alt=file.name;
-}else{
-element=document.createElement('video');
-element.controls=true;
-}
-
-element.src=url;
-preview.appendChild(element);
-}
-});
-
-/* رفع الصور والفيديو */
-async function uploadMedia(file,requestId){
-if(!currentUser)throw new Error('يجب تسجيل الدخول أولاً.');
-
-const allowedTypes=[
-'image/jpeg','image/png','image/webp','image/gif',
-'video/mp4','video/webm','video/quicktime'
-];
-
-if(!allowedTypes.includes(file.type)){
-throw new Error('نوع الملف غير مدعوم: '+file.name);
-}
-
-const maxSize=50*1024*1024;
-
-if(file.size>maxSize){
-throw new Error('حجم الملف يتجاوز 50 ميغابايت: '+file.name);
-}
-
-const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
-
-const path=currentUser.id+'/'+
-crypto.randomUUID()+'_'+safeName;
-
-const {data:uploaded,error:uploadError}=
-await supabaseClient.storage
-.from('maksa-media')
-.upload(path,file,{
-cacheControl:'3600',
-upsert:false,
-contentType:file.type
-});
-
-if(uploadError)throw uploadError;
-
-const mediaRecord={
-owner_id:currentUser.id,
-entity_type:'request',
-entity_id:String(requestId),
-file_path:uploaded.path,
-media_type:file.type.startsWith('image/')?'image':'video',
-mime_type:file.type,
-file_size:file.size,
-caption:file.name,
-review_status:'pending'
-};
-
-const {error:recordError}=await supabaseClient
-.from('media_assets')
-.insert(mediaRecord);
-
-if(recordError){
-await supabaseClient.storage
-.from('maksa-media')
-.remove([uploaded.path]);
-throw recordError;
-}
-
-return uploaded.path;
-}
-
-/* إرسال طلب تجاري */
-byId('requestForm').addEventListener('submit',async function(event){
-event.preventDefault();
-
-if(!currentUser){
-showMessage('requestMessage',
-'يجب تسجيل الدخول قبل إرسال الطلب.','error');
-showView('authView');
-return;
-}
-
-const button=this.querySelector('button[type="submit"]');
-button.disabled=true;
-button.textContent='جارٍ إرسال الطلب...';
-
-try{
-const requestData={
-user_id:currentUser.id,
-title:byId('requestTitle').value.trim(),
-request_type:byId('requestType').value,
-country:byId('requestCountry').value.trim(),
-details:byId('requestDetails').value.trim(),
-contact_method:byId('requestContact').value.trim(),
-status:'pending'
-};
-
-const {data:request,error:requestError}=await supabaseClient
-.from('requests')
-.insert(requestData)
-.select('id')
-.single();
-
-if(requestError)throw requestError;
-
-for(const file of selectedRequestFiles){
-await uploadMedia(file,request.id);
-}
-
-showMessage('requestMessage',
-'تم إرسال طلبك بنجاح. وهو الآن بانتظار مراجعة الإدارة.','success');
-
-this.reset();
-selectedRequestFiles=[];
-byId('requestMediaPreview').innerHTML='';
-await loadPublicRequests();
-
-}catch(error){
-showMessage('requestMessage',
-'تعذر إرسال الطلب: '+error.message,'error');
-}finally{
-button.disabled=false;
-button.textContent='إرسال الطلب للمراجعة';
-}
-});
-
-/* عرض الطلبات المعتمدة */
-async function loadPublicRequests(){
-const container=byId('publicRequestsList');
-container.textContent='جارٍ تحميل الطلبات...';
-
-const {data,error}=await supabaseClient
-.from('requests')
-.select('id,title,request_type,country,details,contact_method,created_at')
-.eq('status','approved')
-.order('created_at',{ascending:false});
-
-if(error){
-container.textContent='تعذر تحميل الطلبات: '+error.message;
-return;
-}
-
-container.innerHTML='';
-
-if(!data || !data.length){
-container.textContent='لا توجد طلبات معتمدة حالياً.';
-return;
-}
-
-data.forEach(request=>{
-const item=document.createElement('article');
-item.className='item';
-
-const title=document.createElement('h3');
-title.textContent=request.title||'طلب تجاري';
-
-const info=document.createElement('p');
-info.textContent='النوع: '+(request.request_type||'')+
-' | الدولة: '+(request.country||'');
-
-const details=document.createElement('p');
-details.textContent=request.details||'';
-
-const contact=document.createElement('p');
-contact.textContent='التواصل: '+(request.contact_method||'');
-
-item.append(title,info,details,contact);
-container.appendChild(item);
-});
-}
-
-/* إضافة مورد */
-byId('supplierForm').addEventListener('submit',async function(event){
-event.preventDefault();
-
-if(!currentUser){
-showMessage('supplierMessage','سجّل الدخول أولاً.','error');
-showView('authView');
-return;
-}
-
-const button=this.querySelector('button[type="submit"]');
-button.disabled=true;
-
-try{
-const supplierData={
-user_id:currentUser.id,
-company_name:byId('supplierCompany').value.trim(),
-country:byId('supplierCountry').value.trim(),
-city:byId('supplierCity').value.trim(),
-products_services:byId('supplierProducts').value.trim(),
-status:'pending'
-};
-
-const {error}=await supabaseClient
-.from('suppliers')
-.insert(supplierData);
-
-if(error)throw error;
-
-this.reset();
-showMessage('supplierMessage',
-'تم إرسال بيانات المورد وهي بانتظار مراجعة الإدارة.','success');
-
-}catch(error){
-showMessage('supplierMessage',
-'تعذر إرسال بيانات المورد: '+error.message,'error');
-}finally{
-button.disabled=false;
-}
-});
-
-/* عرض الموردين المعتمدين */
-async function loadSuppliers(){
-const container=byId('suppliersList');
-container.textContent='جارٍ تحميل الموردين...';
-
-const {data,error}=await supabaseClient
-.from('suppliers')
-.select('id,company_name,country,city,products_services')
-.eq('status','approved')
-.order('created_at',{ascending:false});
-
-if(error){
-container.textContent='تعذر تحميل الموردين: '+error.message;
-return;
-}
-
-container.innerHTML='';
-
-if(!data || !data.length){
-container.textContent='لا يوجد موردون معتمدون حالياً.';
-return;
-}
-
-data.forEach(supplier=>{
-const item=document.createElement('article');
-item.className='item';
-
-const heading=document.createElement('h3');
-heading.textContent=supplier.company_name||'مورد';
-
-const location=document.createElement('p');
-location.textContent=(supplier.country||'')+
-' - '+(supplier.city||'');
-
-const products=document.createElement('p');
-products.textContent=supplier.products_services||'';
-
-item.append(heading,location,products);
-container.appendChild(item);
-});
-}
-</script><script>
-/* إنشاء رابط عرض آمن للوسائط */
-async function getMediaPreview(path){
-const {data,error}=await supabaseClient.storage
-.from('maksa-media')
-.createSignedUrl(path,1800);
-
-if(error)throw error;
-return data.signedUrl;
-}
-
-/* عرض الصور والفيديو المعتمدة */
-async function loadPublicMedia(){
-const container=byId('publicMediaList');
-container.textContent='جارٍ تحميل الوسائط...';
-
-const {data,error}=await supabaseClient
-.from('media_assets')
-.select('id,file_path,media_type,mime_type,caption')
-.eq('review_status','approved')
-.order('created_at',{ascending:false})
-.limit(50);
-
-if(error){
-container.textContent='تعذر تحميل الوسائط: '+error.message;
-return;
-}
-
-container.innerHTML='';
-
-if(!data || !data.length){
-container.textContent='لا توجد صور أو فيديوهات معتمدة حالياً.';
-return;
-}
-
-for(const media of data){
-try{
-const url=await getMediaPreview(media.file_path);
-let element;
-
-if(media.media_type==='image'){
-element=document.createElement('img');
-element.alt=media.caption||'صورة من مكسب عرب';
-}else{
-element=document.createElement('video');
-element.controls=true;
-element.preload='metadata';
-}
-
-element.src=url;
-container.appendChild(element);
-
-}catch(error){
-console.error('Media preview error:',error);
-}
-}
-}
-
-/* لوحة الإدارة */
-async function loadAdminPanel(){
-if(!currentUser || !currentProfileIsAdmin()){
-alert('ليس لديك صلاحية الإدارة.');
-showView('homeView');
-return;
-}
-
-await loadAdminRequests();
-await loadAdminSuppliers();
-await loadAdminMedia();
-}
-
-/* تحميل طلبات الإدارة */
-async function loadAdminRequests(){
-const container=byId('adminRequestsList');
-container.textContent='جارٍ تحميل الطلبات...';
-
-const {data,error}=await supabaseClient
-.from('requests')
-.select('*')
-.order('created_at',{ascending:false});
-
-if(error){
-container.textContent='تعذر تحميل الطلبات: '+error.message;
-return;
-}
-
-const requests=data||[];
-
-byId('pendingCount').textContent=
-requests.filter(x=>x.status==='pending').length;
-
-byId('approvedCount').textContent=
-requests.filter(x=>x.status==='approved').length;
-
-byId('rejectedCount').textContent=
-requests.filter(x=>x.status==='rejected').length;
-
-container.innerHTML='';
-
-if(!requests.length){
-container.textContent='لا توجد طلبات حالياً.';
-return;
-}
-
-requests.forEach(request=>{
-const item=document.createElement('article');
-item.className='item';
-
-const heading=document.createElement('h3');
-heading.textContent=request.title||'طلب تجاري';
-
-const details=document.createElement('p');
-details.textContent=request.details||'';
-
-const info=document.createElement('p');
-info.textContent='النوع: '+(request.request_type||'')+
-' | الدولة: '+(request.country||'')+
-' | التواصل: '+(request.contact_method||'');
-
-const status=document.createElement('span');
-status.className='status '+request.status;
-status.textContent=
-request.status==='approved'?'معتمد':
-request.status==='rejected'?'مرفوض':'بانتظار المراجعة';
-
-item.append(heading,details,info,status);
-
-const actions=document.createElement('div');
-actions.className='item-actions';
-
-if(request.status!=='approved'){
-const approve=document.createElement('button');
-approve.className='approve-btn';
-approve.textContent='موافقة ونشر';
-approve.onclick=()=>reviewRequest(request.id,'approved');
-actions.appendChild(approve);
-}
-
-if(request.status!=='rejected'){
-const reject=document.createElement('button');
-reject.className='reject-btn';
-reject.textContent='رفض الطلب';
-reject.onclick=()=>reviewRequest(request.id,'rejected');
-actions.appendChild(reject);
-}
-
-item.appendChild(actions);
-container.appendChild(item);
-});
-}
-
-/* اعتماد أو رفض الطلب */
-async function reviewRequest(requestId,newStatus){
-if(!currentProfileIsAdmin()){
-alert('غير مصرح لك.');
-return;
-}
-
-if(!confirm(newStatus==='approved'?
-'هل تريد اعتماد الطلب ونشره؟':
-'هل تريد رفض الطلب؟'))return;
-
-const {error}=await supabaseClient
-.from('requests')
-.update({status:newStatus})
-.eq('id',requestId);
-
-if(error){
-alert('تعذر تحديث الطلب: '+error.message);
-return;
-}
-
-alert('تم تحديث حالة الطلب.');
-await loadAdminRequests();
-}
-
-/* إدارة الموردين */
-async function loadAdminSuppliers(){
-const container=byId('adminSuppliersList');
-container.textContent='جارٍ تحميل الموردين...';
-
-const {data,error}=await supabaseClient
-.from('suppliers')
-.select('*')
-.order('created_at',{ascending:false});
-
-if(error){
-container.textContent='تعذر تحميل الموردين: '+error.message;
-return;
-}
-
-container.innerHTML='';
-
-if(!data || !data.length){
-container.textContent='لا توجد بيانات موردين.';
-return;
-}
-
-data.forEach(supplier=>{
-const item=document.createElement('article');
-item.className='item';
-
-const heading=document.createElement('h3');
-heading.textContent=supplier.company_name||'مورد';
-
-const details=document.createElement('p');
-details.textContent=
-(supplier.country||'')+' - '+
-(supplier.city||'')+'\n'+
-(supplier.products_services||'');
-
-const status=document.createElement('span');
-status.className='status '+supplier.status;
-status.textContent=
-supplier.status==='approved'?'معتمد':
-supplier.status==='rejected'?'مرفوض':'بانتظار المراجعة';
-
-item.append(heading,details,status);
-
-const actions=document.createElement('div');
-actions.className='item-actions';
-
-if(supplier.status!=='approved'){
-const approve=document.createElement('button');
-approve.className='approve-btn';
-approve.textContent='اعتماد المورد';
-approve.onclick=()=>reviewSupplier(supplier.id,'approved');
-actions.appendChild(approve);
-}
-
-if(supplier.status!=='rejected'){
-const reject=document.createElement('button');
-reject.className='reject-btn';
-reject.textContent='رفض المورد';
-reject.onclick=()=>reviewSupplier(supplier.id,'rejected');
-actions.appendChild(reject);
-}
-
-item.appendChild(actions);
-container.appendChild(item);
-});
-}
-
-async function reviewSupplier(id,newStatus){
-if(!currentProfileIsAdmin()){
-alert('غير مصرح لك.');
-return;
-}
-
-if(!confirm('هل تريد تغيير حالة المورد؟'))return;
-
-const {error}=await supabaseClient
-.from('suppliers')
-.update({status:newStatus})
-.eq('id',id);
-
-if(error){
-alert('تعذر تحديث المورد: '+error.message);
-return;
-}
-
-await loadAdminSuppliers();
-}
-
-/* عرض الملفات للإدارة */
-async function loadAdminMedia(){
-const container=byId('adminMediaList');
-container.textContent='جارٍ تحميل الملفات...';
-
-const {data,error}=await supabaseClient
-.from('media_assets')
-.select('*')
-.order('created_at',{ascending:false})
-.limit(100);
-
-if(error){
-container.textContent='تعذر تحميل الملفات: '+error.message;
-return;
-}
-
-container.innerHTML='';
-
-if(!data || !data.length){
-container.textContent='لا توجد ملفات مرفقة.';
-return;
-}
-
-for(const media of data){
-const item=document.createElement('article');
-item.className='item';
-
-const name=document.createElement('p');
-name.textContent=media.caption||media.file_path;
-
-const info=document.createElement('p');
-info.textContent='النوع: '+media.media_type+
-' | الحالة: '+media.review_status;
-
-item.append(name,info);
-
-try{
-const url=await getMediaPreview(media.file_path);
-
-let element;
-
-if(media.media_type==='image'){
-element=document.createElement('img');
-element.alt=media.caption||'صورة';
-element.style.maxWidth='220px';
-}else{
-element=document.createElement('video');
-element.controls=true;
-element.style.maxWidth='300px';
-}
-
-element.src=url;
-item.appendChild(element);
-
-}catch(error){
-const warning=document.createElement('p');
-warning.textContent='تعذر عرض الملف: '+error.message;
-item.appendChild(warning);
-}
-
-const actions=document.createElement('div');
-actions.className='item-actions';
-
-if(media.review_status!=='approved'){
-const approve=document.createElement('button');
-approve.className='approve-btn';
-approve.textContent='اعتماد الملف';
-approve.onclick=()=>reviewMedia(media.id,'approved');
-actions.appendChild(approve);
-}
-
-if(media.review_status!=='rejected'){
-const reject=document.createElement('button');
-reject.className='reject-btn';
-reject.textContent='رفض الملف';
-reject.onclick=()=>reviewMedia(media.id,'rejected');
-actions.appendChild(reject);
-}
-
-item.appendChild(actions);
-container.appendChild(item);
-}
-}
-
-/* اعتماد أو رفض الصور والفيديو */
-async function reviewMedia(mediaId,newStatus){
-if(!currentProfileIsAdmin()){
-alert('غير مصرح لك.');
-return;
-}
-
-if(!confirm('هل تريد تحديث حالة الملف؟'))return;
-
-const {error}=await supabaseClient
-.from('media_assets')
-.update({review_status:newStatus})
-.eq('id',mediaId);
-
-if(error){
-alert('تعذر تحديث الملف: '+error.message);
-return;
-}
-
-alert('تم تحديث حالة الملف.');
-await loadAdminMedia();
-await loadPublicMedia();
-}
-
-/* مكسب الذكي - الاتصال بخدمة AI الموجودة */
-async function askMaksaAI(){
-const question=byId('aiQuestion').value.trim();
-const answer=byId('aiAnswer');
-const button=byId('aiSendButton');
-
-if(!question){
-alert('اكتب سؤالك أولاً.');
-return;
-}
-
-if(!currentUser){
-answer.classList.remove('hidden');
-answer.textContent='سجّل الدخول لاستخدام مكسب الذكي.';
-showView('authView');
-return;
-}
-
-button.disabled=true;
-button.textContent='جارٍ التفكير...';
-
-answer.classList.remove('hidden');
-answer.className='notice';
-answer.textContent='مكسب الذكي يحضّر الإجابة...';
-
-try{
-const {data,error}=await supabaseClient.functions.invoke(
-'maksa-ai',
-{
-body:{
-message:question
-}
-}
-);
-
-if(error){
-let message=error.message||'تعذر الاتصال بالمساعد.';
-if(data && data.error)message=data.error;
-throw new Error(message);
-}
-
-if(data && data.error){
-throw new Error(data.error);
-}
-
-if(!data || !data.reply){
-throw new Error('لم تصل إجابة من المساعد. حاول مجدداً.');
-}
-
-answer.className='notice success';
-answer.textContent=data.reply;
-
-}catch(error){
-answer.className='notice error';
-answer.textContent='تعذر تشغيل مكسب الذكي: '+error.message;
-
-}finally{
-button.disabled=false;
-button.textContent='إرسال السؤال';
-}
-}
-
-/* التحقق من جلسة المستخدم */
-async function initializeMaksa(){
-const {data,error}=await supabaseClient.auth.getSession();
-
-if(error){
-console.error('Session error:',error);
-return;
-}
-
-currentUser=data.session?data.session.user:null;
-
-if(currentUser){
-await loadProfile();
-}
-
-updateNavigation();
-}
-
-/* مراقبة تغير حالة الدخول */
-supabaseClient.auth.onAuthStateChange((event,session)=>{
-currentUser=session?session.user:null;
-
-if(currentUser){
-setTimeout(async()=>{
-await loadProfile();
-updateNavigation();
-},0);
-}else{
-currentProfile=null;
-updateNavigation();
-}
-});
-
-/* التشغيل الأولي */
-document.addEventListener('DOMContentLoaded',async()=>{
-await initializeMaksa();
-await loadPublicRequests();
-await loadSuppliers();
-await loadPublicMedia();
-});
-
+/* =====================================
+   END OF MAKSA ARAB
+===================================== */
 </script>
 
 </body>
