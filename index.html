@@ -325,21 +325,23 @@ async function refreshAdminDashboard(){
  if(!isAdmin()){msg("adminNotice","لا تملك صلاحية إدارة المنصة.","error");return;}
  msg("adminNotice","جارٍ تحميل إحصاءات وطلبات المنصة...");
  try{
-  const [u,r,s,m]=await Promise.all([
+  const [u,r,s,m,pr,ps,pm]=await Promise.all([
    supabaseClient.from("Profiles").select("id",{count:"exact",head:true}),
-   supabaseClient.from("requests").select("id,status"),
-   supabaseClient.from("suppliers").select("id,status"),
-   supabaseClient.from("media_posts").select("id,status")
+   supabaseClient.from("requests").select("id",{count:"exact",head:true}),
+   supabaseClient.from("suppliers").select("id",{count:"exact",head:true}),
+   supabaseClient.from("media_posts").select("id",{count:"exact",head:true}),
+   supabaseClient.from("requests").select("id",{count:"exact",head:true}).eq("status","pending"),
+   supabaseClient.from("suppliers").select("id",{count:"exact",head:true}).eq("status","pending"),
+   supabaseClient.from("media_posts").select("id",{count:"exact",head:true}).eq("status","pending")
   ]);
-  [u,r,s,m].forEach(x=>{if(x.error)throw x.error;});
-  const pending=a=>(a||[]).filter(x=>x.status==="pending").length;
+  [u,r,s,m,pr,ps,pm].forEach(x=>{if(x.error)throw x.error;});
   const stats=[
    ["إجمالي المستخدمين",u.count||0],
-   ["إجمالي الشركات المسجلة",(s.data||[]).length],
-   ["طلبات الشركات قيد المراجعة",pending(s.data)],
-   ["إجمالي الفرص والطلبات",(r.data||[]).length],
-   ["الفرص قيد المراجعة",pending(r.data)],
-   ["الصور والفيديو قيد المراجعة",pending(m.data)]
+   ["إجمالي الشركات المسجلة",s.count||0],
+   ["طلبات الشركات قيد المراجعة",ps.count||0],
+   ["إجمالي الفرص والطلبات",r.count||0],
+   ["الفرص قيد المراجعة",pr.count||0],
+   ["الصور والفيديو قيد المراجعة",pm.count||0]
   ];
   document.getElementById("adminStats").innerHTML=stats.map(x=>'<article class="card stat-card"><h3>'+esc(x[0])+'</h3><div class="stat-number">'+x[1]+'</div></article>').join("");
   await Promise.all([loadAdminSuppliers(),loadAdminListings(),loadAdminUsers(),loadAdminMedia()]);
