@@ -290,8 +290,12 @@ async function loadListings(){
   const country=document.getElementById("filterCountry").value,sector=document.getElementById("filterSector").value;
   if(country)q=q.eq("country",country);if(sector)q=q.eq("sector",sector);
   const {data,error}=await q;if(error)throw error;
-  const term=document.getElementById("searchListings").value.trim().toLowerCase();
-  const rows=(data||[]).filter(x=>!term||[x.title,x.details,x.request_type,x.sector,x.sub_sector,x.country].join(" ").toLowerCase().includes(term));
+  const term=document.getElementById("searchListings").value.trim();
+  const safeTerm=term.replace(/[,%()]/g," ").replace(/\s+/g," ").trim();
+  if(safeTerm)q=q.or("title.ilike.%"+safeTerm+"%,details.ilike.%"+safeTerm+"%,request_type.ilike.%"+safeTerm+"%,sector.ilike.%"+safeTerm+"%,sub_sector.ilike.%"+safeTerm+"%");
+  const {data:filteredData,error:filteredError}=await q;
+  if(filteredError)throw filteredError;
+  const rows=filteredData||[];
   box.innerHTML=rows.length?rows.map(x=>'<article class="card"><h3>'+esc(x.title)+'</h3><p><b>النوع:</b> '+esc(x.request_type)+'</p><p><b>الدولة:</b> '+esc(x.country)+'</p><p><b>القطاع:</b> '+esc(x.sector||"غير مصنف")+' — '+esc(x.sub_sector||"")+'</p><p>'+esc(x.details)+'</p>'+(x.contact_method?'<p><b>التواصل:</b> '+esc(x.contact_method)+'</p>':"")+'<span class="status approved">معتمد</span></article>').join(""):'<div class="notice">لا توجد فرص معتمدة مطابقة للبحث حالياً.</div>';
  }catch(e){box.innerHTML='<div class="notice error">تعذر تحميل الفرص: '+esc(e.message)+'</div>';}
 }
@@ -307,8 +311,12 @@ async function loadSuppliers(){
   const country=document.getElementById("supplierCountryFilter").value,sector=document.getElementById("supplierSectorFilter").value;
   if(country)q=q.eq("country",country);if(sector)q=q.eq("sector",sector);
   const {data,error}=await q;if(error)throw error;
-  const term=document.getElementById("supplierSearch").value.trim().toLowerCase();
-  const rows=(data||[]).filter(x=>!term||[x.company_name,x.products_services,x.sector,x.sub_sector,x.country,x.city].join(" ").toLowerCase().includes(term));
+  const term=document.getElementById("supplierSearch").value.trim();
+  const safeTerm=term.replace(/[,%()]/g," ").replace(/\s+/g," ").trim();
+  if(safeTerm)q=q.or("company_name.ilike.%"+safeTerm+"%,products_services.ilike.%"+safeTerm+"%,sector.ilike.%"+safeTerm+"%,sub_sector.ilike.%"+safeTerm+"%,city.ilike.%"+safeTerm+"%");
+  const {data:filteredData,error:filteredError}=await q;
+  if(filteredError)throw filteredError;
+  const rows=filteredData||[];
   box.innerHTML=rows.length?rows.map(x=>'<article class="card"><h3>'+esc(x.company_name)+'</h3><p><b>الدولة:</b> '+esc(x.country||"غير محددة")+' — '+esc(x.city||"")+'</p><p><b>القطاع:</b> '+esc(x.sector||"غير مصنف")+' — '+esc(x.sub_sector||"")+'</p><p>'+esc(x.products_services||"")+'</p><span class="status approved">مورد معتمد</span></article>').join(""):'<div class="notice">لا يوجد موردون معتمدون مطابقون للبحث حالياً.</div>';
  }catch(e){box.innerHTML='<div class="notice error">تعذر تحميل الموردين: '+esc(e.message)+'</div>';}
 }
@@ -389,21 +397,23 @@ async function uploadMaksaMedia(e){
   msg("mediaUploadNotice","تعذر رفع الملف: "+err.message,"error");
  }
 }
-function mediaCard(x,adminMode){
- const url=supabaseClient.storage.from("maksa-media").getPublicUrl(x.media_path).data.publicUrl;
+async function mediaCard(x,adminMode){
+ const {data,error}=await supabaseClient.storage.from("maksa-media").createSignedUrl(x.media_path,3600);
+ if(error)throw error;
+ const url=data.signedUrl;
  const visual=x.media_type==="video"?'<video controls preload="metadata" src="'+esc(url)+'"></video>':'<img loading="lazy" src="'+esc(url)+'" alt="'+esc(x.title)+'">';
  return '<article class="card media-card">'+visual+'<h3>'+esc(x.title)+'</h3><p>'+esc(x.description||"")+'</p>'+(adminMode?statusLabel(x.status):"")+(adminMode&&x.status==="pending"?actionButtons("media",x.id):"")+'</article>';
 }
 async function loadAdminMedia(){
  const box=document.getElementById("adminMedia"),{data,error}=await supabaseClient.from("media_posts").select("*").order("created_at",{ascending:false}).limit(100);
  if(error){box.innerHTML='<div class="notice error">'+esc(error.message)+'</div>';return;}
- box.innerHTML=(data||[]).length?data.map(x=>mediaCard(x,true)).join(""):'<div class="notice">لا توجد صور أو فيديوهات مرفوعة.</div>';
+ box.innerHTML=(data||[]).length?(await Promise.all(data.map(x=>mediaCard(x,true)))).join(""):'<div class="notice">لا توجد صور أو فيديوهات مرفوعة.</div>';
 }
 document.getElementById("adminMedia").addEventListener("click",e=>{const b=e.target.closest("button[data-action='media']");if(b)adminReview("media",b.dataset.id,b.dataset.status);});
 async function loadPublicMedia(){
  const box=document.getElementById("publicMedia"),{data,error}=await supabaseClient.from("media_posts").select("*").eq("status","approved").order("created_at",{ascending:false});
  if(error){box.innerHTML='<div class="notice error">تعذر تحميل المعرض حالياً.</div>';return;}
- box.innerHTML=(data||[]).length?data.map(x=>mediaCard(x,false)).join(""):'<div class="notice">لا توجد مواد منشورة حالياً.</div>';
+ box.innerHTML=(data||[]).length?(await Promise.all(data.map(x=>mediaCard(x,false)))).join(""):'<div class="notice">لا توجد مواد منشورة حالياً.</div>';
 }
 
 async function askMaksaAI(){
@@ -414,7 +424,12 @@ async function askMaksaAI(){
   const {data,error}=await supabaseClient.functions.invoke("maksa-ai",{body:{question,language:"ar",platform:"MAKSA ARAB"}});
   if(error)throw error;
   box.textContent=data?.answer||data?.response||data?.message||"لم يصل رد واضح من المساعد الذكي.";
- }catch(e){console.error("MAKSA AI",e);box.textContent="تعذر الحصول على رد من مكسب الذكي حالياً. تحقق من نشر Edge Function باسم maksa-ai وإعداد مفتاح الذكاء الاصطناعي على الخادم.";}
+ }catch(e){
+  console.error("MAKSA AI",e);
+  let detail=e?.message||"خطأ غير معروف";
+  if(e?.context&&typeof e.context.json==="function"){try{const payload=await e.context.json();detail=payload?.error||payload?.message||detail;}catch{}}
+  box.textContent="تعذر إكمال الطلب: "+detail;
+ }
  finally{button.disabled=false;button.textContent="إرسال السؤال";}
 }
 
