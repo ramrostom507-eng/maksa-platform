@@ -134,7 +134,7 @@ footer{background:var(--navy);color:white;text-align:center;padding:25px 15px;ma
   <h2 class="section-title">مكسب الذكي | MAKSA AI</h2>
   <div class="panel">
     <p>مساعدك التجاري لصياغة طلبات عروض الأسعار، تحليل العروض التي تقدمها، وتقدير تكاليف التجارة وفق المعلومات المتاحة.</p>
-    <div class="field"><label for="aiQuestion">كيف يمكن لمكسب الذكي مساعدتك؟</label><textarea id="aiQuestion" rows="4" maxlength="3000" placeholder="مثال: أبحث عن موردين لزيت الزيتون في سوريا للتصدير إلى السعودية"></textarea></div>
+    <div class="field"><label for="aiQuestion">كيف يمكن لمكسب الذكي مساعدتك؟</label><textarea id="aiQuestion" rows="4" maxlength="2000" placeholder="مثال: أبحث عن موردين لزيت الزيتون في سوريا للتصدير إلى السعودية"></textarea></div>
     <button id="askAIButton" class="gold-btn" type="button" onclick="askMaksaAI()">إرسال السؤال</button>
     <div id="aiResponse" class="notice" style="margin-top:14px">اكتب سؤالك التجاري وسيظهر الرد هنا. لا يملك المساعد قاعدة أسعار أو موردين مباشرة ما لم تُربط مصادر بيانات فعلية.</div>
   </div>
@@ -289,7 +289,6 @@ async function loadListings(){
   let q=supabaseClient.from("requests").select("*").eq("status","approved").order("created_at",{ascending:false});
   const country=document.getElementById("filterCountry").value,sector=document.getElementById("filterSector").value;
   if(country)q=q.eq("country",country);if(sector)q=q.eq("sector",sector);
-  const {data,error}=await q;if(error)throw error;
   const term=document.getElementById("searchListings").value.trim();
   const safeTerm=term.replace(/[,%()]/g," ").replace(/\s+/g," ").trim();
   if(safeTerm)q=q.or("title.ilike.%"+safeTerm+"%,details.ilike.%"+safeTerm+"%,request_type.ilike.%"+safeTerm+"%,sector.ilike.%"+safeTerm+"%,sub_sector.ilike.%"+safeTerm+"%");
@@ -310,7 +309,6 @@ async function loadSuppliers(){
   let q=supabaseClient.from("suppliers").select("*").eq("status","approved").order("created_at",{ascending:false});
   const country=document.getElementById("supplierCountryFilter").value,sector=document.getElementById("supplierSectorFilter").value;
   if(country)q=q.eq("country",country);if(sector)q=q.eq("sector",sector);
-  const {data,error}=await q;if(error)throw error;
   const term=document.getElementById("supplierSearch").value.trim();
   const safeTerm=term.replace(/[,%()]/g," ").replace(/\s+/g," ").trim();
   if(safeTerm)q=q.or("company_name.ilike.%"+safeTerm+"%,products_services.ilike.%"+safeTerm+"%,sector.ilike.%"+safeTerm+"%,sub_sector.ilike.%"+safeTerm+"%,city.ilike.%"+safeTerm+"%");
