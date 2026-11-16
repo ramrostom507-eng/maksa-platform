@@ -416,6 +416,37 @@ async function loadPublicMedia(){
  box.innerHTML=(data||[]).length?(await Promise.all(data.map(x=>mediaCard(x,false)))).join(""):'<div class="notice">لا توجد مواد منشورة حالياً.</div>';
 }
 
+function renderMaksaAIResult(answer,sources){
+ const box=document.getElementById("aiResponse");
+ box.replaceChildren();
+ const text=document.createElement("div");
+ text.textContent=String(answer||"");
+ box.appendChild(text);
+ if(Array.isArray(sources)&&sources.length){
+  const heading=document.createElement("p");
+  heading.style.fontWeight="bold";
+  heading.style.marginBottom="6px";
+  heading.textContent="مصادر البحث الخارجي:";
+  box.appendChild(heading);
+  const list=document.createElement("ul");
+  list.style.marginTop="4px";
+  for(const source of sources){
+   if(!source||typeof source.url!=="string"||!source.url.startsWith("https://"))continue;
+   const li=document.createElement("li");
+   const a=document.createElement("a");
+   a.href=source.url;
+   a.target="_blank";
+   a.rel="noopener noreferrer";
+   a.textContent=String(source.title||"فتح المصدر");
+   a.style.color="#203a5c";
+   a.style.textDecoration="underline";
+   li.appendChild(a);
+   list.appendChild(li);
+  }
+  if(list.children.length)box.appendChild(list);
+ }
+}
+
 async function askMaksaAI(){
  const question=document.getElementById("aiQuestion").value.trim(),box=document.getElementById("aiResponse"),button=document.getElementById("askAIButton");
  if(!question){box.textContent="اكتب سؤالك أولاً.";return;}if(!requireDB())return;
@@ -423,7 +454,7 @@ async function askMaksaAI(){
  try{
   const {data,error}=await supabaseClient.functions.invoke("maksa-ai",{body:{question,language:"ar",platform:"MAKSA ARAB"}});
   if(error)throw error;
-  box.textContent=data?.answer||data?.response||data?.message||"لم يصل رد واضح من المساعد الذكي.";
+  renderMaksaAIResult(data?.answer||data?.response||data?.message||"لم يصل رد واضح من المساعد الذكي.",data?.sources||[]);
  }catch(e){
   console.error("MAKSA AI",e);
   let detail=e?.message||"خطأ غير معروف";
