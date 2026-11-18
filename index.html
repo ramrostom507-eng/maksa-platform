@@ -255,16 +255,6 @@ async function loadCurrentUser(){
   updateNavigation();
  }catch(e){console.error("loadCurrentUser",e);currentUser=null;currentProfile=null;updateNavigation();}
 }
-async function signUp(){
- if(!requireDB())return;
- const email=document.getElementById("authEmail").value.trim(),password=document.getElementById("authPassword").value,name=document.getElementById("authFullName").value.trim();
- if(!email||password.length<6||!name){msg("accountStatus","أدخل الاسم والبريد وكلمة مرور من 6 أحرف على الأقل.","error");return;}
- try{
-  const {data,error}=await supabaseClient.auth.signUp({email,password,options:{data:{full_name:name}}});if(error)throw error;
-  msg("accountStatus",data.session?"تم إنشاء الحساب وتسجيل الدخول.":"تم إنشاء الحساب. تحقق من بريدك لتأكيد التسجيل.","success");
-  if(data.session)await loadCurrentUser();
- }catch(e){msg("accountStatus",e.message,"error");}
-}
 async function signIn(){
  if(!requireDB())return;
  const email=document.getElementById("authEmail").value.trim(),password=document.getElementById("authPassword").value;
