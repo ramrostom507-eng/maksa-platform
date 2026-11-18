@@ -41,7 +41,7 @@ footer{background:var(--navy);color:white;text-align:center;padding:25px 15px;ma
     <button class="outline-btn" onclick="showView('publish')">أضف إعلاناً</button>
     <button class="outline-btn" onclick="showView('maksaAI')">مكسب الذكي</button>
     <button class="outline-btn" onclick="showView('mediaGallery')">الصور والفيديو</button>
-    <button class="outline-btn" onclick="showView('account')">حسابي</button>
+    <button class="outline-btn" onclick="showView('account')">دخول الإدارة</button>
     <button id="adminNavButton" class="outline-btn hidden" onclick="showView('admin')">الإدارة الكاملة</button>
   </nav>
 </header>
@@ -52,7 +52,7 @@ footer{background:var(--navy);color:white;text-align:center;padding:25px 15px;ma
     <h1>مكسب عرب | MAKSA ARAB</h1>
     <p>منصتك للتجارة بالجملة والاستيراد والتصدير وربط التجار والموردين والمشترين.</p>
     <p>فرص تجارية، موردون، طلبات شراء، وخدمات تربط الأسواق العربية والعالمية.</p>
-    <button class="gold-btn" onclick="showView('account')">انضم إلى مكسب عرب</button>
+    <button class="gold-btn" onclick="showView('publish')">اعرض بضاعتك الآن</button>
     <button class="outline-btn" onclick="showView('opportunities')">اكتشف الفرص</button>
   </div>
   <h2 class="section-title">بوابتك إلى التجارة</h2>
@@ -95,12 +95,13 @@ footer{background:var(--navy);color:white;text-align:center;padding:25px 15px;ma
   <div id="suppliersContainer" class="cards"><div class="notice">سيظهر الموردون المعتمدون هنا.</div></div>
   <div class="panel">
     <h3>سجّل شركتك أو نشاطك التجاري</h3>
-    <div id="supplierNotice" class="notice">يجب تسجيل الدخول. جميع بيانات الشركات تخضع للمراجعة قبل ظهورها.</div>
+    <div id="supplierNotice" class="notice">أرسل بيانات شركتك ومنتجاتك مباشرة دون إنشاء حساب. لن تظهر إلا بعد موافقة الإدارة.</div>
     <form id="supplierForm">
       <div class="form-grid">
         <div class="field"><label for="supplierCompany">اسم الشركة</label><input id="supplierCompany" maxlength="180" required></div>
         <div class="field"><label for="supplierCountry">الدولة</label><select id="supplierCountry" required></select></div>
         <div class="field"><label for="supplierCity">المدينة</label><input id="supplierCity" maxlength="100"></div>
+        <div class="field"><label for="supplierContact">رقم الهاتف أو واتساب</label><input id="supplierContact" maxlength="180" required placeholder="+963..."></div>
         <div class="field"><label for="supplierSector">القطاع التجاري</label><select id="supplierSector" required></select></div>
         <div class="field"><label for="supplierSubSector">النشاط الفرعي / المنتجات</label><input id="supplierSubSector" maxlength="180" required placeholder="مثال: زيت الزيتون، مضخات مياه"></div>
         <div class="field full"><label for="supplierProducts">نبذة عن المنتجات والخدمات</label><textarea id="supplierProducts" maxlength="2500" required></textarea></div>
@@ -113,7 +114,7 @@ footer{background:var(--navy);color:white;text-align:center;padding:25px 15px;ma
 <section id="publish" class="view">
   <h2 class="section-title">أضف إعلاناً أو طلباً تجارياً</h2>
   <div class="panel">
-    <div id="publishNotice" class="notice">يجب تسجيل الدخول قبل إرسال إعلان جديد. جميع الإعلانات تخضع للمراجعة قبل النشر.</div>
+    <div id="publishNotice" class="notice">أضف عرض بضاعتك أو طلب الشراء مباشرة دون حساب. سيظهر الإعلان بعد موافقة الإدارة.</div>
     <form id="listingForm">
       <div class="form-grid">
         <div class="field"><label for="listingType">نوع الإعلان</label><select id="listingType" required><option>طلب شراء</option><option>عرض توريد</option><option>فرصة استيراد</option><option>فرصة تصدير</option><option>شراكة تجارية</option><option>وكالة تجارية</option><option>خدمة تجارية</option></select></div>
@@ -123,7 +124,7 @@ footer{background:var(--navy);color:white;text-align:center;padding:25px 15px;ma
         <div class="field full"><label for="listingTitle">عنوان الإعلان</label><input id="listingTitle" maxlength="150" required placeholder="مثال: مطلوب استيراد زيت زيتون"></div>
         <div class="field full"><label for="listingDescription">تفاصيل الإعلان</label><textarea id="listingDescription" maxlength="3000" required></textarea></div>
         <div class="field"><label for="listingQuantity">الكمية (اختياري)</label><input id="listingQuantity" maxlength="100" placeholder="مثال: 10 أطنان"></div>
-        <div class="field"><label for="listingContact">وسيلة التواصل (اختياري)</label><input id="listingContact" maxlength="180" placeholder="بريد إلكتروني أو هاتف"></div>
+        <div class="field"><label for="listingContact">رقم الهاتف أو واتساب</label><input id="listingContact" maxlength="180" required placeholder="+966..."></div>
       </div>
       <button type="submit" class="gold-btn">إرسال الإعلان للمراجعة</button>
     </form>
@@ -141,18 +142,18 @@ footer{background:var(--navy);color:white;text-align:center;padding:25px 15px;ma
 </section>
 
 <section id="account" class="view">
-  <h2 class="section-title">حساب المستخدم</h2>
+  <h2 class="section-title">دخول إدارة مكسب عرب</h2>
   <div class="panel">
-    <div id="accountStatus" class="notice">سجّل الدخول أو أنشئ حساباً جديداً للانضمام إلى مكسب عرب.</div>
+    <div id="accountStatus" class="notice">هذا القسم مخصص للمديرين المعتمدين فقط. الزوار والتجار لا يحتاجون إلى حساب لإضافة عروضهم.</div>
     <form id="authForm">
       <div class="form-grid">
         <div class="field"><label for="authEmail">البريد الإلكتروني</label><input id="authEmail" type="email" autocomplete="email" required></div>
         <div class="field"><label for="authPassword">كلمة المرور</label><input id="authPassword" type="password" autocomplete="current-password" minlength="6" required></div>
-        <div class="field"><label for="authFullName">الاسم الكامل (عند إنشاء حساب)</label><input id="authFullName" maxlength="120" autocomplete="name"></div>
+
       </div>
       <div class="item-actions">
         <button class="gold-btn" type="button" onclick="signIn()">تسجيل الدخول</button>
-        <button class="dark-btn" type="button" onclick="signUp()">إنشاء حساب</button>
+
         <button class="outline-btn" type="button" onclick="signOut()">تسجيل الخروج</button>
       </div>
     </form>
@@ -278,8 +279,8 @@ async function signOut(){
 
 async function submitListing(e){
  e.preventDefault();if(!requireDB())return;
- if(!currentUser){msg("publishNotice","سجّل الدخول أولاً لإرسال إعلان.","error");return;}
- const row={user_id:currentUser.id,request_type:document.getElementById("listingType").value,country:document.getElementById("listingCountry").value,title:document.getElementById("listingTitle").value.trim(),details:document.getElementById("listingDescription").value.trim(),contact_method:document.getElementById("listingContact").value.trim()||null,sector:document.getElementById("listingSector").value,sub_sector:document.getElementById("listingSubSector").value.trim(),status:"pending"};
+ 
+ const row={user_id:currentUser?.id||null,request_type:document.getElementById("listingType").value,country:document.getElementById("listingCountry").value,title:document.getElementById("listingTitle").value.trim(),details:document.getElementById("listingDescription").value.trim(),contact_method:document.getElementById("listingContact").value.trim()||null,sector:document.getElementById("listingSector").value,sub_sector:document.getElementById("listingSubSector").value.trim(),status:"pending"};
  const qty=document.getElementById("listingQuantity").value.trim();if(qty)row.details+="\nالكمية: "+qty;
  try{const {error}=await supabaseClient.from("requests").insert([row]);if(error)throw error;document.getElementById("listingForm").reset();msg("publishNotice","تم إرسال طلبك بنجاح وهو بانتظار مراجعة الإدارة قبل النشر.","success");}catch(e2){msg("publishNotice","تعذر إرسال الطلب: "+e2.message,"error");}
 }
@@ -299,8 +300,8 @@ async function loadListings(){
  }catch(e){box.innerHTML='<div class="notice error">تعذر تحميل الفرص: '+esc(e.message)+'</div>';}
 }
 async function submitSupplier(e){
- e.preventDefault();if(!requireDB())return;if(!currentUser){msg("supplierNotice","سجّل الدخول أولاً لتسجيل شركتك.","error");return;}
- const row={user_id:currentUser.id,company_name:document.getElementById("supplierCompany").value.trim(),country:document.getElementById("supplierCountry").value,city:document.getElementById("supplierCity").value.trim()||null,sector:document.getElementById("supplierSector").value,sub_sector:document.getElementById("supplierSubSector").value.trim(),products_services:document.getElementById("supplierProducts").value.trim(),status:"pending"};
+ e.preventDefault();if(!requireDB())return;
+ const row={user_id:currentUser?.id||null,company_name:document.getElementById("supplierCompany").value.trim(),country:document.getElementById("supplierCountry").value,city:document.getElementById("supplierCity").value.trim()||null,sector:document.getElementById("supplierSector").value,sub_sector:document.getElementById("supplierSubSector").value.trim(),products_services:document.getElementById("supplierProducts").value.trim(),contact_method:document.getElementById("supplierContact").value.trim(),status:"pending"};
  try{const {error}=await supabaseClient.from("suppliers").insert([row]);if(error)throw error;document.getElementById("supplierForm").reset();msg("supplierNotice","تم إرسال بيانات الشركة للمراجعة. ستظهر في دليل الموردين بعد اعتماد الإدارة.","success");}catch(e2){msg("supplierNotice","تعذر إرسال بيانات الشركة: "+e2.message,"error");}
 }
 async function loadSuppliers(){
@@ -315,7 +316,7 @@ async function loadSuppliers(){
   const {data:filteredData,error:filteredError}=await q;
   if(filteredError)throw filteredError;
   const rows=filteredData||[];
-  box.innerHTML=rows.length?rows.map(x=>'<article class="card"><h3>'+esc(x.company_name)+'</h3><p><b>الدولة:</b> '+esc(x.country||"غير محددة")+' — '+esc(x.city||"")+'</p><p><b>القطاع:</b> '+esc(x.sector||"غير مصنف")+' — '+esc(x.sub_sector||"")+'</p><p>'+esc(x.products_services||"")+'</p><span class="status approved">مورد معتمد</span></article>').join(""):'<div class="notice">لا يوجد موردون معتمدون مطابقون للبحث حالياً.</div>';
+  box.innerHTML=rows.length?rows.map(x=>'<article class="card"><h3>'+esc(x.company_name)+'</h3><p><b>الدولة:</b> '+esc(x.country||"غير محددة")+' — '+esc(x.city||"")+'</p><p><b>القطاع:</b> '+esc(x.sector||"غير مصنف")+' — '+esc(x.sub_sector||"")+'</p><p>'+esc(x.products_services||"")+'</p>'+(x.contact_method?'<p><b>التواصل:</b> '+esc(x.contact_method)+'</p>':"")+'<span class="status approved">مورد معتمد</span></article>').join(""):'<div class="notice">لا يوجد موردون معتمدون مطابقون للبحث حالياً.</div>';
  }catch(e){box.innerHTML='<div class="notice error">تعذر تحميل الموردين: '+esc(e.message)+'</div>';}
 }
 
