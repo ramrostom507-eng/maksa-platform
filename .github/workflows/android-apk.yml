@@ -9,6 +9,8 @@ on:
       - "scripts/**"
       - "assets/**"
       - ".github/workflows/android-apk.yml"
+permissions:
+  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,8 +37,11 @@ jobs:
         run: npx cap sync android
       - name: Build debug APK
         run: cd android && chmod +x gradlew && ./gradlew assembleDebug
-      - uses: actions/upload-artifact@v4
+      - name: Publish direct APK download
+        uses: softprops/action-gh-release@v2
         with:
-          name: MAKSA-ARAB-Android-APK
-          path: android/app/build/outputs/apk/debug/app-debug.apk
-          if-no-files-found: error
+          tag_name: v1.0.1
+          name: MAKSA ARAB Android v1.0.1
+          files: android/app/build/outputs/apk/debug/app-debug.apk
+          name_template: MAKSA-ARAB.apk
+          fail_on_unmatched_files: true
