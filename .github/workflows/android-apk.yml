@@ -37,11 +37,12 @@ jobs:
         run: npx cap sync android
       - name: Build debug APK
         run: cd android && chmod +x gradlew && ./gradlew assembleDebug
+      - name: Rename APK for direct download
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk MAKSA-ARAB.apk
       - name: Publish direct APK download
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v1.0.1
           name: MAKSA ARAB Android v1.0.1
-          files: android/app/build/outputs/apk/debug/app-debug.apk
-          name_template: MAKSA-ARAB.apk
+          files: MAKSA-ARAB.apk
           fail_on_unmatched_files: true
