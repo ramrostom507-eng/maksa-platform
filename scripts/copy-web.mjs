@@ -1,5 +1,6 @@
 import { mkdir, copyFile } from "node:fs/promises";
 
-await mkdir("www", { recursive: true });
+await mkdir("www/assets", { recursive: true });
 await copyFile("index.html", "www/index.html");
-console.log("MAKSA ARAB web app copied to www/");
+await copyFile("assets/maksa-icon.svg", "www/assets/maksa-icon.svg");
+console.log("MAKSA ARAB web app and icon copied to www/");
