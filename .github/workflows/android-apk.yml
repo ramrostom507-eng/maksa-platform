@@ -26,6 +26,10 @@ jobs:
         run: npm run build:web
       - name: Generate Android project
         run: npx cap add android
+      - name: Generate MAKSA ARAB launcher icons
+        run: |
+          npm install --no-save sharp
+          node scripts/make-icons.mjs
       - name: Sync Android project
         run: npx cap sync android
       - name: Build debug APK
