@@ -6,7 +6,8 @@ on:
       - "index.html"
       - "package.json"
       - "capacitor.config.json"
-      - "scripts/**"\n      - "assets/**"
+      - "scripts/**"
+      - "assets/**"
       - ".github/workflows/android-apk.yml"
 jobs:
   build:
